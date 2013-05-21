@@ -1,0 +1,8 @@
+#FORMULAIRE_RECHERCHE_ECRIRE{#SELF,ajax}
+<div class="nettoyeur"></div>
+
+<INCLURE{fond=prive/objets/liste/evenements_participants, par=id_evenement, env, ajax, sinon=<:evenementid_auteur:info_aucun_evenementid_auteur:>}>
+
+[(#AUTORISER{creer,evenementid_auteur})
+	[(#URL_ECRIRE{evenementid_auteur_edit,new=oui}|icone_verticale{<:evenementid_auteur:icone_creer_evenementid_auteur:>,evenementid_auteur,new,right})]
+]

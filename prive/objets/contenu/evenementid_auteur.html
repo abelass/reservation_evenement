@@ -1,0 +1,18 @@
+<BOUCLE_evenementid_auteur(EVENEMENTS_PARTICIPANTS){id_evenement,id_auteur}{statut?}>
+
+[<div class="champ contenu_id_evenement[ (#ID_EVENEMENT*|strlen|?{'',vide})]">
+	<label><:evenementid_auteur:label_id_evenement:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{id_evenement} id_evenement'>(#ID_EVENEMENT)</span>
+</div>]
+
+[<div class="champ contenu_id_auteur[ (#ID_AUTEUR*|strlen|?{'',vide})]">
+	<label><:evenementid_auteur:label_id_auteur:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{id_auteur} id_auteur'>(#ID_AUTEUR)</span>
+</div>]
+
+[<div class="champ contenu_reponse[ (#REPONSE*|strlen|?{'',vide})]">
+	<label><:evenementid_auteur:label_reponse:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{reponse} reponse'>(#REPONSE)</span>
+</div>]
+
+</BOUCLE_evenementid_auteur>
