@@ -77,9 +77,9 @@ function reservation_evenement_vider_tables($nom_meta_base_version) {
 	sql_drop_table("spip_evenements_participants");
 
 	# Nettoyer les versionnages et forums
-	sql_delete("spip_versions",              sql_in("objet", array('evenementid_auteur')));
-	sql_delete("spip_versions_fragments",    sql_in("objet", array('evenementid_auteur')));
-	sql_delete("spip_forum",                 sql_in("objet", array('evenementid_auteur')));
+	sql_delete("spip_versions",              sql_in("objet", array('evenements_participant')));
+	sql_delete("spip_versions_fragments",    sql_in("objet", array('evenements_participant')));
+	sql_delete("spip_forum",                 sql_in("objet", array('evenements_participant')));
 
 	effacer_meta($nom_meta_base_version);
 }

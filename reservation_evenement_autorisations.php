@@ -55,7 +55,7 @@ function autoriser_evenementsparticipants_menu_dist($faire, $type, $id, $qui, $o
 
 
 /**
- * Autorisation de voir le bouton d'accès rapide de création (evenementidauteur)
+ * Autorisation de voir le bouton d'accès rapide de création (evenementsparticipant)
  *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action
@@ -64,12 +64,12 @@ function autoriser_evenementsparticipants_menu_dist($faire, $type, $id, $qui, $o
  * @param  array  $opt   Options de cette autorisation
  * @return bool          true s'il a le droit, false sinon
 **/
-function autoriser_evenementidauteurcreer_menu_dist($faire, $type, $id, $qui, $opt){
-	return autoriser('creer', 'evenementid_auteur', '', $qui, $opt);
+function autoriser_evenementsparticipantcreer_menu_dist($faire, $type, $id, $qui, $opt){
+	return autoriser('creer', 'evenements_participant', '', $qui, $opt);
 } 
 
 /**
- * Autorisation de créer (evenementidauteur)
+ * Autorisation de créer (evenementsparticipant)
  *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action
@@ -78,12 +78,12 @@ function autoriser_evenementidauteurcreer_menu_dist($faire, $type, $id, $qui, $o
  * @param  array  $opt   Options de cette autorisation
  * @return bool          true s'il a le droit, false sinon
 **/
-function autoriser_evenementidauteur_creer_dist($faire, $type, $id, $qui, $opt) {
+function autoriser_evenementsparticipant_creer_dist($faire, $type, $id, $qui, $opt) {
 	return in_array($qui['statut'], array('0minirezo', '1comite')); 
 }
 
 /**
- * Autorisation de voir (evenementidauteur)
+ * Autorisation de voir (evenementsparticipant)
  *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action
@@ -92,12 +92,12 @@ function autoriser_evenementidauteur_creer_dist($faire, $type, $id, $qui, $opt) 
  * @param  array  $opt   Options de cette autorisation
  * @return bool          true s'il a le droit, false sinon
 **/
-function autoriser_evenementidauteur_voir_dist($faire, $type, $id, $qui, $opt) {
+function autoriser_evenementsparticipant_voir_dist($faire, $type, $id, $qui, $opt) {
 	return true;
 }
 
 /**
- * Autorisation de modifier (evenementidauteur)
+ * Autorisation de modifier (evenementsparticipant)
  *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action
@@ -106,12 +106,12 @@ function autoriser_evenementidauteur_voir_dist($faire, $type, $id, $qui, $opt) {
  * @param  array  $opt   Options de cette autorisation
  * @return bool          true s'il a le droit, false sinon
 **/
-function autoriser_evenementidauteur_modifier_dist($faire, $type, $id, $qui, $opt) {
+function autoriser_evenementsparticipant_modifier_dist($faire, $type, $id, $qui, $opt) {
 	return in_array($qui['statut'], array('0minirezo', '1comite'));
 }
 
 /**
- * Autorisation de supprimer (evenementidauteur)
+ * Autorisation de supprimer (evenementsparticipant)
  *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action
@@ -120,7 +120,7 @@ function autoriser_evenementidauteur_modifier_dist($faire, $type, $id, $qui, $op
  * @param  array  $opt   Options de cette autorisation
  * @return bool          true s'il a le droit, false sinon
 **/
-function autoriser_evenementidauteur_supprimer_dist($faire, $type, $id, $qui, $opt) {
+function autoriser_evenementsparticipant_supprimer_dist($faire, $type, $id, $qui, $opt) {
 	return $qui['statut'] == '0minirezo' AND !$qui['restreint'];
 }
 

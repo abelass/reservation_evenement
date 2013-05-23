@@ -9,7 +9,7 @@
 	schema="1.0.0" 
 >
 	<!--
-		Paquet genere le 2013-05-21 16:17:25
+		Paquet genere le 2013-05-23 16:13:44
 		(Vous pouvez bien entendu supprimer ces commentaires) 
 	-->
 
@@ -40,12 +40,12 @@
 	-->
 
 	<necessite nom="saisies" compatibilite="[1.24.0;]" /> 
+	<necessite nom="verifier" compatibilite="[1.0.2;]" /> 
 
 	<pipeline nom="autoriser" inclure="reservation_evenement_autorisations.php" /> 
 
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/reservation_evenement.php" /> 
 	<pipeline nom="declarer_tables_interfaces" inclure="base/reservation_evenement.php" /> 
 
-	<menu nom="evenements_participants" titre="evenementid_auteur:titre_evenements_participants" parent="menu_edition" icone="images/evenementid_auteur-16.png" action="evenements_participants" /> 
-	<menu nom="evenementid_auteur_creer" titre="evenementid_auteur:icone_creer_evenementid_auteur" parent="outils_rapides" icone="images/evenementid_auteur-new-16.png" action="evenementid_auteur_edit" parametres="new=oui" /> 
+	<menu nom="evenements_participants" titre="evenements_participant:titre_evenements_participants" parent="menu_edition" icone="images/evenements_participant-16.png" action="evenements_participants" /> 
 </paquet>
