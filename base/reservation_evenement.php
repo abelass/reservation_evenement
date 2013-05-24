@@ -23,7 +23,8 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
  */
 function reservation_evenement_declarer_tables_interfaces($interfaces) {
 
-	$interfaces['table_des_tables']['evenements_participants'] = 'evenements_participants';
+	$interfaces['table_des_tables']['reservations'] = 'reservations';
+	$interfaces['table_des_tables']['reservations_details'] = 'reservations_details';    
 
 	return $interfaces;
 }
@@ -40,61 +41,57 @@ function reservation_evenement_declarer_tables_interfaces($interfaces) {
  */
 function reservation_evenement_declarer_tables_objets_sql($tables) {
 
-	$tables['spip_evenements_participants'] = array(
-		'type' => 'evenements_participant',
-		'principale' => "oui", 
-		'table_objet_surnoms' => array('evenementsparticipant'), // table_objet('evenements_participant') => 'evenements_participants' 
+	$tables['spip_reservations'] = array(
+		'type' => 'reservation',
+		'principale' => "oui",
 		'field'=> array(
-			"id_evenements_participant" => "bigint(21) NOT NULL",
-			"id_evenement"       => "bigint(21) NOT NULL DEFAULT '0'",
+			"id_reservation"     => "bigint(21) NOT NULL",
 			"id_auteur"          => "bigint(21) NOT NULL DEFAULT '0'",
-			"reponse"            => "char(3) NOT NULL DEFAULT '?'",
+            "reference"          => "varchar(255) NOT NULL DEFAULT ''",			
 			"statut"             => "varchar(25) NOT NULL DEFAULT ''",
 			"date"               => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'",
 			"date_paiement"      => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'",
 			"type_paiement"      => "varchar(50) NOT NULL DEFAULT ''",
-			"descriptif"         => "text NOT NULL DEFAULT ''",
-			"quantite"           => "int(11) NOT NULL DEFAULT 0",
-			"prix_unitaire_ht"   => "float",
-			"objet"              => "varchar(25) NOT NULL DEFAULT ''",
-			"id_objet"           => "bigint(21) NOT NULL DEFAULT 0",
+			"nom"                => "varchar(255) NOT NULL DEFAULT ''",
+			"email"              => "varchar(255) NOT NULL DEFAULT ''",
 			"maj"                => "timestamp",
+			"donnees_auteur"     => "text NOT NULL DEFAULT ''",
 			"date"               => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'", 
 			"statut"             => "varchar(20)  DEFAULT '0' NOT NULL", 
 			"maj"                => "TIMESTAMP"
 		),
 		'key' => array(
-			"PRIMARY KEY"        => "id_evenements_participant",
-			"KEY statut"         => "statut,id_evenement,id_article", 
+			"PRIMARY KEY"        => "id_reservation",
+			"KEY statut"         => "statut,id_auteur", 
 		),
-		'titre' => "CONCAT(id_evenements_participant,'-',descriptif) AS titre, '' AS lang",
+		'titre' => "reference AS titre, '' AS lang",
 		'date' => "date",
-		'champs_editables'  => array('id_auteur', 'date_paiement', 'quantite', 'prix_unitaire_ht'),
-		'champs_versionnes' => array('id_auteur', 'date_paiement', 'prix_unitaire_ht'),
-		'rechercher_champs' => array(),
-		'tables_jointures'  => array(),
-		'statut_textes_instituer' => array(
-			'attente'    => 'evenements_participant:texte_statut_en_attente',
-			'accepte'     => 'evenements_participant:texte_statut_accepte',
-			'refuse'   => 'evenements_participant:texte_statut_refuse',
-			'poubelle' => 'evenements_participant:texte_statut_poubelle',
-		),
+		'champs_editables'  => array('id_auteur', 'date_paiement', 'nom', 'email', 'donnees_auteur', 'reference'),
+		'champs_versionnes' => array('id_auteur', 'date_paiement', 'nom', 'email', 'donnees_auteur', 'reference'),
+		'rechercher_champs' => array("reference" => 8,"id_reservation"=>8),
+		'tables_jointures'  => array('id_reservation','id_auteur'),
+'statut_textes_instituer' => array(
+            'attente'    => 'evenements_participant:texte_statut_en_attente',
+            'accepte'     => 'evenements_participant:texte_statut_accepte',
+            'refuse'   => 'evenements_participant:texte_statut_refuse',
+            'poubelle' => 'evenements_participant:texte_statut_poubelle',
+        ),
         'statut_images' => array(
             'attente'          => 'puce-reservation-attente.png',
             'accepte'          => 'puce-reservation-accepte.png',
             'refuse'             => 'puce-reservation-refuse.png',
             'poubelle'           => 'puce-reservation-poubelle.png',
         ),
-		'statut'=> array(
-			array(
-				'champ'     => 'statut',
-				'publie'    => 'accepte',
-				'previsu'   => 'accepte,attente',
-				'post_date' => 'date', 
-				'exception' => array('statut','tout')
-			)
-		),
-		'texte_changer_statut' => 'evenements_participant:texte_changer_statut_evenements_participant', 
+        'statut'=> array(
+            array(
+                'champ'     => 'statut',
+                'publie'    => 'accepte',
+                'previsu'   => 'accepte,attente',
+                'post_date' => 'date', 
+                'exception' => array('statut','tout')
+            )
+        ),
+		'texte_changer_statut' => 'reservation:texte_changer_statut_reservation', 
 		
 
 	);
@@ -102,6 +99,37 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
 	return $tables;
 }
 
+function reservation_evenement_declarer_tables_principales($tables_principales){
 
+    // Table reservations_details
+    $reservations_details = array(
+        'id_reservations_detail' => 'bigint(21) not null',
+        'id_reservation' => 'bigint(21) not null default 0',
+        'id_evenement' => 'bigint(21) not null default 0',        
+        'descriptif' => 'text not null default ""',
+        'quantite' => 'int not null default 0',
+        'prix_unitaire_ht' => 'float not null default 0',
+        'taxe' => 'decimal(4,3) not null default 0',
+        'maj' => 'timestamp'
+    );
+    
+    $reservations_details_cles = array(
+        'PRIMARY KEY' => 'id_reservations_detail',
+        'KEY id_reservation' => 'id_reservation',
+        'KEY id_evenement' => 'id_evenement',        
+    );
+    
+    $tables_principales['spip_reservations_details'] = array(
+        'field' => &$reservations_details,
+        'key' => &$reservations_details_cles,
+        'join'=> array(
+            'id_reservations_detail' => 'id_reservations_detail',
+            'id_reservation' => 'id_reservation',
+            'id_evenement' => 'id_evenement'
+        )
+    );
+
+    return $tables_principales;
+}
 
 ?>

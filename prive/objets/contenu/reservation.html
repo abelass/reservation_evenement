@@ -1,0 +1,53 @@
+<BOUCLE_reservation(RESERVATIONS){id_reservation}{statut?}>
+
+[<div class="champ contenu_id_auteur[ (#ID_AUTEUR*|strlen|?{'',vide})]">
+	<label><:reservation:label_id_auteur:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{id_auteur} id_auteur'>(#ID_AUTEUR)</span>
+</div>]
+
+[<div class="champ contenu_statut[ (#STATUT*|strlen|?{'',vide})]">
+	<label><:reservation:label_statut:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{statut} statut'>(#STATUT)</span>
+</div>]
+
+[<div class="champ contenu_date[ (#DATE*|strlen|?{'',vide})]">
+	<label><:reservation:label_date:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{date} date'>(#DATE)</span>
+</div>]
+
+[<div class="champ contenu_date_paiement[ (#DATE_PAIEMENT*|strlen|?{'',vide})]">
+	<label><:reservation:label_date_paiement:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{date_paiement} date_paiement'>(#DATE_PAIEMENT)</span>
+</div>]
+
+[<div class="champ contenu_type_paiement[ (#TYPE_PAIEMENT*|strlen|?{'',vide})]">
+	<label><:reservation:label_type_paiement:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{type_paiement} type_paiement'>(#TYPE_PAIEMENT)</span>
+</div>]
+
+[<div class="champ contenu_nom[ (#NOM*|strlen|?{'',vide})]">
+	<label><:reservation:label_nom:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{nom} nom'>(#NOM)</span>
+</div>]
+
+[<div class="champ contenu_email[ (#EMAIL*|strlen|?{'',vide})]">
+	<label><:reservation:label_email:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{email} email'>(#EMAIL)</span>
+</div>]
+
+[<div class="champ contenu_maj[ (#MAJ*|strlen|?{'',vide})]">
+	<label><:reservation:label_maj:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{maj} maj'>(#MAJ)</span>
+</div>]
+
+[<div class="champ contenu_donnees_auteur[ (#DONNEES_AUTEUR*|strlen|?{'',vide})]">
+	<label><:reservation:label_donnees_auteur:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{donnees_auteur} donnees_auteur'>(#DONNEES_AUTEUR)</span>
+</div>]
+
+[<div class="champ contenu_reference[ (#REFERENCE*|strlen|?{'',vide})]">
+	<label><:reservation:label_reference:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{reference} reference'>(#REFERENCE)</span>
+</div>]
+
+</BOUCLE_reservation>

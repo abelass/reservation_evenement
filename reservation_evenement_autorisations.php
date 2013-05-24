@@ -36,11 +36,11 @@ function autoriser_configurer_reservation_evenement_dist($faire, $type, $id, $qu
 */
 
 // -----------------
-// Objet evenements_participants
+// Objet reservations
 
 
 /**
- * Autorisation de voir un élément de menu (evenementsparticipants)
+ * Autorisation de voir un élément de menu (reservations)
  *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action
@@ -49,13 +49,13 @@ function autoriser_configurer_reservation_evenement_dist($faire, $type, $id, $qu
  * @param  array  $opt   Options de cette autorisation
  * @return bool          true s'il a le droit, false sinon
 **/
-function autoriser_evenementsparticipants_menu_dist($faire, $type, $id, $qui, $opt){
+function autoriser_reservations_menu_dist($faire, $type, $id, $qui, $opt){
 	return true;
 } 
 
 
 /**
- * Autorisation de voir le bouton d'accès rapide de création (evenementsparticipant)
+ * Autorisation de créer (reservation)
  *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action
@@ -64,26 +64,12 @@ function autoriser_evenementsparticipants_menu_dist($faire, $type, $id, $qui, $o
  * @param  array  $opt   Options de cette autorisation
  * @return bool          true s'il a le droit, false sinon
 **/
-function autoriser_evenementsparticipantcreer_menu_dist($faire, $type, $id, $qui, $opt){
-	return autoriser('creer', 'evenements_participant', '', $qui, $opt);
-} 
-
-/**
- * Autorisation de créer (evenementsparticipant)
- *
- * @param  string $faire Action demandée
- * @param  string $type  Type d'objet sur lequel appliquer l'action
- * @param  int    $id    Identifiant de l'objet
- * @param  array  $qui   Description de l'auteur demandant l'autorisation
- * @param  array  $opt   Options de cette autorisation
- * @return bool          true s'il a le droit, false sinon
-**/
-function autoriser_evenementsparticipant_creer_dist($faire, $type, $id, $qui, $opt) {
+function autoriser_reservation_creer_dist($faire, $type, $id, $qui, $opt) {
 	return in_array($qui['statut'], array('0minirezo', '1comite')); 
 }
 
 /**
- * Autorisation de voir (evenementsparticipant)
+ * Autorisation de voir (reservation)
  *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action
@@ -92,12 +78,12 @@ function autoriser_evenementsparticipant_creer_dist($faire, $type, $id, $qui, $o
  * @param  array  $opt   Options de cette autorisation
  * @return bool          true s'il a le droit, false sinon
 **/
-function autoriser_evenementsparticipant_voir_dist($faire, $type, $id, $qui, $opt) {
+function autoriser_reservation_voir_dist($faire, $type, $id, $qui, $opt) {
 	return true;
 }
 
 /**
- * Autorisation de modifier (evenementsparticipant)
+ * Autorisation de modifier (reservation)
  *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action
@@ -106,12 +92,12 @@ function autoriser_evenementsparticipant_voir_dist($faire, $type, $id, $qui, $op
  * @param  array  $opt   Options de cette autorisation
  * @return bool          true s'il a le droit, false sinon
 **/
-function autoriser_evenementsparticipant_modifier_dist($faire, $type, $id, $qui, $opt) {
+function autoriser_reservation_modifier_dist($faire, $type, $id, $qui, $opt) {
 	return in_array($qui['statut'], array('0minirezo', '1comite'));
 }
 
 /**
- * Autorisation de supprimer (evenementsparticipant)
+ * Autorisation de supprimer (reservation)
  *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action
@@ -120,7 +106,7 @@ function autoriser_evenementsparticipant_modifier_dist($faire, $type, $id, $qui,
  * @param  array  $opt   Options de cette autorisation
  * @return bool          true s'il a le droit, false sinon
 **/
-function autoriser_evenementsparticipant_supprimer_dist($faire, $type, $id, $qui, $opt) {
+function autoriser_reservation_supprimer_dist($faire, $type, $id, $qui, $opt) {
 	return $qui['statut'] == '0minirezo' AND !$qui['restreint'];
 }
 
