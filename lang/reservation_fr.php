@@ -8,6 +8,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
 	'ajouter_lien_reservation' => 'Ajouter cette réservation',
+	
+    //E
+    'explication_login'=>'<a rel="nofollow" class="login_modal" href="@url@" title="@titre_login@">Connectez-vous</a> si vous êtes déjà enregistré sur ce site',    
+    'erreur_email_utilise'=>'Cette adresse email est déjà utilisé, veuillez vous connecter ou utliser une autre adresse',
 
 	// I
 	'icone_creer_reservation' => 'Créer une réservation',
@@ -19,11 +23,14 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// L
 	'label_date' => 'date',
-	'label_date_paiement' => 'date_paiement',
+	'label_date_paiement' => 'Date de paiement',
 	'label_donnees_auteur' => 'Données Auteur',
 	'label_email' => 'Email',
+	'label_enregistrer' => 'Je veux m\'enregistrer sur ce site',	
 	'label_id_auteur' => 'Id auteur',
 	'label_maj' => 'maj',
+	'label_mot_passe' => 'Mot de passe',
+	'label_mot_passe2' => 'Répétez le mot de passe',		
 	'label_nom' => 'Nom',
 	'label_reference' => 'Référence',
 	'label_statut' => 'statut',

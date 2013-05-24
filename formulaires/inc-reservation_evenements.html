@@ -1,5 +1,6 @@
 <B_art_or>            
-<li>
+<li class='editer editer_id_evenement[ (#ENV**{erreurs}|table_valeur{id_evenement}|oui)erreur]'>
+    [<div class='erreur_message'>(#ENV**{erreurs}|table_valeur{id_evenement})</div>]
 <BOUCLE_art_or(DATA){source tableau,#ENV{evenements}}>
     [[(#COMPTEUR_BOUCLE|!={1}|oui)</li><li>]
     <strong>[(#VALEUR{date_debut}|nom_jour), ](#VALEUR{date_debut}|affdate{d}|unique).[ (#VALEUR{date_debut}|nom_mois)][ (#VALEUR{date_debut}|affdate{Y})]</strong> ]

@@ -39,7 +39,9 @@
 		<onglet nom="reservation_evenement" titre="reservation_evenement:reservation_evenement_titre" parent="configuration" icone="images/reservation_evenement-24.png" />
 	-->
 
-	<necessite nom="saisies" compatibilite="[1.24.0;]" /> 
+	<necessite nom="saisies" compatibilite="[1.24.0;]" />
+	<necessite nom="agenda" compatibilite="[3.11.8;]" />
+	<necessite nom="nospam" compatibilite="[1.0.9;]" />		 
 
 	<pipeline nom="autoriser" inclure="reservation_evenement_autorisations.php" /> 
 
