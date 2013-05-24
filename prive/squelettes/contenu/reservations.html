@@ -3,6 +3,8 @@
 
 <INCLURE{fond=prive/objets/liste/reservations, par=reference, env, ajax, sinon=<:reservation:info_aucun_reservation:>}>
 
+[(#REM) désactivé pour le moment
 [(#AUTORISER{creer,reservation})
 	[(#URL_ECRIRE{reservation_edit,new=oui}|icone_verticale{<:reservation:icone_creer_reservation:>,reservation,new,right})]
+]
 ]

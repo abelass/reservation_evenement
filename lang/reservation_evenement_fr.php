@@ -12,6 +12,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'cfg_exemple' => 'Exemple',
 	'cfg_exemple_explication' => 'Explication de cet exemple',
 	'cfg_titre_parametrages' => 'Paramétrages',
+	
+    //L
+    'label_statut_defaut' => 'Le statut par défaut d\'une réservation', 
 
 	// T
 	'titre_page_configurer_reservation_evenement' => 'Configuration Réservation Événements',
