@@ -105,7 +105,7 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
 
     // Invalider les caches
     include_spip('inc/invalideur');
-    suivre_invalideur("id='$objet/$id'");
+    suivre_invalideur("id='reservation/$id'");
 
 
     // Pipeline

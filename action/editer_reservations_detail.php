@@ -86,16 +86,8 @@ function reservations_detail_instituer($id, $c, $calcul_rub=true) {
 
     // Invalider les caches
     include_spip('inc/invalideur');
-    suivre_invalideur("id='$objet/$id'");
+    suivre_invalideur("id='reservations_detail/$id'");
 
-    /*
-    if ($date) {
-        $t = strtotime($date);
-        $p = @$GLOBALS['meta']['date_prochain_postdate'];
-        if ($t > time() AND (!$p OR ($t < $p))) {
-            ecrire_meta('date_prochain_postdate', $t);
-        }
-    }*/
 
     // Pipeline
     pipeline('post_edition',
