@@ -31,7 +31,6 @@ function formulaires_reservation_charger_dist($id=''){
     if(intval($GLOBALS['visiteur_session'])){
         $session=$GLOBALS['visiteur_session'];
         $nom=$session['nom'];
-        $id_auteur=$session['id_auteur'];  
         $email=$session['email'];                
         
     }
@@ -49,7 +48,7 @@ function formulaires_reservation_charger_dist($id=''){
 	$valeurs['statut'] = 'encours'; 
     
     $valeurs['_hidden'].='<input type="hidden" name="statut" value="'.$valeurs['statut'].'"/>'; 
-    $valeurs['_hidden'].='<input type="hidden" name="id_auteur" value="'.$valeurs['id_auteur'].'"/>';       
+   
 
 
 	return $valeurs;
@@ -117,7 +116,7 @@ function formulaires_reservation_traiter_dist($id=''){
     $action=charger_fonction('editer_objet','action');
     // La référence
     $fonction_reference = charger_fonction('reservation_reference', 'inc/');
-    $id_auteur=sql_getfetsel('id_auteur','spip_auteurs','email='.sql_quote($valeurs['email']));    
+    $id_auteur=$GLOBALS['visiteur_session']['id_auteur'];  
      $set=array('statut'=>$statut);
 
    if(_request('enregistrer')){
