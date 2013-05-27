@@ -114,25 +114,26 @@ function formulaires_reservation_traiter_dist($id=''){
     $action=charger_fonction('editer_objet','action');
     // La référence
     $fonction_reference = charger_fonction('reservation_reference', 'inc/');
-   $set=array();
+    $id_auteur=sql_getfetsel('id_auteur','spip_auteurs','email='.sql_quote($valeurs['email']));    
+   $set=array('statut'=>_request('statut'));
 
    if(_request('enregistrer')){
             include_spip('actions/editer_auteur');
-            $id_auteur=sql_getfetsel('id_auteur','spip_auteurs','email='.sql_quote($valeurs['email']));
+            
             if(!$id_auteur){
                 $res = formulaires_editer_objet_traiter('auteur','new',0,0,$retour,$config_fonc,$row,$hidden);
                 $id_auteur=$res['id_auteur'];
                 sql_updateq('spip_auteurs',array('statut'=>'6forum'),'id_auteur='.$id_auteur);
                 }
-        $set['id_auteur']=$id_auteur;
+        
         $set['reference']=$fonction_reference($id_auteur);
         }
-   else{
+   elseif(!$id_auteur){
        $set['nom']=_request('nom');
        $set['email']=_request('email'); 
        $set['reference']=$fonction_reference();      
    }
-
+    $set['id_auteur']=$id_auteur;
     $id_reservation=$action('new','reservations',$set);
     
     $message=recuperer_fond('inclure/reservation',array('id_reservation'=>$id_reservation));

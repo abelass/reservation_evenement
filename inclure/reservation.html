@@ -1,9 +1,8 @@
 [(#REM) On peut donner soit un id_reservation, soit un tableau contenant la reservation
-
 ]<BOUCLE_reservation(RESERVATIONS){tous}{id_reservation=#ENV{id_reservation}{statut?}>
 	[(#REM) Si on trouve une reservation on prend ça comme base ]
 	#SET{details, #ARRAY}
-	<BOUCLE_reservation_details(RESERVATIONSS_DETAILS){id_reservation}{par id_reservations_detail}>
+	<BOUCLE_reservation_details(RESERVATIONS_DETAILS){id_reservation}{par id_reservation}>
 	[(#SET_PUSH{details, [(#ARRAY{
 		descriptif, [[(#QUANTITE|>{1}|oui)<strong>#QUANTITE &times;</strong> ](#DESCRIPTIF*|supprimer_numero)],
 		quantite, #QUANTITE,

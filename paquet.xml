@@ -43,6 +43,7 @@
 	<necessite nom="agenda" compatibilite="[3.11.8;]" />
 	<necessite nom="nospam" compatibilite="[1.0.9;]" />	
 	<necessite nom="notifavancees" compatibilite="[0.2.1;]" />
+	<necessite nom="prix" compatibilite="[0.1.6;]" />	
 
 	<pipeline nom="autoriser" inclure="reservation_evenement_autorisations.php" /> 
 
@@ -53,6 +54,6 @@
 	<pipeline nom="pre_insertion" inclure="reservation_evenement_pipelines.php" /> 	
 	<pipeline nom="post_insertion" inclure="reservation_evenement_pipelines.php" /> 		
 
-	<menu nom="evenements_participants" titre="evenements_participant:titre_evenements_participants" parent="menu_edition" icone="images/evenements_participant-16.png" action="evenements_participants" /> 
+	<menu nom="reservations" titre="reservation:titre_reservations" parent="menu_edition" icone="images/reservation-16.png" action="reservations" /> 
 	<!--<menu nom="reservation_creer" titre="reservation:icone_creer_reservation" parent="outils_rapides" icone="images/reservation-new-16.png" action="reservation_edit" parametres="new=oui" />--> 
 </paquet>

@@ -31,17 +31,20 @@ function reservation_evenement_post_insertion($flux) {
         
     if($evenements=_request('id_evenement') and is_array(_request('id_evenement'))){
         $id_reservation=$flux['args']['id_objet'];
+        $statut=$flux['args']['statut'];
         $action=charger_fonction('editer_objet','action');
         $quantite=_request('quantite');
         $set=array(
             'id_reservation'=>$id_reservation,
+            'statut'=>'accepte'
         );
         foreach($evenements AS $id_evenement){
             $set['id_evenement']=$id_evenement;
             $set['descriptif']=sql_getfetsel('titre','spip_evenements','id_evenement='.$id_evenement);
             if(intval($quantite[$id_evenement]))$set['quantite']=$quantite[$id_evenement];
             else $set['quantite']=1; 
-            $id_reservations_detail=sql_getfetsel('id_reservations_detail','spip_reservations_details','id_reservation='.$id_reservation.' AND id_evenement='.$id_evenement);
+            if(!$id_reservations_detail=sql_getfetsel('id_reservations_detail','spip_reservations_details','id_reservation='.$id_reservation.' AND id_evenement='.$id_evenement))
+            $id_reservations_detail='new';
             
             if($shop_prix=test_plugin_actif('shop_prix')){
                 $fonction_prix = charger_fonction('prix', 'inc/');
@@ -58,6 +61,7 @@ function reservation_evenement_post_insertion($flux) {
         }
         
     }
+
     // Notifications
     include_spip('inc/config');
     $config = lire_config('reservation_evenement');

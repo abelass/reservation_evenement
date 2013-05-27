@@ -18,7 +18,7 @@
 		</tr>
 	</thead>
 	<tbody>
-	<BOUCLE_liste_reservations(RESERVATIONS){id_auteur?}{id_evenement?}{id_mot?}{id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num reference},#GET{defaut_tri}}{par reference}{pagination #ENV{nb,10}}>
+	<BOUCLE_liste_reservations(RESERVATIONS){id_auteur?}{id_mot?}{id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num reference},#GET{defaut_tri}}{par reference}{pagination #ENV{nb,10}}>
 		<tr class='[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]'>
 			<td class='picto'>[(#CHEMIN_IMAGE{reservation-16.png}|balise_img)]</td>
 			<td class='statut'>[(#STATUT|puce_statut{reservation,#ID_RESERVATION})]</td> 
