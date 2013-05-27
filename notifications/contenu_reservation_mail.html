@@ -1,0 +1,33 @@
+[(#REM)
+
+  Squelette
+  (c) 2009 SPIP
+  Distribue sous licence GPL
+
+][(#HTTP_HEADER{Content-type: text/#ENV{format_envoi}[; charset=(#CHARSET)]})]#CACHE{0}
+<BOUCLE_art(RESERVATIONS){id_reservation}{statut?}{tout}>
+#SET{nom_client,#NOM}
+<BOUCLE_contact(AUTEURS){id_auteur}>#SET{nom_client,#NOM}</BOUCLE_contact>
+
+[(#ENV{qui}|=={client}|oui)
+<p><:reservation:bonjour:> #GET{nom_client}</p>
+<p><:reservation:merci_de_votre_reservation:></p>]
+[(#ENV{qui}|=={client}|non)
+<p><:reservation:une_commande_de:>#GET{nom_client}</p>]
+
+<h3><:reservation:recapitulatif:></h3>
+
+<p><:reservation:reservation_numero:>#REFERENCE</p>
+<p><:reservation:reservation_date:> : #DATE</p>
+<p><:reservation:modifier_commande_statut:> [(#STATUT|commandes_lister_statuts)]</p>
+
+<p><:reservation:details_reservation:></p>
+<INCLURE{fond=inclure/reservation,id_reservation=#ID_RESERVATION,statut=#STATUT,format_envoi=#ENV{format_envoi}}>
+<hr />
+
+<p><a href="#URL_SITE_SPIP">#URL_SITE_SPIP</a></p>
+</BOUCLE_art>
+[(#ENV{format_envoi}|=={plain}|oui)
+	#FILTRE{supprimer_tags|filtrer_entites|trim}]
+[(#ENV{format_envoi}|=={plain}|non)
+	#FILTRE{filtrer_entites|trim}]

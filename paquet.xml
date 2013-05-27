@@ -41,13 +41,17 @@
 
 	<necessite nom="saisies" compatibilite="[1.24.0;]" />
 	<necessite nom="agenda" compatibilite="[3.11.8;]" />
-	<necessite nom="nospam" compatibilite="[1.0.9;]" />		 
+	<necessite nom="nospam" compatibilite="[1.0.9;]" />	
+	<necessite nom="notifavancees" compatibilite="[0.2.1;]" />
 
 	<pipeline nom="autoriser" inclure="reservation_evenement_autorisations.php" /> 
 
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/reservation_evenement.php" /> 
 	<pipeline nom="declarer_tables_interfaces" inclure="base/reservation_evenement.php" /> 
+	
 	<pipeline nom="affiche_auteurs_interventions" inclure="reservation_evenement_pipelines.php" /> 
+	<pipeline nom="pre_insertion" inclure="reservation_evenement_pipelines.php" /> 	
+	<pipeline nom="post_insertion" inclure="reservation_evenement_pipelines.php" /> 		
 
 	<menu nom="evenements_participants" titre="evenements_participant:titre_evenements_participants" parent="menu_edition" icone="images/evenements_participant-16.png" action="evenements_participants" /> 
 	<!--<menu nom="reservation_creer" titre="reservation:icone_creer_reservation" parent="outils_rapides" icone="images/reservation-new-16.png" action="reservation_edit" parametres="new=oui" />--> 
