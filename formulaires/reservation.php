@@ -12,14 +12,14 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
 include_spip('inc/actions');
 include_spip('inc/editer');
 
-function formulaires_reservation_charger_dist($id_evenement=''){
+function formulaires_reservation_charger_dist($id=''){
     include_spip('inc/config');
     $config=lire_config('reservation_evenement');
 	
 	// si pas d'evenement ou d'inscription, on echoue silencieusement
 	
 	$where=array('date_fin>NOW()');
-    if(intval($id_evenement))$where[]='id_evenement='.intval($id_evenement);
+    if(intval($id))$where[]='id_evenement='.intval($id);
 	$sql = sql_select('*','spip_evenements',$where,'','date_debut,date_fin');
 
     $evenements=array();
@@ -56,7 +56,7 @@ function formulaires_reservation_charger_dist($id_evenement=''){
 	return $valeurs;
 }
 
-function formulaires_reservation_verifier_dist($id_evenement=''){
+function formulaires_reservation_verifier_dist($id=''){
 	$erreurs = array();
     $email=_request('email');
     
@@ -108,7 +108,13 @@ function formulaires_reservation_verifier_dist($id_evenement=''){
 	return $erreurs;
 }
 
-function formulaires_reservation_traiter_dist($id_evenement=''){
+function formulaires_reservation_traiter_dist($id=''){
+    include_spip('inc/session');
+    //Créer la réservation
+    $action=charger_fonction('editer_objet','action');
+    // La référence
+    $fonction_reference = charger_fonction('reservation_reference', 'inc/');
+   $set=array();
 
    if(_request('enregistrer')){
             include_spip('actions/editer_auteur');
@@ -118,11 +124,18 @@ function formulaires_reservation_traiter_dist($id_evenement=''){
                 $id_auteur=$res['id_auteur'];
                 sql_updateq('spip_auteurs',array('statut'=>'6forum'),'id_auteur='.$id_auteur);
                 }
+        $set['id_auteur']=$id_auteur;
+        $set['reference']=$fonction_reference($id_auteur);
         }
-    if(is_array(_request(id_evenement))){
-        $id_reservation=sql_insertq('spip_reservations',array());
-        
-    }
+   else{
+       $set['nom']=_request('nom');
+       $set['email']=_request('email'); 
+       $set['reference']=$fonction_reference();      
+   }
+
+    $id_reservation=$action('new','reservations',$set);
+    
+    $message=recuperer_fond('inclure/reservation',array('id_reservation'=>$id_reservation));
 	
 	return array('message_ok'=>$message,'editable'=>true);
 }

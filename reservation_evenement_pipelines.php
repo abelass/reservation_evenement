@@ -27,8 +27,37 @@ function reservation_evenement_pre_insertion($flux){
 
 function reservation_evenement_post_insertion($flux) {
     if ($flux['args']['table'] == 'spip_reservations') {
-
-
+        
+        
+    if($evenements=_request('id_evenement') and is_array(_request('id_evenement'))){
+        $id_reservation=$flux['args']['id_objet'];
+        $action=charger_fonction('editer_objet','action');
+        $quantite=_request('quantite');
+        $set=array(
+            'id_reservation'=>$id_reservation,
+        );
+        foreach($evenements AS $id_evenement){
+            $set['id_evenement']=$id_evenement;
+            $set['descriptif']=sql_getfetsel('titre','spip_evenements','id_evenement='.$id_evenement);
+            if(intval($quantite[$id_evenement]))$set['quantite']=$quantite[$id_evenement];
+            else $set['quantite']=1; 
+            $id_reservations_detail=sql_getfetsel('id_reservations_detail','spip_reservations_details','id_reservation='.$id_reservation.' AND id_evenement='.$id_evenement);
+            
+            if($shop_prix=test_plugin_actif('shop_prix')){
+                $fonction_prix = charger_fonction('prix', 'inc/');
+                $fonction_prix_ht = charger_fonction('ht', 'inc/prix');                
+                $p=sql_getfetsel('prix_ht,id_prix_objet','spip_prix_objets','objet='.sql_quote('evenement'),'id_objet='.$id_evenement); 
+                
+                $prix_ht = $fonction_prix_ht('prix_objet', $p['id_prix_objet']);
+                $prix = $fonction_prix('prix_objet',$p['id_prix_objet']);
+                $taxe = round(($prix - $prix_ht) / $prix_ht, 3);
+                $set['prix_unitaire_ht']=$prix_ht; 
+                $set['taxe']=$taxe;                 
+            }         
+            $detail=$action($id_reservations_detail,'reservations_details',$set);
+        }
+        
+    }
     // Notifications
     include_spip('inc/config');
     $config = lire_config('reservation_evenement');
