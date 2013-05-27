@@ -73,14 +73,15 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
         'statut_textes_instituer' => array(
             'attente'    => 'evenements_participant:texte_statut_en_attente',
             'accepte'     => 'evenements_participant:texte_statut_accepte',
+            'encours'     => 'evenements_participant:texte_statut_encours',            
             'refuse'   => 'evenements_participant:texte_statut_refuse',
             'poubelle' => 'evenements_participant:texte_statut_poubelle',
         ),
         'statut_images' => array(
-            'attente'          => 'puce-reservation-attente.png',
-            'accepte'          => 'puce-reservation-accepte.png',
-            'refuse'             => 'puce-reservation-refuse.png',
-            'poubelle'           => 'puce-reservation-poubelle.png',
+            'attente'          => 'puce-reservation-attente-16.png',
+            'accepte'          => 'puce-reservation-accepte-16.png',
+            'refuse'             => 'puce-reservation-refuse-16.png',
+            'poubelle'           => 'puce-reservation-poubelle-16.png',
         ),
         'statut'=> array(
             array(
@@ -126,24 +127,29 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
         'champs_editables'  => array(),
         'champs_versionnes' => array('statut'),
         'rechercher_champs' => array(),
-        'tables_jointures'  => array('id_evenement','id_reservation'),
+        'tables_jointures'  => array('id_reservations_detail','id_evenement','id_reservation'),
         'statut_textes_instituer' => array(
-            'prepa'    => 'texte_statut_en_cours_redaction',
-            'prop'     => 'texte_statut_propose_evaluation',
-            'publie'   => 'texte_statut_publie',
-            'refuse'   => 'texte_statut_refuse',
-            'poubelle' => 'texte_statut_poubelle',
+            'attente'    => 'evenements_participant:texte_statut_en_attente',
+            'accepte'     => 'evenements_participant:texte_statut_accepte',
+            'refuse'   => 'evenements_participant:texte_statut_refuse',
+            'poubelle' => 'evenements_participant:texte_statut_poubelle',
+        ),
+        'statut_images' => array(
+            'attente'          => 'puce-reservation-attente.png',
+            'accepte'          => 'puce-reservation-accepte.png',
+            'refuse'             => 'puce-reservation-refuse.png',
+            'poubelle'           => 'puce-reservation-poubelle.png',
         ),
         'statut'=> array(
             array(
                 'champ'     => 'statut',
-                'publie'    => 'publie',
-                'previsu'   => 'publie,prop,prepa',
+                'publie'    => 'accepte',
+                'previsu'   => 'accepte,attente',
                 'post_date' => 'date', 
                 'exception' => array('statut','tout')
             )
         ),
-        'texte_changer_statut' => 'reservations_detail:texte_changer_statut_reservations_detail', 
+        'texte_changer_statut' => 'reservations:texte_changer_statut_reservations_detail', 
         
 
     );

@@ -13,8 +13,7 @@ include_spip('inc/actions');
 include_spip('inc/editer');
 
 function formulaires_reservation_charger_dist($id=''){
-    include_spip('inc/config');
-    $config=lire_config('reservation_evenement');
+
 	
 	// si pas d'evenement ou d'inscription, on echoue silencieusement
 	
@@ -47,8 +46,8 @@ function formulaires_reservation_charger_dist($id=''){
     $valeurs['new_pass']=_request('new_pass');    
     $valeurs['new_pass2']=_request('new_pass2');  
     $valeurs['new_login']=_request('new_login');       
-                
-	$valeurs['statut'] = $config['statut_defaut']?$config['statut_defaut']:'accepte'; 
+	$valeurs['statut'] = 'encours'; 
+    
     $valeurs['_hidden'].='<input type="hidden" name="statut" value="'.$valeurs['statut'].'"/>'; 
     $valeurs['_hidden'].='<input type="hidden" name="id_auteur" value="'.$valeurs['id_auteur'].'"/>';       
 
@@ -109,13 +108,17 @@ function formulaires_reservation_verifier_dist($id=''){
 }
 
 function formulaires_reservation_traiter_dist($id=''){
-    include_spip('inc/session');
+    include_spip('inc/session');    
+    include_spip('inc/config');
+    $config=lire_config('reservation_evenement');
+    $statut = $config['statut_defaut']?$config['statut_defaut']:'encours'; 
+
     //Créer la réservation
     $action=charger_fonction('editer_objet','action');
     // La référence
     $fonction_reference = charger_fonction('reservation_reference', 'inc/');
     $id_auteur=sql_getfetsel('id_auteur','spip_auteurs','email='.sql_quote($valeurs['email']));    
-   $set=array('statut'=>_request('statut'));
+     $set=array('statut'=>$statut);
 
    if(_request('enregistrer')){
             include_spip('actions/editer_auteur');
@@ -134,7 +137,7 @@ function formulaires_reservation_traiter_dist($id=''){
        $set['reference']=$fonction_reference();      
    }
     $set['id_auteur']=$id_auteur;
-    $id_reservation=$action('new','reservations',$set);
+    $id_reservation=$action('new','reservation',$set);
     
     $message=recuperer_fond('inclure/reservation',array('id_reservation'=>$id_reservation));
 	
