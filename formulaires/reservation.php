@@ -134,8 +134,8 @@ function formulaires_reservation_traiter_dist($id=''){
    elseif(!$id_auteur){
        $set['nom']=_request('nom');
        $set['email']=_request('email'); 
-       $set['reference']=$fonction_reference();      
    }
+    $set['reference']=$fonction_reference();      
     $set['id_auteur']=$id_auteur;
     $id_reservation=$action('new','reservation',$set);
     
