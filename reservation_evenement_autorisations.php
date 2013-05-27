@@ -93,7 +93,9 @@ function autoriser_reservation_voir_dist($faire, $type, $id, $qui, $opt) {
  * @return bool          true s'il a le droit, false sinon
 **/
 function autoriser_reservation_modifier_dist($faire, $type, $id, $qui, $opt) {
-	return in_array($qui['statut'], array('0minirezo', '1comite'));
+    if(_request('exec'))return in_array($qui['statut'], array('0minirezo', '1comite'));
+    else return true;
+	
 }
 
 /**

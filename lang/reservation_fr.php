@@ -15,6 +15,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     
     //D
     'details_reservation' => 'Détails de la réservation :',
+    'designation' => 'Désignation',
 	
     //E
     'attente'    => 'en attente',
@@ -50,6 +51,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	
     //M
     'merci_de_votre_reservation' => 'Nous avons bien enregistré votre commande et nous vous remercions de votre confiance.',
+    'montant' => 'Montant',
     
     
     //N

@@ -1,8 +1,8 @@
-[(#REM) On peut donner soit un id_reservation, soit un tableau contenant la reservation
-]<BOUCLE_reservation(RESERVATIONS){tous}{id_reservation=#ENV{id_reservation}{statut?}>
+[(#REM) On peut donner soit un id_reservation, soit un tableau contenant la reservation]
+<BOUCLE_reservation(RESERVATIONS){id_reservation=#ID_RESERVATION}{tout}>
 	[(#REM) Si on trouve une reservation on prend ça comme base ]
 	#SET{details, #ARRAY}
-	<BOUCLE_reservation_details(RESERVATIONS_DETAILS){id_reservation}{par id_reservation}>
+	<BOUCLE_reservation_details(RESERVATIONS_DETAILS){id_reservation}{tout}>
 	[(#SET_PUSH{details, [(#ARRAY{
 		descriptif, [[(#QUANTITE|>{1}|oui)<strong>#QUANTITE &times;</strong> ](#DESCRIPTIF*|supprimer_numero)],
 		quantite, #QUANTITE,
@@ -15,7 +15,7 @@
 <//B_reservation>[
 (#REM) Affichage du detail dans une table si fromat html demande
 
-]<BOUCLE_test(CONDITION){si #GET{reservation}|et{#GET{reservation}|is_array}}>[
+]<BOUCLE_test(CONDITION){si #GET{reservation}|et{#GET{reservation}|is_array|oui}}>[
 (#REM) Version texte
 
 ]<BOUCLE_test_format_texte(CONDITION){si #ENV{format_envoi}|=={plain}|oui}>[
@@ -30,8 +30,8 @@
       <table class="reservation" cellspacing="0">
          <thead>
             <tr>
-               <th class="description"><:reservations:designation:></th>
-               <th class="montant"><:reservations:montant:></th>
+               <th class="description"><:reservation:designation:></th>
+               <th class="montant"><:reservation:montant:></th>
             </tr>
          </thead>
          <tbody>

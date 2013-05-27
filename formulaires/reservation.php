@@ -99,7 +99,7 @@ function formulaires_reservation_verifier_dist($id=''){
                 $erreurs['email'] = (($id_auteur==$GLOBALS['visiteur_session']['id_auteur'])?_T('form_email_non_valide'):_T('form_prop_indiquer_email'));
                 }
             else{
-                if($email_utilise=sql_getfetsel('email','spip_auteurs','email='.sql_quote($email))) $flux['data']['email']=_T('reservation:erreur_email_utilise');
+                if($email_utilise=sql_getfetsel('email','spip_auteurs','email='.sql_quote($email))) $erreurs['email']=_T('reservation:erreur_email_utilise');
                 }
             }
 
@@ -116,14 +116,14 @@ function formulaires_reservation_traiter_dist($id=''){
     $action=charger_fonction('editer_objet','action');
     // La référence
     $fonction_reference = charger_fonction('reservation_reference', 'inc/');
-    $id_auteur=$GLOBALS['visiteur_session']['id_auteur'];  
+    if(intval($GLOBALS['visiteur_session']['id_auteur']))$id_auteur=$GLOBALS['visiteur_session']['id_auteur'];  
      $set=array('statut'=>$statut);
 
    if(_request('enregistrer')){
             include_spip('actions/editer_auteur');
             
             if(!$id_auteur){
-                $res = formulaires_editer_objet_traiter('auteur','new',0,0,$retour,$config_fonc,$row,$hidden);
+                $res = formulaires_editer_objet_traiter('auteur','new','','',$retour,$config_fonc,$row,$hidden);
                 $id_auteur=$res['id_auteur'];
                 sql_updateq('spip_auteurs',array('statut'=>'6forum'),'id_auteur='.$id_auteur);
                 }
@@ -137,10 +137,10 @@ function formulaires_reservation_traiter_dist($id=''){
     $set['reference']=$fonction_reference();      
     $set['id_auteur']=$id_auteur;
     $id_reservation=$action('new','reservation',$set);
-    
-    $message=recuperer_fond('inclure/reservation',array('id_reservation'=>$id_reservation));
+    $message='<strong>'._T('reservation:details_reservation').'</strong>';
+    $message.=recuperer_fond('inclure/reservation',array('id_reservation'=>$id_reservation[0]));
 	
-	return array('message_ok'=>$message,'editable'=>true);
+	return array('message_ok'=>$message,'editable'=>false);
 }
 
 ?>
