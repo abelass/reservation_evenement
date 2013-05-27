@@ -18,7 +18,40 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
  * sur des pipelines existants.
  */
 
+function reservation_evenement_pre_insertion($flux){
+    if ($flux['args']['table']=='spip_reservations_details'){
+        //$flux['data']['accepter_forum'] =   substr($GLOBALS['meta']['forums_publics'], 0, 3);
+    }
+    return $flux;
+}
 
+function reservation_evenement_post_insertion($flux) {
+    if ($flux['args']['table'] == 'spip_reservations') {
+
+
+    // Notifications
+    include_spip('inc/config');
+    $config = lire_config('reservation_evenement');
+    if (($statut != $statut_ancien) &&
+         ($config['activer']) &&
+         (in_array($statut,$config['quand'])) &&
+         ($notifications = charger_fonction('notifications', 'inc', true))
+        ) {
+
+        // Determiner l'expediteur
+        $options = array();
+        if( $config['expediteur'] != "facteur" )
+            $options['expediteur'] = $config['expediteur_'.$config['expediteur']];
+
+        // Envoyer au vendeur et au client
+        $notifications('reservation_vendeur', $id, $options);
+        if($config['client'])
+            $notifications('reservation_client', $id, $options);
+    }
+
+    }
+    return $flux;
+}
 
 /**
  * Ajout de liste sur la vue d'un auteur
