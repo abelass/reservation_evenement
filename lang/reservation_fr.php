@@ -34,7 +34,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_reservations_auteur' => 'Les réservations de cet auteur',
 
 	// L
-	'label_date' => 'date',
+	'label_date' => 'Date',
 	'label_date_paiement' => 'Date de paiement',
 	'label_donnees_auteur' => 'Données Auteur',
 	'label_email' => 'Email',

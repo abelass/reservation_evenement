@@ -19,7 +19,7 @@ function reservation_evenement_affiche_gauche($flux){
 
     if (in_array($exec,$objets_affichage)){ 
         $contexte=array();
-        $contexte['id_article']=intval($flux['args']['id_auteur'])?$flux['args']['id_auteur']:'';
+        $contexte['id_article']=intval($flux['args']['id_article'])?$flux['args']['id_article']:'';
         $contexte['id_rubrique']=intval($flux['args']['id_rubrique'])?$flux['args']['id_rubrique']:'';
         $contexte['id_evenement']=intval($flux['args']['id_evenement'])?$flux['args']['id_evenement']:'';    
             
@@ -38,7 +38,7 @@ function reservation_evenement_affiche_gauche($flux){
 function reservation_evenement_affiche_auteurs_interventions($flux) {
 	if ($id_auteur = intval($flux['args']['id_auteur'])) {
 
-		$flux['data'] .= recuperer_fond('prive/objets/liste/reservations', array(
+		$flux['data'] .='<br class="nettoyeur"/>'.recuperer_fond('prive/objets/liste/reservations', array(
 			'id_auteur' => $id_auteur,
 			'titre' => _T('reservation:info_reservations_auteur')
 		), array('ajax' => true));

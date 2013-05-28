@@ -1,0 +1,6 @@
+<BOUCLE0(AUTEURS){tout}{id_auteur=#ENV{id}}{lang_select}>[(#ID_AUTEUR|securiser_acces{#ENV{cle},transmettre,#ENV{op}, #ENV{args}}|?{#SET{autoriser,1},#REM|sinon_interdire_acces})]#SET{id_evenement,#ARRAY}<BOUCLE_evenements(EVENEMENTS){id_rubrique ?}{id_article ?}{id_evenement ?}{inscription=1}{tout}>#SET{id_evenement,#GET{id_evenement}|push{#ID_EVENEMENT}}</BOUCLE_evenements>
+"<:reservation:label_reference:>","<:reservations_detail:label_descriptif:>","<:reservation:label_statut:>","<:reservation:label_date:>","<:reservation:label_nom:>","<:reservation:label_email:>","<:reservations_detail:label_quantite:>"
+<BOUCLE_evt(RESERVATIONS_DETAILS){id_evenement IN #GET{id_evenement}}{tout}{par id_reservation}>#SET{descriptif,#DESCRIPTIF**}<BOUCLE_participants(AUTEURS){id_auteur}{statut?}{tout}>
+#SET{nom,#NOM}} #SET{email,#EMAIL}</BOUCLE_participants>#SET{nom,#NOM} #SET{email,#EMAIL}<//B_participants> "#INFO_REFERENCE{reservation,#ID_RESERVATION}","#GET{descriptif}","#STATUT","#MAJ","#GET{nom}","#GET{email}","#QUANTITE"
+</BOUCLE_evt>
+</BOUCLE0>

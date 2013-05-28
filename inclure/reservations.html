@@ -14,7 +14,6 @@
            <BOUCLE_rubrique(RUBRIQUES){id_rubrique=#ENV{id_rubrique}}{unique}>
            #SET{titre,#TITRE}
           </BOUCLE_rubrique>
-
         #SET{id_evenement,#GET{id_evenement}|push{#ID_EVENEMENT}}
        </BOUCLE_evenements>
           [<h4>(#GET{titre})</h4>]      
@@ -24,7 +23,11 @@
 </BOUCLE_reservations>
 
 [(#ENV*{titre,#GET{reservations}|array_sum|singulier_ou_pluriel{reservation:info_1_reservation,reservation:info_nb_reservations}})]
-<a href="[(#URL_ECRIRE{reservations}|parametre_url{id_rubrique,#ENV{id_rubrique}}|parametre_url{id_article,#ENV{id_article}}|parametre_url{id_evenement,#ENV{id_evenement}})]"><:reservation:texte_voir:></a><span>/</span><a href="[(#URL_ACTION_AUTEUR{export_reservation,export}|parametre_url{id_rubrique,#ENV{id_rubrique}}|parametre_url{id_article,#ENV{id_article}}|parametre_url{id_evenement,#ENV{id_evenement}})]"><:reservation:texte_exporter:></a>
+
+#SET{args,#ARRAY{id_evenement,#ENV{id_evenement},id_article,#ENV{id_article},id_rubrique,#ENV{id_rubrique}}}
+<h3><:agenda:telecharger:></h3>
+<ul class="liste-items">
+    <li class="item"><a href="[(#URL_ECRIRE{reservations}|parametre_url{id_rubrique,#ENV{id_rubrique}}|parametre_url{id_article,#ENV{id_article}}|parametre_url{id_evenement,#ENV{id_evenement}})]"><:reservation:texte_voir:></a><span>/</span><a href="[(#URL_PAGE{transmettre,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui})]"><:reservation:texte_exporter:></a>
      
 #BOITE_FERMER     
 </B_evenements>

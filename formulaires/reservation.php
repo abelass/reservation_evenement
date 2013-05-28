@@ -98,7 +98,7 @@ function formulaires_reservation_verifier_dist($id=''){
             if (!email_valide($email)){
                 $erreurs['email'] = (($id_auteur==$GLOBALS['visiteur_session']['id_auteur'])?_T('form_email_non_valide'):_T('form_prop_indiquer_email'));
                 }
-            else{
+            elseif(!$id_auteur){
                 if($email_utilise=sql_getfetsel('email','spip_auteurs','email='.sql_quote($email))) $erreurs['email']=_T('reservation:erreur_email_utilise');
                 }
             }
