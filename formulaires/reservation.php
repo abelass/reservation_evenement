@@ -37,7 +37,7 @@ function formulaires_reservation_charger_dist($id=''){
 
 
 	// valeurs d'initialisation
-	$valeurs['id_evenement'] = array();
+	$valeurs['id_evenement'] = _request('id_evenement')?_request('id_evenement'):array();
     $valeurs['id_auteur']=$id_auteur; 
     $valeurs['nom']=$nom; 
     $valeurs['email']=$email; 

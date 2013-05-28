@@ -40,13 +40,7 @@
 #PIPELINE{afficher_complement_objet,#ARRAY{args,#ARRAY{type,reservation,id,#ID_RESERVATION},data,'<div class="nettoyeur"></div>'}}
 
 #BOITE_FERMER
-#SET{id_evenement,#ARRAY}<BOUCLE_evenements(EVENEMENTS){id_rubrique ?}{id_article ?}{id_evenement ?}{inscription=1}{tout}>#SET{id_evenement,#GET{id_evenement}|push{#ID_EVENEMENT}}</BOUCLE_evenements>
-"<:reservation:label_reference:>","<:reservation:label_descriptif:>","<:reservation:label_statut:>","<:reservation:label_date:>","<:nom:>","<:email:>","<:reservation:labelquantite:>"
-<BOUCLE_evt(RESERVATIONS_DETAILS){id_evenement IN #GET{id_evenement}}{tout}{par id_reservation}>#SET{descriptif,#DESCRIPTIF**}
-#SET{reference,#REFERENCE}<BOUCLE_participants(AUTEURS){id_auteur}{statut?}{tout}>
-#SET{nom,#NOM}} #SET{email,#EMAIL}</BOUCLE_participants>#SET{nom,#NOM} #SET{email,#EMAIL}<//B_participants> "#INFO_REFERENCE{reservation,#ID_RESERVATION}#ID_RESERVATION","#GET{descriptif}","#STATUT","#DATE","#GET{nom}","#GET{email}","#QUANTITE"
 
-</BOUCLE_evt>
 <INCLURE{fond=prive/objets/liste/reservations_details,id_reservation,par=id_evenement,env}/>
 [(#EVAL{_AJAX}|oui)
 	<script type="text/javascript">/*<!\\[CDATA\\[*/reloadExecPage('#ENV{exec}','#navigation,#chemin');/*\\]\\]>*/</script>
