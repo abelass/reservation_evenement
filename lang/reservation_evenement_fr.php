@@ -6,7 +6,7 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// R
-	'reservation_evenement_titre' => 'Réservation Événements',
+	'reservation_evenement_titre' => 'Réservations Événements',
 
 	// C
 	'cfg_exemple' => 'Exemple',
