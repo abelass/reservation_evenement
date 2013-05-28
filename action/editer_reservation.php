@@ -143,7 +143,19 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
         
         $set['id_evenement']=$id_evenement;
         $evenement=sql_fetsel('*','spip_evenements','id_evenement='.$id_evenement);
-        $set['descriptif']=$evenement['titre'];
+        $date_debut=$evenement['date_debut'];
+        $date_fin=$evenement['date_fin'];        
+        if($date_debut!=$date_fin){
+            if(affdate($date_debut,'d-m-Y')==affdate($date_fin,'d-m-Y')){
+                $date=affdate($date_debut,'d/m/Y').','.affdate($date_debut,'G:i').'-'.affdate($date_fin,'G:i');
+            }
+            else $date=affdate($date_debut,'d/m/Y').'-'.affdate($date_fin,'d/m/Y'); 
+            }
+        else{
+            if(affdate($date_debut,'G:i')=='0:00')$date=affdate($date_debut,'d/m/Y');
+            else $date=affdate($date_debut,'d/m/Y G:i');
+        }
+        $set['descriptif']=$evenement['titre'].' - '.$date;
         if(intval($evenement['places']))$set['places']=$evenement['places'];
         if(intval($quantite[$id_evenement]))$set['quantite']=$quantite[$id_evenement];
         else $set['quantite']=1; 
