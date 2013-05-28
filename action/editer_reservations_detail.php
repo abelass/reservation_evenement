@@ -48,7 +48,7 @@ function reservations_detail_instituer($id, $c, $calcul_rub=true) {
     
     if(!$places=$c[places]){
         $places=sql_getfetsel('places','spip_evenements','id_evenement='.$row['id_evenement']);
-    }
+        }
 
     $s = isset($c['statut']) ? $c['statut'] : $statut;
     
@@ -56,11 +56,16 @@ function reservations_detail_instituer($id, $c, $calcul_rub=true) {
 
     $champs = array();
     $champs['statut']= $s ;
-    // cf autorisations dans inc/instituer_objet
+    // compter les réservations
     if ($s != $statut and $s=='accepte') {
         if(intval($places) AND $places>0){
-            $sql=sql_select('*','spip_reservations_details','id_evenement='.$c['id_evenement'].' AND statut ='.sql_quote('accepte'));
-            if(sql_count($sql)>=$places)$champs['statut']=$statut_ancien;
+            $sql=sql_select('quantite','spip_reservations_details','id_evenement='.$c['id_evenement'].' AND statut ='.sql_quote('accepte'));
+            
+            $reservations=array();
+            while($data=sql_fetch($sql)){
+                $reservations[]=$data['quantite'];
+            }
+            if(array_sum($reservations)>=$places)$champs['statut']=$statut_ancien;
             
         }
 
