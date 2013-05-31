@@ -47,6 +47,14 @@ function formulaires_reservation_charger_dist($id=''){
     $valeurs['new_login']=_request('new_login');       
 	$valeurs['statut'] = 'encours'; 
     
+    //les champz extras auteur
+    include_spip('cextras_pipelines');
+    $valeurs['champs_extras']=champs_extras_objet(table_objet_sql('auteur'));
+
+      $flux['data']['nom_inscription']='';
+       $flux['data']['mail_inscription']='';
+
+    
     $valeurs['_hidden'].='<input type="hidden" name="statut" value="'.$valeurs['statut'].'"/>'; 
    
 

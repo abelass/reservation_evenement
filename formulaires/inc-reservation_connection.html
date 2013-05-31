@@ -9,6 +9,19 @@
 [(#SAISIE{input,nom,label=<:reservation:label_nom:>,obligatoire=#GET{obligatoire}})]
 [(#SAISIE{input,email,label=<:reservation:label_email:>,obligatoire=#GET{obligatoire}})]       
 
+<B_extras>
+
+[   <BOUCLE_extras(DATA){source tableau, #ENV{champs_extras}}>
+[(#VALEUR{options}|serialize)]
+   [(#SAISIES{[(#VALEUR{options})]})]
+
+   </BOUCLE_extras>
+
+</B_extras>
+
+ <//B_extras>                         
+    </ul>
+</li>
 
 [(#SESSION{id_auteur}|non)
 <li>
@@ -16,9 +29,9 @@
     <ul class="block_mp">
         [(#SAISIE{input,new_login,label=<:item_login:>,obligatoire=#GET{obligatoire}})] 
         [(#SAISIE{input,new_pass,type="password",label=<:reservation:label_mot_passe:>,obligatoire=#GET{obligatoire},class=password,explication=<:info_plus_cinq_car:>})] 
-        [(#SAISIE{input,new_pass2,type="password",label=<:reservation:label_mot_passe2:>,obligatoire=#GET{obligatoire},class=password})]                 
-    </ul>
-</li>
+        [(#SAISIE{input,new_pass2,type="password",label=<:reservation:label_mot_passe2:>,obligatoire=#GET{obligatoire},class=password})]
+        
+
 ]
 <script type="text/javascript">
     jQuery(document).ready(function(){
