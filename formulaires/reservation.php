@@ -35,7 +35,6 @@ function formulaires_reservation_charger_dist($id=''){
         
     }
 
-
 	// valeurs d'initialisation
 	$valeurs['id_evenement'] = _request('id_evenement')?_request('id_evenement'):array();
     $valeurs['id_auteur']=$id_auteur; 
@@ -115,6 +114,16 @@ function formulaires_reservation_verifier_dist($id=''){
                 if($email_utilise=sql_getfetsel('email','spip_auteurs','email='.sql_quote($email))) $erreurs['email']=_T('reservation:erreur_email_utilise');
                 }
             }
+         
+    //les champs extras auteur
+    include_spip('cextras_pipelines');
+    
+    if(function_exists('champs_extras_objet')){
+        include_spip('inc/saisies');
+        //Charger les définitions pour la création des formulaires
+        $champs_extras_auteurs=champs_extras_objet(table_objet_sql('auteur'));
+        $erreurs=array_merge($erreurs,saisies_verifier($champs_extras_auteurs));
+        }
 
 	return $erreurs;
 }
@@ -130,7 +139,19 @@ function formulaires_reservation_traiter_dist($id=''){
     // La référence
     $fonction_reference = charger_fonction('reservation_reference', 'inc/');
     if(intval($GLOBALS['visiteur_session']['id_auteur']))$id_auteur=$GLOBALS['visiteur_session']['id_auteur'];  
-     $set=array('statut'=>$statut);
+   $set=array('statut'=>$statut);
+    
+    //les champs extras auteur
+    include_spip('cextras_pipelines');
+    
+    if(function_exists('champs_extras_objet')){
+        $valeurs_extras=array();
+        //Charger les définitions pour la création des formulaires
+        $champs_extras_auteurs=champs_extras_objet(table_objet_sql('auteur'));
+       foreach( $champs_extras_auteurs as $value){
+             $valeurs_extras[$value['options']['nom']]=_request($value['options']['nom']); 
+            }
+        }
 
    if(_request('enregistrer')){
             include_spip('actions/editer_auteur');
@@ -146,6 +167,7 @@ function formulaires_reservation_traiter_dist($id=''){
    elseif(!$id_auteur){
        $set['nom']=_request('nom');
        $set['email']=_request('email'); 
+       $set['donnees_auteur']=serialize( $valeurs_extras);
    }
     $set['reference']=$fonction_reference();      
     $set['id_auteur']=$id_auteur;
