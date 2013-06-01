@@ -6,22 +6,12 @@
 	<strong class="explication"><:reservation:explication_login{url=#GET{url},titre_login=#GET{titre_login}}:></strong>
 </li>]
 
-[(#SAISIE{input,nom,label=<:reservation:label_nom:>,obligatoire=#GET{obligatoire}})]
-[(#SAISIE{input,email,label=<:reservation:label_email:>,obligatoire=#GET{obligatoire}})]       
+[(#SAISIE{input,nom,label=<:reservation:label_nom:>,obligatoire=oui})]
+[(#SAISIE{input,email,label=<:reservation:label_email:>,obligatoire=oui})]       
 
-<B_extras>
+[(#REM)inclusion des champs extras auteurs]
+#GENERER_SAISIES{#ENV{champs_extras_auteurs}}
 
-[   <BOUCLE_extras(DATA){source tableau, #ENV{champs_extras}}>
-[(#VALEUR{options}|serialize)]
-   [(#SAISIES{[(#VALEUR{options})]})]
-
-   </BOUCLE_extras>
-
-</B_extras>
-
- <//B_extras>                         
-    </ul>
-</li>
 
 [(#SESSION{id_auteur}|non)
 <li>
