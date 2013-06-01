@@ -1,4 +1,3 @@
-
 [(#SESSION{id_auteur}|non)
 <li class="login">
 	#SET{url,#URL_PAGE{login}|parametre_url{url,#SELF}}
@@ -9,9 +8,9 @@
 [(#SAISIE{input,nom,label=<:reservation:label_nom:>,obligatoire=oui})]
 [(#SAISIE{input,email,label=<:reservation:label_email:>,obligatoire=oui})]       
 
-[(#REM)inclusion des champs extras auteurs]
-#GENERER_SAISIES{#ENV{champs_extras_auteurs}}
+[(#REM)Géneration des champs extras auteurs]
 
+#GENERER_SAISIES{#ENV{champs_extras_auteurs}}
 
 [(#SESSION{id_auteur}|non)
 <li>
@@ -25,12 +24,10 @@
 ]
 <script type="text/javascript">
     jQuery(document).ready(function(){
-        
         if (!$('input[name="enregistrer[]"]').is(':checked')) {
             $('.block_mp').hide(); 
             } 
         });
-        
     $('input[name="enregistrer[]"]').click(function() {
         $('.block_mp').slideToggle('slow', function() {
         });
