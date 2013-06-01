@@ -43,7 +43,8 @@
 	<necessite nom="agenda" compatibilite="[3.11.8;]" />
 	<necessite nom="nospam" compatibilite="[1.0.9;]" />	
 	<necessite nom="notifavancees" compatibilite="[0.2.1;]" />
-	<necessite nom="prix" compatibilite="[0.1.6;]" />	
+	<necessite nom="prix" compatibilite="[0.1.6;]" />
+	<necessite nom="cextras" compatibilite="[3.4.2;]" />		
 
 	<pipeline nom="autoriser" inclure="reservation_evenement_autorisations.php" /> 
 
