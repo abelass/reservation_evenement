@@ -9,12 +9,11 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// A
 	'ajouter_lien_reservation' => 'Eine Resrvation hinzufügen',
 	
-
     // B
     'bonjour' => 'Hallo',
     
     //D
-    'details_reservation' => 'Details der Reservation :',
+    'details_reservation' => 'Details der Reservation:',
     'designation' => 'Beschreibung',
 	
     //E
@@ -28,7 +27,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// I
 	'icone_creer_reservation' => 'Eine Reservation erstellen',
-	'icone_modifier_reservation' => 'Diese reservation verändern',
+	'icone_modifier_reservation' => 'Diese Reservation verändern',
 	'info_1_reservation' => 'Eine Reservation',
 	'info_aucun_reservation' => 'Keine Reservation',
 	'info_nb_reservations' => '@nb@ Reservationen',
@@ -50,7 +49,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_type_paiement' => 'Bezahlungsart',
 	
     //M
-    'merci_de_votre_reservation' => 'Wir haben Ihre Reservierung erhalten udn bedanken uns für Ihr Vertrauen.',
+    'merci_de_votre_reservation' => 'Wir haben Ihre Reservierung erhalten und bedanken uns für Ihr Vertrauen.',
     'montant' => 'Betrag',
     
     
@@ -92,8 +91,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'reaservation_nouvelle' => 'Neue Reservierung',
     'reservation_numero' => 'Reservierung ',
     'reservation_reference_numero' => 'Referenznummer',
-	
-
 
 	// T
 	'texte_ajouter_reservation' => 'Eine Reservierung hinzufügen',
@@ -102,8 +99,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'texte_voir' => 'einsehen',	
 	'titre_reservation' => 'Reservierung',
 	'titre_reservations' => 'Reservierungen',
-
-	
 
     // U
     
