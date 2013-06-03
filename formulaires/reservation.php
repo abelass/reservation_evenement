@@ -52,8 +52,10 @@ function formulaires_reservation_charger_dist($id=''){
     if(function_exists('champs_extras_objet')){
         //Charger les définitions pour la création des formulaires
         $valeurs['champs_extras_auteurs']=champs_extras_objet(table_objet_sql('auteur'));
-       foreach($valeurs['champs_extras_auteurs'] as $value){
-           $valeurs[$value['options']['nom']]=$session[$value['options']['nom']]; 
+       foreach($valeurs['champs_extras_auteurs'] as $key =>$value){
+           $valeurs[$value['options']['nom']]=$session[$value['options']['nom']];
+           $valeurs['champs_extras_auteurs'][$key]['options']['label']=extraire_multi($value['options']['label']);    
+           
             }
         }
     
