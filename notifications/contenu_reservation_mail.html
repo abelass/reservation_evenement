@@ -21,7 +21,7 @@
 
 <p><:reservation:reservation_numero:>#REFERENCE</p>
 <p><:reservation:reservation_date:> : #DATE</p>
-<p><:reservation:modifier_commande_statut:> [(#STATUT|commandes_lister_statuts)]</p>
+<p><:reservation:label_statut:> [(#STATUT|commandes_lister_statuts)]</p>
 
 <p><:reservation:details_reservation:></p>
 <INCLURE{fond=inclure/reservation,id_reservation,format_envoi=#ENV{format_envoi}}>
