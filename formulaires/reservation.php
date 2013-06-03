@@ -17,7 +17,7 @@ function formulaires_reservation_charger_dist($id=''){
 	
 	// si pas d'evenement ou d'inscription, on echoue silencieusement
 	
-	$where=array('date_fin>NOW()');
+	$where=array('date_fin>NOW() AND inscription=1');
     if(intval($id))$where[]='id_evenement='.intval($id);
 	$sql = sql_select('*','spip_evenements',$where,'','date_debut,date_fin');
 
