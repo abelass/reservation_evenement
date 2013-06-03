@@ -18,7 +18,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'designation' => 'Désignation',
 	
     //E
-    'attente'    => 'en attente',
+    'attente'    => 'liste d\'attente',
     'accepte'     => 'accepté',
     'refuse'   => 'refusé',
     'poubelle' => 'à la poubelle',
