@@ -11,6 +11,8 @@
    [(#SELF|=={./?exec=reservations}|non)<a href="#URL_ECRIRE{reservations}"class="cellule-h">[(#CHEMIN_IMAGE{reservation-16.png}|image_reduire{16})] &nbsp;<:reservation_evenement:reservation_evenement_titre:></a>    ]
    <a href="#URL_ECRIRE{configurer_reservation_evenement}"class="cellule-h">[(#CHEMIN_IMAGE{cfg-16.png}|image_reduire{16})] &nbsp;<:spip:icone_configuration_site:></a>      
        <BOUCLE_evenements(EVENEMENTS){id_rubrique ?}{id_article ?}{id_evenement ?}{inscription=1}{tout}>
+       
+        #SET{id_evenement,#GET{id_evenement}|push{#ID_EVENEMENT}}
        [(#ENV{id_evenement}|oui)#SET{titre,#TITRE}]
            <BOUCLE_article(ARTICLES){id_article}{unique}>
             #SET{titre,#TITRE}
@@ -19,8 +21,6 @@
            <BOUCLE_rubrique(RUBRIQUES){id_rubrique=#ENV{id_rubrique}}{unique}>
            #SET{titre,#TITRE}
           </BOUCLE_rubrique>
-
-        #SET{id_evenement,#GET{id_evenement}|push{#ID_EVENEMENT}}
        </BOUCLE_evenements>
           [<h4>(#GET{titre}|sinon{<:reservation:titre_reservations:>})</h4>]      
 #SET{reservations,#ARRAY}       
