@@ -58,7 +58,6 @@ function formulaires_reservation_charger_dist($id=''){
         }
     
    
-
     $valeurs['_hidden'].='<input type="hidden" name="statut" value="'.$valeurs['statut'].'"/>'; 
    
 
