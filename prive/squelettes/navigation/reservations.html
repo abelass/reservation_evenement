@@ -8,7 +8,6 @@
     <h3><:reservation_evenement:reservation_evenement_titre:></h3> 
     
     ,'simple personnel infos'})]  
-   [(#SELF|=={./?exec=reservations}|non)<a href="#URL_ECRIRE{reservations}"class="cellule-h">[(#CHEMIN_IMAGE{reservation-16.png}|image_reduire{16})] &nbsp;<:reservation_evenement:reservation_evenement_titre:></a>    ]
    <a href="#URL_ECRIRE{configurer_reservation_evenement}"class="cellule-h">[(#CHEMIN_IMAGE{cfg-16.png}|image_reduire{16})] &nbsp;<:spip:icone_configuration_site:></a>      
        <BOUCLE_evenements(EVENEMENTS){id_rubrique ?}{id_article ?}{id_evenement ?}{inscription=1}{tout}>
        
@@ -40,7 +39,7 @@
 <script type="text/javascript">
 function update_agenda(link){
     var date_debut = parametre_url(jQuery(link).attr('href'),'date_debut');
-    $("#liste_des_reservations").ajaxReload({args:{date_debut:date_debut,debut_liste_evt:""},history:true});
+    $("#liste_des_reservations").ajaxReload({args:{date_debut:date_debut,debut_liste_reservations:""},history:true});
     jQuery(link).closest('.box').find('li.on').removeClass('on');
     jQuery(link).closest('li').addClass('on');
     return false;
