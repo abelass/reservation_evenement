@@ -69,11 +69,11 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
 		'rechercher_champs' => array("reference" => 8,"id_reservation"=>8),
 		'tables_jointures'  => array('id_reservation','id_auteur'),
         'statut_textes_instituer' => array(
-            'attente'    => 'evenements_participant:texte_statut_en_attente',
-            'accepte'     => 'evenements_participant:texte_statut_accepte',
-            'encours'     => 'evenements_participant:texte_statut_encours',            
-            'refuse'   => 'evenements_participant:texte_statut_refuse',
-            'poubelle' => 'evenements_participant:texte_statut_poubelle',
+            'attente'    => 'reservation:texte_statut_attente',
+            'accepte'     => 'reservation:texte_statut_accepte',
+            'encours'     => 'reservation:texte_statut_encours',            
+            'refuse'   => 'reservation:texte_statut_refuse',
+            'poubelle' => 'reservation:texte_statut_poubelle',
         ),
         'statut_images' => array(
             'attente'          => 'puce-reservation-attente-16.png',

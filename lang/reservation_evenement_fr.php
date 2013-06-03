@@ -9,8 +9,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'reservation_evenement_titre' => 'Réservations Événements',
 
 	// C
-	'cfg_exemple' => 'Exemple',
-	'cfg_exemple_explication' => 'Explication de cet exemple',
 	'cfg_titre_parametrages' => 'Paramétrages',
 	
     //L

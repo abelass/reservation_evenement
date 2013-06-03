@@ -18,10 +18,11 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'designation' => 'Désignation',
 	
     //E
-    'attente'    => 'liste d\'attente',
-    'accepte'     => 'accepté',
-    'refuse'   => 'refusé',
-    'poubelle' => 'à la poubelle',
+    'texte_statut_attente'    => 'liste d\'attente',
+    'texte_statut_accepte'     => 'accepté',
+    'texte_statut_encours'     => 'En cours',    
+    'texte_statut_refuse'   => 'refusé',
+    'texte_statut_poubelle' => 'à la poubelle',
     'explication_login'=>'<a rel="nofollow" class="login_modal" href="@url@" title="@titre_login@">Connectez-vous</a> si vous êtes déjà enregistré sur ce site',    
     'erreur_email_utilise'=>'Cette adresse email est déjà utilisé, veuillez vous connecter ou utliser une autre adresse',
 
@@ -47,15 +48,15 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_reference' => 'Référence',
 	'label_statut' => 'Statut',
 	'label_statut_defaut' => 'Statut par défaut',	
-	'label_type_paiement' => 'type_paiement',
+	'label_type_paiement' => 'Type paiemement',
 	
     //M
-    'merci_de_votre_reservation' => 'Nous avons bien enregistré votre commande et nous vous remercions de votre confiance.',
+    'merci_de_votre_reservation' => 'Nous avons bien enregistré votre réservation et nous vous remercions de votre confiance.',
     'montant' => 'Montant',
     
     
     //N
-    'notifications_activer_explication' => 'Envoyer par mail des notifications de commande ?',
+    'notifications_activer_explication' => 'Envoyer par mail des notifications de réservation ?',
     'notifications_activer_label' => 'Activer',
     'notifications_cfg_titre' => 'Notifications',
     'notifications_client_explication' => 'Envoyer les notifications au client ?',
@@ -69,7 +70,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'notifications_expediteur_explication' => 'Choisir l’expéditeur des notifications pour le vendeur et l’acheteur',
     'notifications_expediteur_label' => 'Expéditeur',
     'notifications_expediteur_webmaster_label' => 'Choisir un webmestre :',
-    'notifications_explication' => 'Les notifications permettent d’envoyer des emails suite aux changements de statut des réservations : En attente, accepté, refusé, à la poubelle. Cette fonctionnalité nécessite le plugin Notifications Avancées.',
+    'notifications_explication' => 'Les notifications permettent d’envoyer des emails suite aux changements de statut des réservations : Liste d\'attente, accepté, refusé, à la poubelle',
     'notifications_parametres' => 'Paramètres des notifications',
     'notifications_quand_explication' => 'Quel(s) changement(s) de statut déclenche(nt) l’envoi d’une notification ?',
     'notifications_quand_label' => 'Déclenchement',
@@ -87,27 +88,22 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'recapitulatif' => 'Récapitulatif de la réservation :',	
     'reservation_client' => 'Client',
     'reservation_date' => 'Date',
+    'reservation_de' => 'Réservation de',     
     'reaservation_montant' => 'Montant',
     'reaservation_nouvelle' => 'Nouvelle réservation',
     'reservation_numero' => 'Réservation ',
     'reservation_reference_numero' => 'Référence n° ',
-	'retirer_lien_reservation' => 'Retirer cette réservation',
-	'retirer_tous_liens_reservations' => 'Retirer toutes les réservations',
 	
 
 
 	// T
 	'texte_ajouter_reservation' => 'Ajouter une réservation',
 	'texte_changer_statut_reservation' => 'Cette réservation est :',
-	'texte_creer_associer_reservation' => 'Créer et associer une réservation',
 	'texte_exporter' => 'exporter',			
 	'texte_voir' => 'voir',	
-	'titre_langue_reservation' => 'Langue de cette réservation',
-	'titre_logo_reservation' => 'Logo de cette réservation',
 	'titre_reservation' => 'Réservation',
 	'titre_reservations' => 'Réservations',
-	'titre_reservations_rubrique' => 'Réservations de la rubrique',
-	
+
 
     // U
     'une_reservation_de' => 'Une réservation de : ',
