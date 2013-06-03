@@ -1,4 +1,6 @@
 #SET{id_evenement,#ARRAY}
+#SET{id_rubrique,#ARRAY}
+#SET{self,#SELF|parametre_url{id_evenement|date_debut|debut_liste_evt,''}
 <B_evenements>
 [(#BOITE_OUVRIR{
     [(#CHEMIN_IMAGE{reservation_evenement-32.png}|balise_img{'','cadre-icone'})]
@@ -10,8 +12,9 @@
    <a href="#URL_ECRIRE{configurer_reservation_evenement}"class="cellule-h">[(#CHEMIN_IMAGE{cfg-16.png}|image_reduire{16})] &nbsp;<:spip:icone_configuration_site:></a>      
        <BOUCLE_evenements(EVENEMENTS){id_rubrique ?}{id_article ?}{id_evenement ?}{inscription=1}{tout}>
        [(#ENV{id_evenement}|oui)#SET{titre,#TITRE}]
-           <BOUCLE_article(ARTICLES){id_article=#ENV{id_article}}{unique}>
+           <BOUCLE_article(ARTICLES){id_article}{unique}>
             #SET{titre,#TITRE}
+                #SET{id_rubrique,#GET{id_rubrique}|push{#ID_RUBRIQUE}}
            </BOUCLE_article>
            <BOUCLE_rubrique(RUBRIQUES){id_rubrique=#ENV{id_rubrique}}{unique}>
            #SET{titre,#TITRE}
@@ -27,6 +30,19 @@
 #SET{args,#ARRAY{id_evenement,#ENV{id_evenement},id_article,#ENV{id_article},id_rubrique,#ENV{id_rubrique}}}
 [(#ENV*{titre,#GET{reservations}|array_sum|singulier_ou_pluriel{reservation:info_1_reservation,reservation:info_nb_reservations}})]
 <a href="[(#URL_ECRIRE{reservations}|parametre_url{id_rubrique,#ENV{id_rubrique}}|parametre_url{id_article,#ENV{id_article}}|parametre_url{id_evenement,#ENV{id_evenement}})]"><:reservation:texte_voir:></a><span>/</span><a href="[(#URL_PAGE{transmettre,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui})]"><:reservation:texte_exporter:></a>
-     
+<INCLURE{fond=inclure/reservation-navigation_mois,evenements=#GET{id_evenement},self=#GET{self},env}/>
 #BOITE_FERMER     
 </B_evenements>
+
+<INCLURE{fond=inclure/reservation-rubriques,rubriques=#GET{id_rubrique},self=#GET{self},ajax,env}/>
+
+
+<script type="text/javascript">
+function update_agenda(link){
+    var date_debut = parametre_url(jQuery(link).attr('href'),'date_debut');
+    $("#liste_des_evenements").ajaxReload({args:{date_debut:date_debut,debut_liste_evt:""},history:true});
+    jQuery(link).closest('.box').find('li.on').removeClass('on');
+    jQuery(link).closest('li').addClass('on');
+    return false;
+}
+</script>

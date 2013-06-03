@@ -1,47 +1,9 @@
 #SET{id_rubrique,#ARRAY}
 #SET{id_evenement,#ARRAY}
-<BOUCLE_rub_ev(EVENEMENTS articles){id_rubrique ?}{id_article ?}{fusion id_article}{inscription=1}{statut ?}>
-    #SET{id_rubrique,#GET{id_rubrique}|push{#ID_RUBRIQUE}}
+<BOUCLE_rub_ev(EVENEMENTS articles){id_rubrique ?}{id_article ?}{fusion id_article}{inscription=1}{tout}>
     #SET{id_evenement,#GET{id_evenement}|push{#ID_EVENEMENT}}    
 </BOUCLE_rub_ev>
 
-<B_liste_rub>
-#ANCRE_PAGINATION
-<div class="liste-objets rubriques">
-<table class='spip liste'>
-[<caption><strong class="caption">(#GRAND_TOTAL|singulier_ou_pluriel{info_1_rubrique,info_nb_rubriques})</strong></caption>]
-    <thead>
-        <tr class='first_row'>
-            <th class='picto' scope='col'></th>
-            <th class='titre' scope='col'><:info_titre:></th>
-            <th class='langue' scope='col'><:titre_langue_rubrique:></th>
-            <th class='date' scope='col'><:date:></th>
-            <th class='id' scope='col'><:info_numero_abbreviation:></th>
-        </tr>
-    </thead>
-    <tbody>
-    <BOUCLE_liste_rub(RUBRIQUES){id_rubrique?}{id_rubrique IN #GET{id_rubrique}}{id_parent?}{id_mot?}{id_auteur?}{statut?}{par titre}{pagination #ENV{nb,10}}>
-        <tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
-            <td class='picto'>[(#CHEMIN_IMAGE{rubrique-16.png}|balise_img)]</td>
-            <td class='titre principale'>[(#LOGO_RUBRIQUE|image_reduire{20,26})]<a href="[(#URL_ECRIRE{reservations}|parametre_url{id_rubrique,#ID_RUBRIQUE})]"
-                title="<:info_numero_abbreviation|attribut_html:> #ID_RUBRIQUE">[(#RANG). ]#TITRE</a></td>
-            <td class='langue'>[(#LANG|traduire_nom_langue)]</td>
-            <td class='date secondaire'>[(#DATE|affdate_jourcourt)]</td>
-            <td class='id'>[(#AUTORISER{modifier,rubrique,#ID_RUBRIQUE}|?{
-                <a href="[(#URL_ECRIRE{rubriques_edit,id_rubrique=#ID_RUBRIQUE})]">#ID_RUBRIQUE</a>,
-                #ID_RUBRIQUE
-            })]</td>
-        </tr>
-    </BOUCLE_liste_rub>
-    </tbody>
-</table>
-[<p class='pagination'>(#PAGINATION{prive})</p>]
-</div>
-</B_liste_rub>[
-<div class="liste-objets rubriques caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
-]<//B_liste_rub>
-<INCLURE{fond=prive/objets/liste/inc-reservations_articles,id_rubrique=#GET{id_rubrique},par=id_rubrique,env}/>
-
-<INCLURE{fond=prive/objets/liste/inc-reservations_reservations,env}/>
+<INCLURE{fond=prive/objets/liste/inc-reservations_reservations,env,titre=''}/>
 
 <INCLURE{fond=prive/objets/liste/reservations_details,id_evenement=#GET{id_evenement},par=id_evenement,env}/>
