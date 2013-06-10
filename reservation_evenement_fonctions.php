@@ -11,13 +11,17 @@
 
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
+function champs_extras_reservation(){
+    //les champs extras auteur
+    include_spip('cextras_pipelines');
+    
+    if(function_exists('champs_extras_objet')){
+        //Charger les définitions pour la création des formulaires
+        $champs_extras_auteurs=champs_extras_objet(table_objet_sql('auteur'));
 
-/*
- * Un fichier de fonctions permet de définir des éléments
- * systématiquement chargés lors du calcul des squelettes.
- *
- * Il peut par exemple définir des filtres, critères, balises, …
- * 
- */
+    }
+    
+    return $champs_extras_auteurs;
+}
 
 ?>

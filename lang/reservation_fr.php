@@ -18,11 +18,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'designation' => 'Désignation',
 	
     //E
-    'texte_statut_attente'    => 'liste d\'attente',
-    'texte_statut_accepte'     => 'accepté',
-    'texte_statut_encours'     => 'En cours',    
-    'texte_statut_refuse'   => 'refusé',
-    'texte_statut_poubelle' => 'à la poubelle',
     'explication_login'=>'<a rel="nofollow" class="login_modal" href="@url@" title="@titre_login@">Connectez-vous</a> si vous êtes déjà enregistré sur ce site',    
     'erreur_email_utilise'=>'Cette adresse email est déjà utilisé, veuillez vous connecter ou utliser une autre adresse',
 
@@ -35,10 +30,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_reservations_auteur' => 'Les réservations de cet auteur',
 
 	// L
-	'label_date' => 'Date',
-	'label_date_paiement' => 'Date de paiement',
-	'label_donnees_auteur' => 'Données Auteur',
-	'label_email' => 'Email',
+	'label_date' => 'Date :',
+	'label_date_paiement' => 'Date de paiement :',
+	'label_donnees_auteur' => 'Données Auteur :',
+	'label_email' => 'Email :',
 	'label_enregistrer' => 'Je veux m\'enregistrer sur ce site',	
 	'label_id_auteur' => 'Id auteur',
 	'label_maj' => 'maj',
@@ -87,11 +82,11 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// R
     'recapitulatif' => 'Récapitulatif de la réservation :',	
     'reservation_client' => 'Client',
-    'reservation_date' => 'Date',
+    'reservation_date' => 'Date :',
     'reservation_de' => 'Réservation de',     
     'reaservation_montant' => 'Montant',
     'reaservation_nouvelle' => 'Nouvelle réservation',
-    'reservation_numero' => 'Réservation ',
+    'reservation_numero' => 'Réservation :',
     'reservation_reference_numero' => 'Référence n° ',
 	
 
@@ -99,7 +94,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// T
 	'texte_ajouter_reservation' => 'Ajouter une réservation',
 	'texte_changer_statut_reservation' => 'Cette réservation est :',
-	'texte_exporter' => 'exporter',			
+	'texte_exporter' => 'exporter',	
+    'texte_statut_attente'    => 'liste d\'attente',
+    'texte_statut_accepte'     => 'accepté',
+    'texte_statut_encours'     => 'En cours',    
+    'texte_statut_refuse'   => 'refusé',
+    'texte_statut_poubelle' => 'à la poubelle',			
 	'texte_voir' => 'voir',	
 	'titre_reservation' => 'Réservation',
 	'titre_reservations' => 'Réservations',

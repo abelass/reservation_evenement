@@ -17,11 +17,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'designation' => 'Beschreibung',
 	
     //E
-    'texte_statut_attente'    => 'Warteliste',
-    'texte_statut_accepte'     => 'akzeptiert',
-    'texte_statut_encours'     => 'laufend',        
-    'texte_statut_refuse'   => 'abgelehnt',
-    'texte_statut_poubelle' => 'im Abfalleimer',
     'explication_login'=>'<a rel="nofollow" class="login_modal" href="@url@" title="@titre_login@">Melden Sie sich an</a> wenn sie bereits auf dieser Site registriert sind.',    
     'erreur_email_utilise'=>'Diese Email Adresse wird bereits benützt, melden Sie sich an oder benutzen Sie eine andere Adresse',
 
@@ -34,17 +29,17 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_reservations_auteur' => 'Die Anmeldungen dieses Authors',
 
 	// L
-	'label_date' => 'Datum',
-	'label_date_paiement' => 'Bezahlungsdatum',
-	'label_email' => 'Email',
+	'label_date' => 'Datum:',
+	'label_date_paiement' => 'Bezahlungsdatum:',
+	'label_email' => 'Email:',
 	'label_enregistrer' => 'Ich möchte mich auf der Site registrieren',	
 	'label_id_auteur' => 'Id auteur',
 	'label_maj' => 'maj',
 	'label_mot_passe' => 'Passwort',
 	'label_mot_passe2' => 'Wiederholen Sie das Passwort',		
 	'label_nom' => 'Name',
-	'label_reference' => 'Referenz',
-	'label_statut' => 'Status',
+	'label_reference' => 'Referenz:',
+	'label_statut' => 'Status:',
 	'label_statut_defaut' => 'Standartstatus',	
 	'label_type_paiement' => 'Bezahlungsart',
 	
@@ -85,17 +80,22 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// R
     'recapitulatif' => 'Zusammenfassung der Anmeldung:',	
     'reservation_client' => 'Reservant',
-    'reservation_date' => 'Datum',
+    'reservation_date' => 'Datum:',
     'reservation_de' => 'Anmeldung von',    
     'reaservation_montant' => 'Betrag',
     'reaservation_nouvelle' => 'Neue Anmeldung',
-    'reservation_numero' => 'Anmeldung ',
-    'reservation_reference_numero' => 'Referenznummer',
+    'reservation_numero' => 'Anmeldung:',
+    'reservation_reference_numero' => 'Referenznummer:',
 
 	// T
 	'texte_ajouter_reservation' => 'Eine Anmeldung hinzufügen',
 	'texte_changer_statut_reservation' => 'Diese Anmeldung ist:',
-	'texte_exporter' => 'exportieren',			
+	'texte_exporter' => 'exportieren',
+    'texte_statut_attente'    => 'Warteliste',
+    'texte_statut_accepte'     => 'akzeptiert',
+    'texte_statut_encours'     => 'laufend',        
+    'texte_statut_refuse'   => 'abgelehnt',
+    'texte_statut_poubelle' => 'im Abfalleimer',				
 	'texte_voir' => 'einsehen',	
 	'titre_reservation' => 'Anmeldung',
 	'titre_reservations' => 'Anmeldungen',
