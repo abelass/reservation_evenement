@@ -13,7 +13,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'bonjour' => 'Hallo',
     
     //D
-    'details_reservation' => 'Details der Reservation:',
+    'details_reservation' => 'Details der Anmeldung:',
     'designation' => 'Beschreibung',
 	
     //E
@@ -26,12 +26,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'erreur_email_utilise'=>'Diese Email Adresse wird bereits benützt, melden Sie sich an oder benutzen Sie eine andere Adresse',
 
 	// I
-	'icone_creer_reservation' => 'Eine Reservation erstellen',
-	'icone_modifier_reservation' => 'Diese Reservation verändern',
-	'info_1_reservation' => 'Eine Reservation',
-	'info_aucun_reservation' => 'Keine Reservation',
-	'info_nb_reservations' => '@nb@ Reservationen',
-	'info_reservations_auteur' => 'Die Reservationen dieses Authors',
+	'icone_creer_reservation' => 'Eine Anmeldung erstellen',
+	'icone_modifier_reservation' => 'Diese Anmeldung verändern',
+	'info_1_reservation' => 'Eine Anmeldung',
+	'info_aucun_reservation' => 'Keine Anmeldung',
+	'info_nb_reservations' => '@nb@ Anmeldungen',
+	'info_reservations_auteur' => 'Die Anmeldungen dieses Authors',
 
 	// L
 	'label_date' => 'Datum',
@@ -49,12 +49,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_type_paiement' => 'Bezahlungsart',
 	
     //M
-    'merci_de_votre_reservation' => 'Wir haben Ihre Reservierung erhalten und bedanken uns für Ihr Vertrauen.',
+    'merci_de_votre_reservation' => 'Wir haben Ihre Anmeldung erhalten und bedanken uns für Ihr Vertrauen.',
     'montant' => 'Betrag',
     
     
     //N
-    'notifications_activer_explication' => 'Per Mail über Reservierungen benachrichtigen?',
+    'notifications_activer_explication' => 'Per Mail über Anmeldungen benachrichtigen?',
     'notifications_activer_label' => 'Aktivieren',
     'notifications_cfg_titre' => 'Benachrichtigungen',
     'notifications_client_explication' => 'Dem Kunden Benachrichtungen schicken?',
@@ -78,34 +78,34 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'notifications_vendeur_choix_webmaster' => 'Webmaster/s',
     'notifications_vendeur_email_explication' => 'Eine oder mehrere Emails, mit Komma abgetrennt, eingeben:',
     'notifications_vendeur_email_label' => 'Email/s :',
-    'notifications_vendeur_explication' => 'Empfänger für die Benachrichtigungen über Reservation auswählen',
+    'notifications_vendeur_explication' => 'Empfänger für die Benachrichtigungen über Anmeldung auswählen',
     'notifications_vendeur_label' => 'Reservant',
     'notifications_vendeur_webmaster_label' => 'Eienen oder mehere Websmaster auswählen:',
 
 	// R
-    'recapitulatif' => 'Zusammenfassung der Reservation:',	
+    'recapitulatif' => 'Zusammenfassung der Anmeldung:',	
     'reservation_client' => 'Reservant',
     'reservation_date' => 'Datum',
-    'reservation_de' => 'Reservierung von',    
+    'reservation_de' => 'Anmeldung von',    
     'reaservation_montant' => 'Betrag',
-    'reaservation_nouvelle' => 'Neue Reservierung',
-    'reservation_numero' => 'Reservierung ',
+    'reaservation_nouvelle' => 'Neue Anmeldung',
+    'reservation_numero' => 'Anmeldung ',
     'reservation_reference_numero' => 'Referenznummer',
 
 	// T
-	'texte_ajouter_reservation' => 'Eine Reservierung hinzufügen',
-	'texte_changer_statut_reservation' => 'Diese Reservierung ist:',
+	'texte_ajouter_reservation' => 'Eine Anmeldung hinzufügen',
+	'texte_changer_statut_reservation' => 'Diese Anmeldung ist:',
 	'texte_exporter' => 'exportieren',			
 	'texte_voir' => 'einsehen',	
-	'titre_reservation' => 'Reservierung',
-	'titre_reservations' => 'Reservierungen',
+	'titre_reservation' => 'Anmeldung',
+	'titre_reservations' => 'Anmeldungen',
 
     // U
     
-    'une_reservation_de' => 'Eine Reservierung von : ',
-    'une_reservation_sur' => 'Eine Reservierung auf @nom@',
+    'une_reservation_de' => 'Eine Anmeldung von : ',
+    'une_reservation_sur' => 'Eine Anmeldung auf @nom@',
 
     // V
-    'votre_reservation_sur' => '@nom@ : Ihre Reservierung'
+    'votre_reservation_sur' => '@nom@ : Ihre Anmeldung'
     );
 ?>
