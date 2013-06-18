@@ -1,43 +1,21 @@
 <paquet
 	prefix="reservation_evenement"
 	categorie="date"
-	version="1.0.2"
+	version="1.1.0"
 	etat="dev"
 	compatibilite="[3.0.8;3.0.*]"
 	logo="prive/themes/spip/images/reservation_evenement-64.png"
 	documentation=""
 	schema="1.0.0" 
 >
-	<!--
-		Paquet genere le 2013-05-23 14:54:43
-		(Vous pouvez bien entendu supprimer ces commentaires) 
-	-->
 
 	<nom>Réservation Événements</nom>
 
-	<!-- cette balise peut etre presente plusieurs fois s'il y a plusieurs auteurs --> 
+
 	<auteur lien='http://websimple.be'>Rainer Müller</auteur>
 
 	<licence>GNU/GPL</licence>
 
-	<!--
-		Exemple de commandes
-		* dependances
-		<necessite nom="saisies" compatibilite="[1.21.0;]" />
-		<utilise nom="saisies" compatibilite="[1.21.0;]" />
-		<lib nom="simplehtmldom" lien="http://chemin_vers_archive.zip" />
-		* pipelines
-		<pipeline nom="autoriser" inclure="reservation_evenement_autorisations.php" />
-		<pipeline nom="insert_head" inclure="reservation_evenement_pipelines.php" />
-		* declarer un pipeline 
-		<pipeline nom="mon_pipeline" action="" />
-		* parents de menus de SPIP :
-				menu_accueil (A eviter), menu_edition, menu_publication,
-				menu_activite, menu_squelette, menu_administration, menu_configuration 
-		<menu nom="reservation_evenement" titre="reservation_evenement:reservation_evenement_titre" parent="menu_edition"  icone="images/reservation_evenement-16.png" />
-		* parents d'onglets... configuration, plugins, statistiques, ... 
-		<onglet nom="reservation_evenement" titre="reservation_evenement:reservation_evenement_titre" parent="configuration" icone="images/reservation_evenement-24.png" />
-	-->
 
 	<necessite nom="saisies" compatibilite="[1.24.0;]" />
 	<necessite nom="agenda" compatibilite="[3.11.8;]" />
@@ -55,5 +33,5 @@
 	<pipeline nom="affiche_gauche" inclure="reservation_evenement_pipelines.php" /> 		
 
 	<menu nom="reservations" titre="reservation:titre_reservations" parent="menu_edition" icone="images/reservation-16.png" action="reservations" /> 
-	<!--<menu nom="reservation_creer" titre="reservation:icone_creer_reservation" parent="outils_rapides" icone="images/reservation-new-16.png" action="reservation_edit" parametres="new=oui" />--> 
+
 </paquet>
