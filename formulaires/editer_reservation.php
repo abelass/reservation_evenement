@@ -86,7 +86,23 @@ function formulaires_editer_reservation_charger_dist($id_reservation='new', $ret
  *     Tableau des erreurs
  */
 function formulaires_editer_reservation_verifier_dist($id_reservation='new', $retour='', $lier_trad=0, $config_fonc='', $row=array(), $hidden=''){
-	return formulaires_editer_objet_verifier('reservation',$id_reservation, array('id_auteur'));
+    
+    $erreurs=formulaires_editer_objet_verifier('reservation',$id_reservation, array('id_auteur'));
+    
+    
+     // verifier et changer en datetime sql la date envoyee
+     $verifier = charger_fonction('verifier', 'inc');
+     $champ = 'date_paiement';
+     $normaliser = null;
+     if ($erreur = $verifier(_request($champ), 'date', array('normaliser'=>'datetime'), $normaliser)) {
+     $erreurs[$champ] = $erreur;
+     // si une valeur de normalisation a ete transmis, la prendre.
+     } elseif (!is_null($normaliser) and _request($champ)) {
+     set_request($champ, $normaliser);
+     }
+     else set_request($champ,'0000-00-00 00:00:00');
+ return $erreurs;
+
 }
 
 /**
@@ -112,6 +128,7 @@ function formulaires_editer_reservation_verifier_dist($id_reservation='new', $re
  *     Retours des traitements
  */
 function formulaires_editer_reservation_traiter_dist($id_reservation='new', $retour='', $lier_trad=0, $config_fonc='', $row=array(), $hidden=''){
+    
 	return formulaires_editer_objet_traiter('reservation',$id_reservation,'',$lier_trad,$retour,$config_fonc,$row,$hidden);
 }
 

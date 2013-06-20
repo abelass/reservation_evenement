@@ -18,6 +18,7 @@
 
 
 	<necessite nom="saisies" compatibilite="[1.24.0;]" />
+	<necessite nom="verifier" compatibilite="[1.0.3;]" />	
 	<necessite nom="agenda" compatibilite="[3.11.8;]" />
 	<necessite nom="nospam" compatibilite="[1.0.9;]" />	
 	<necessite nom="notifavancees" compatibilite="[0.2.1;]" />
