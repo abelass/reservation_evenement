@@ -8,13 +8,12 @@
     <h3><:reservation_evenement:reservation_evenement_titre:></h3> 
     
     ,'simple personnel infos'})]  
-   <a href="#URL_ECRIRE{configurer_reservation_evenement}"class="cellule-h">[(#CHEMIN_IMAGE{cfg-16.png}|image_reduire{16})] &nbsp;<:spip:icone_configuration_site:></a>      
+   
        <BOUCLE_evenements(EVENEMENTS){id_rubrique ?}{id_article ?}{id_evenement ?}{inscription=1}{tout}>
-       
         #SET{id_evenement,#GET{id_evenement}|push{#ID_EVENEMENT}}
        [(#ENV{id_evenement}|oui)#SET{titre,#TITRE}]
            <BOUCLE_article(ARTICLES){id_article}{unique}>
-            #SET{titre,#TITRE}
+            [(#ENV{id_article}|oui)#SET{titre,#TITRE}]
                 #SET{id_rubrique,#GET{id_rubrique}|push{#ID_RUBRIQUE}}
            </BOUCLE_article>
            <BOUCLE_rubrique(RUBRIQUES){id_rubrique=#ENV{id_rubrique}}{unique}>
@@ -31,6 +30,8 @@
 [(#ENV*{titre,#GET{reservations}|array_sum|singulier_ou_pluriel{reservation:info_1_reservation,reservation:info_nb_reservations}})]
 <a href="[(#URL_PAGE{transmettre,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui})]"><:reservation:texte_exporter:></a>
 <INCLURE{fond=inclure/reservation-navigation_mois,evenements=#GET{id_evenement},self=#GET{self},env}/>
+
+   <a href="#URL_ECRIRE{configurer_reservation_evenement}"class="cellule-h">[(#CHEMIN_IMAGE{cfg-16.png}|image_reduire{16})] &nbsp;<:spip:icone_configuration_site:></a>   
 #BOITE_FERMER     
 </B_evenements>
 
