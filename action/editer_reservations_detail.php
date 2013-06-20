@@ -38,7 +38,6 @@ function reservations_detail_inserer($id_parent=null, $set=null) {
 
 function reservations_detail_instituer($id, $c, $calcul_rub=true) {
 
-
     include_spip('inc/autoriser');
     include_spip('inc/rubriques');
     include_spip('inc/modifier');
@@ -49,11 +48,11 @@ function reservations_detail_instituer($id, $c, $calcul_rub=true) {
     if(!$places=$c[places]){
         $places=sql_getfetsel('places','spip_evenements','id_evenement='.$row['id_evenement']);
         }
+    $statut_ancien = $statut = $row['statut'];
 
     $s = isset($c['statut']) ? $c['statut'] : $statut;
     
-    $statut_ancien = $statut = $row['statut'];
-
+    
     $champs = array();
     $champs['statut']= $s ;
     // compter les réservations
