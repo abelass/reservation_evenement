@@ -78,6 +78,7 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
         'statut_images' => array(
             'attente'          => 'puce-reservation-attente-16.png',
             'accepte'          => 'puce-reservation-accepte-16.png',
+            'encours'             => 'puce-reservation-encours-16.png',            
             'refuse'             => 'puce-reservation-refuse-16.png',
             'poubelle'           => 'puce-reservation-poubelle-16.png',
         ),
@@ -132,6 +133,7 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
         'statut_images' => array(
             'attente'          => 'puce-reservation-attente-16.png',
             'accepte'          => 'puce-reservation-accepte-16.png',
+            'encours'          => 'puce-reservation-encours-16.png',   
             'refuse'             => 'puce-reservation-refuse-16.png',
             'poubelle'           => 'puce-reservation-poubelle-16.png',
         ),
