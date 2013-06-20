@@ -6,7 +6,7 @@
 <div class='infos'>
 [(#SET{texte_objet,<:reservation:titre_reservation:>})]
 <div class='numero'><:titre_cadre_numero_objet{objet=#GET{texte_objet}}:><p>#ID_RESERVATION</p></div>
-[(#FORMULAIRE_INSTITUER_OBJET{reservations,#ID_RESERVATION})]
+[(#FORMULAIRE_INSTITUER_OBJET{reservation,#ID_RESERVATION})]
 </div>
 </BOUCLE_reservation>
 #BOITE_FERMER     
