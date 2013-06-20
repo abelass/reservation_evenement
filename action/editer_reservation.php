@@ -161,6 +161,7 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
         else $set['quantite']=1; 
         if(!$id_reservations_detail=sql_getfetsel('id_reservations_detail','spip_reservations_details','id_reservation='.$id_reservation.' AND id_evenement='.$id_evenement))
         $id_reservations_detail='new';
+        
         /*Existence d'un prix via le plugin Shop Prix https://github.com/abelass/shop_prix_objet */
         if($shop_prix=test_plugin_actif('shop_prix')){
             $fonction_prix = charger_fonction('prix', 'inc/');
@@ -173,7 +174,7 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
             $set['prix_unitaire_ht']=$prix_ht; 
             $set['taxe']=$taxe;                 
             }
-         /*Sino un prix attaché 'a l'évenement*/
+         /*Sinon un prix attaché 'a l'évenement*/
         elseif(intval($evenement['prix'])){
             $fonction_prix = charger_fonction('prix', 'inc/');
             $fonction_prix_ht = charger_fonction('ht', 'inc/prix');  
