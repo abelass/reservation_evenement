@@ -9,17 +9,17 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 
 	// I
-	'info_1_reservations_detail' => '1 reserbvation detail',
-	'info_aucun_reservations_detail' => 'No reservation detail',
-	'info_nb_reservations_details' => '@nb@ reservation details',
+	'info_1_reservations_detail' => '1 booking detail',
+	'info_aucun_reservations_detail' => 'No booking detail',
+	'info_nb_reservations_details' => '@nb@ booking details',
 
     //L
     'label_descriptif'=>'Descriptif',
 
 	// T
 
-	'titre_reservations_detail' => 'Reservation detail',
-	'titre_reservations_details' => 'Reservation detail',
+	'titre_reservations_detail' => 'Booking detail',
+	'titre_reservations_details' => 'Booking detail',
 );
 
 ?>

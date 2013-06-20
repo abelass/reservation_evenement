@@ -6,16 +6,16 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// R
-	'reservation_evenement_titre' => 'Event reservations',
+	'reservation_evenement_titre' => 'Event bookings',
 
 	// C
 	'cfg_titre_parametrages' => 'Settings',
 	
     //L
-    'label_statut_defaut' => 'Default status of a reservation', 
+    'label_statut_defaut' => 'Default status of a booking', 
 
 	// T
-	'titre_page_configurer_reservation_evenement' => 'Settings event reservations',
+	'titre_page_configurer_reservation_evenement' => 'Settings event bookings',
 );
 
 ?>
