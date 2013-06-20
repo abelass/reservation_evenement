@@ -8,7 +8,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
 	'ajouter_lien_reservation' => 'Ajouter cette réservation',
-	
 
     // B
     'bonjour' => 'Bonjour',
