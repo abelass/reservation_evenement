@@ -12,21 +12,31 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
 include_spip('inc/actions');
 include_spip('inc/editer');
 
-function formulaires_reservation_charger_dist($id=''){
+function formulaires_reservation_charger_dist($id='',$id_article=''){
 
 	
 	// si pas d'evenement ou d'inscription, on echoue silencieusement
 	
 	$where=array('date_fin>NOW() AND inscription=1 AND statut="publie"');
-    if(intval($id))$where[]='id_evenement='.intval($id);
+    if($id){
+        if(intval($id))$where[]='id_evenement='.intval($id);
+        elseif(is_array($id))$where[]='id_evenement IN '.implode(',',$id).')';
+        }
+    if($id_article){
+        if(intval($id_article)) $where[]='id_article='.intval($id_article);   
+        elseif(is_array($id_article))$where[]='id_article IN '.implode(',',$id_article).')';
+        }
+    
 	$sql = sql_select('*','spip_evenements',$where,'','date_debut,date_fin');
 
     $evenements=array();
+    $articles=array();
     while ($row=sql_fetch($sql)){
         $evenements[$row['id_evenement']]=$row;
-    };
-    
-    $valeurs = array('evenements'=>$evenements);
+        $articles[]=$row['id_article'];
+    }
+    $valeurs = array('evenements'=>$evenements,'articles'=>$evenements);
+
     
     if(intval($GLOBALS['visiteur_session'])){
         $session=$GLOBALS['visiteur_session'];
@@ -36,7 +46,7 @@ function formulaires_reservation_charger_dist($id=''){
     }
 
 	// valeurs d'initialisation
-	$valeurs['id_evenement'] = _request('id_evenement')?_request('id_evenement'):array();
+	$valeurs['id_evenement'] = _request('id_evenement')?array(_request('id_evenement')):array();
     $valeurs['id_auteur']=$id_auteur; 
     $valeurs['nom']=$nom; 
     $valeurs['email']=$email; 
@@ -67,7 +77,7 @@ function formulaires_reservation_charger_dist($id=''){
 	return $valeurs;
 }
 
-function formulaires_reservation_verifier_dist($id=''){
+function formulaires_reservation_verifier_dist($id='',$id_article=''){
 	$erreurs = array();
     $email=_request('email');
     
@@ -129,7 +139,7 @@ function formulaires_reservation_verifier_dist($id=''){
 	return $erreurs;
 }
 
-function formulaires_reservation_traiter_dist($id=''){
+function formulaires_reservation_traiter_dist($id='',$id_article=''){
     include_spip('inc/session');    
     include_spip('inc/config');
     $config=lire_config('reservation_evenement');
