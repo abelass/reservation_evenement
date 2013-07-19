@@ -119,7 +119,8 @@ function formulaires_reservation_verifier_dist($id='',$id_article=''){
             include_spip('inc/filtres');
             // un redacteur qui modifie son email n'a pas le droit de le vider si il y en avait un
             if (!email_valide($email)){
-                $erreurs['email'] = (($id_auteur==$GLOBALS['visiteur_session']['id_auteur'])?_T('form_email_non_valide'):_T('form_prop_indiquer_email'));
+                $id_auteur_session=isset($GLOBALS['visiteur_session']['id_auteur'])?$GLOBALS['visiteur_session']['id_auteur']:'';
+                $erreurs['email'] = (($id_auteur==$id_auteur_session)?_T('form_email_non_valide'):_T('form_prop_indiquer_email'));
                 }
             elseif(!$id_auteur){
                 if($email_utilise=sql_getfetsel('email','spip_auteurs','email='.sql_quote($email))) $erreurs['email']=_T('reservation:erreur_email_utilise');
