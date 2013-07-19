@@ -155,9 +155,8 @@ function formulaires_reservation_traiter_dist($id='',$id_article=''){
     
     //les champs extras auteur
     include_spip('cextras_pipelines');
-    
+    $valeurs_extras=array();
     if(function_exists('champs_extras_objet')){
-        $valeurs_extras=array();
         //Charger les définitions pour la création des formulaires
         $champs_extras_auteurs=champs_extras_objet(table_objet_sql('auteur'));
        foreach( $champs_extras_auteurs as $value){
@@ -176,10 +175,15 @@ function formulaires_reservation_traiter_dist($id='',$id_article=''){
         
         $set['reference']=$fonction_reference($id_auteur);
         }
-   elseif(!$id_auteur){
+   elseif(!intval($id_auteur)){
        $set['nom']=_request('nom');
        $set['email']=_request('email'); 
        $set['donnees_auteur']=serialize( $valeurs_extras);
+   }
+   else{
+       $valeurs=array_merge(array('nom'=>_request('nom'),'email'=>_request('email')),$valeurs_extras);
+       sql_updateq('spip_auteurs',$valeurs,'id_auteur='.$id_auteur);
+        
    }
     $set['reference']=$fonction_reference();      
     $set['id_auteur']=$id_auteur;
