@@ -19,14 +19,14 @@ function formulaires_reservation_charger_dist($id='',$id_article=''){
 	
 	$where=array('date_fin>NOW() AND inscription=1 AND statut="publie"');
     if($id){
-        if(intval($id))$where[]='id_evenement='.intval($id);
-        elseif(is_array($id))$where[]='id_evenement IN '.implode(',',$id).')';
+        if(!is_array($id))array_push($where,'id_evenement='.intval($id));
+        elseif(is_array($id))array_push($where,'id_evenement IN ('.implode(',',$id).')');
         }
     if($id_article){
-        if(intval($id_article)) $where[]='id_article='.intval($id_article);   
-        elseif(is_array($id_article))$where[]='id_article IN '.implode(',',$id_article).')';
+        if(!is_array($id_article)) array_push($where,'id_article='.intval($id_article));   
+        elseif(is_array($id_article))array_push($where,'id_article IN '.implode(',',$id_article).')');
         }
-    
+
 	$sql = sql_select('*','spip_evenements',$where,'','date_debut,date_fin');
 
     $evenements=array();
@@ -46,7 +46,10 @@ function formulaires_reservation_charger_dist($id='',$id_article=''){
     }
 
 	// valeurs d'initialisation
-	$valeurs['id_evenement'] = _request('id_evenement')?array(_request('id_evenement')):array();
+	$valeurs['id_evenement'] = _request('id_evenement')?(
+	   is_array(_request('id_evenement'))
+	       ?_request('id_evenement'):array(_request('id_evenement')))
+       :array();
     $valeurs['id_auteur']=$id_auteur; 
     $valeurs['nom']=$nom; 
     $valeurs['email']=$email; 
