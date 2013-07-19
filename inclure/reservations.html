@@ -17,12 +17,10 @@
         #SET{id_evenement,#GET{id_evenement}|push{#ID_EVENEMENT}}
        </BOUCLE_evenements>
           [<h4>(#GET{titre})</h4>]      
-#SET{reservations,#ARRAY}       
-<BOUCLE_reservations(RESERVATIONS_DETAILS){id_evenement IN #GET{id_evenement}}{tout}>
-    #SET{reservations,#GET{reservations}|push{#QUANTITE}}   
-</BOUCLE_reservations>
+     
+#SET{reservations,#INCLURE{fond=inclure/compteur_reservations,id_evenement=#GET{id_evenement}}}
 
-[(#ENV*{titre,#GET{reservations}|array_sum|singulier_ou_pluriel{reservation:info_1_reservation,reservation:info_nb_reservations}})]
+[(#ENV*{titre,#GET{reservations}|singulier_ou_pluriel{reservation:info_1_reservation,reservation:info_nb_reservations}})]
 
 #SET{args,#ARRAY{id_evenement,#ENV{id_evenement},id_article,#ENV{id_article},id_rubrique,#ENV{id_rubrique}}}
 <a href="[(#URL_ECRIRE{reservations}|parametre_url{id_rubrique,#ENV{id_rubrique}}|parametre_url{id_article,#ENV{id_article}}|parametre_url{id_evenement,#ENV{id_evenement}})]"><:reservation:texte_voir:></a><span>/</span><a href="[(#URL_PAGE{transmettre,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui})]"><:agenda:telecharger:></a>
