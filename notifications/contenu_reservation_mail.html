@@ -37,8 +37,13 @@
 
 <p><:reservation:details_reservation:></p>
 <INCLURE{fond=inclure/reservation,id_reservation,format_envoi=#ENV{format_envoi}}>
-<hr />
 
+
+<p><:reservation:remerciement:></p>
+
+<p>#NOM_SITE_SPIP</p>
+
+<hr />
 <p><a href="#URL_SITE_SPIP">#URL_SITE_SPIP</a></p>
 </BOUCLE_art>
 [(#ENV{format_envoi}|=={plain}|oui)
