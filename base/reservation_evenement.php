@@ -110,7 +110,8 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
             "id_evenement"       => "bigint(21) NOT NULL DEFAULT '0'",
             "descriptif"         => "text NOT NULL",
             "quantite"           => "int(11) NOT NULL DEFAULT '0'",
-            "prix_unitaire_ht"   => "float NOT NULL DEFAULT '0'",
+            "prix_ht"   => "float NOT NULL DEFAULT '0'",
+            "prix"   => "float NOT NULL DEFAULT '0'",            
             "taxe"               => "decimal(4,3) NOT NULL DEFAULT '0.000'",
             "statut"             => "varchar(20)  DEFAULT '0' NOT NULL", 
             "maj"                => "TIMESTAMP"

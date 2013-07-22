@@ -137,6 +137,16 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
     // Gérer les détails des réservations
     $evenements=_request('id_evenement');
     
+    //Si les déclinaisons sont actives on récupère les évenements via le prix
+     if(test_plugin_actif('shop_declinaisons')){
+         $evenements=array();
+        if($id_prix_objet=_request('id_objet_prix')){
+            foreach(array_keys($id_prix_objet )AS $id_evenement){
+                $evenements[]=$id_evenement;
+            }
+        }
+     }
+    
     // Si on n'est pas dans le cas d'une crátion, on récupère les détails attachées ' la réservation
     if(!is_array($evenements)){ 
         $evenements=array();
@@ -179,20 +189,20 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
             $fonction_prix = charger_fonction('prix', 'inc/');
             $fonction_prix_ht = charger_fonction('ht', 'inc/prix');
              /*si le plugin déclinaison est active il peut y avoir plusieurs prix par évenement*/
-            if(est_plugin_actif('shop_declinaisons')){
-                $id_prix_objet=_request('id_shop_prix');
+            if(test_plugin_actif('shop_declinaisons')){
+                spip_log($id_prix_objet[$id_evenement],'teste');
                 if(is_array($id_prix_objet))$id_prix=isset($id_prix_objet[$id_evenement])?$id_prix_objet[$id_evenement]:'';
                 else $id_prix=$id_prix_objet;
                 
-                $p=sql_getfetsel('prix_ht,id_prix_objet','spip_prix_objets','id_prix_objet='.$id_prix); 
-                
+                $p=sql_fetsel('prix_ht,id_prix_objet,id_declinaison','spip_prix_objets','id_prix_objet='.$id_prix); 
+                if($p['id_declinaison']>0)$set['descriptif'].='-'.sql_getfetsel('titre','spip_declinaisons','id_declinaison='.$p['id_declinaison']);
                 }                
-            else $p=sql_getfetsel('prix_ht,id_prix_objet','spip_prix_objets','objet='.sql_quote('evenement') AND 'id_objet='.$id_evenement); 
+            else $p=sql_fetsel('prix_ht,id_prix_objet','spip_prix_objets','objet='.sql_quote('evenement') AND 'id_objet='.$id_evenement); 
             
             $prix_ht = $fonction_prix_ht('prix_objet', $p['id_prix_objet']);
             $prix = $fonction_prix('prix_objet',$p['id_prix_objet']);
             $taxe = round(($prix - $prix_ht) / $prix_ht, 3);
-            $set['prix_unitaire_ht']=$prix_ht; 
+            $set['prix_ht']=$prix_ht; 
             $set['taxe']=$taxe;                 
             }
          /*Sinon un prix attaché 'a l'évenement*/
@@ -202,7 +212,7 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
             $prix_ht = $fonction_prix_ht('evenement', $id_evenement); 
             $prix = $fonction_prix('evenement',$id_evenement);
             $taxe = round(($prix - $prix_ht) / $prix_ht, 3);
-            $set['prix_unitaire_ht']=$prix_ht; 
+            $set['prix_ht']=$prix_ht; 
             $set['taxe']=$taxe;                         
         }        
         $detail=$action($id_reservations_detail,'reservations_detail',$set);
