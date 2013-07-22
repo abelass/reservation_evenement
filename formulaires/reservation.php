@@ -50,6 +50,13 @@ function formulaires_reservation_charger_dist($id='',$id_article=''){
 	   is_array(_request('id_evenement'))
 	       ?_request('id_evenement'):array(_request('id_evenement')))
        :array();
+       
+    $valeurs['id_objet_prix'] = _request('id_objet_prix')?(
+       is_array(_request('id_objet_prix'))
+           ?_request('id_objet_prix'):array(_request('id_objet_prix')))
+       :array();
+          
+       
     $valeurs['id_auteur']=$id_auteur; 
     $valeurs['nom']=$nom; 
     $valeurs['email']=$email; 
@@ -90,7 +97,7 @@ function formulaires_reservation_verifier_dist($id='',$id_article=''){
         
          if(_request('enregistrer'))  {
             include_spip('inc/auth');
-             $obligatoires=array('nom','email','new_pass','new_login','id_evenement');
+             $obligatoires=array('nom','email','new_pass','new_login');
              foreach($obligatoires AS $champ){
                    if(!_request($champ))$erreurs[$champ]=_T("info_obligatoire");
                   }
@@ -112,7 +119,11 @@ function formulaires_reservation_verifier_dist($id='',$id_article=''){
                 }
              }
         else{
-            $obligatoires=array('nom','email','id_evenement');  
+            $obligatoires=array('nom','email');
+            
+        if(_request('id_objet_prix'))array_push($obligatoires,'id_objet_prix');
+        else  array_push($obligatoires,'id_evenement');
+       
             foreach($obligatoires AS $champ){
                 if(!_request($champ))$erreurs[$champ]=_T("info_obligatoire");
             }
