@@ -79,10 +79,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'notifications_vendeur_webmaster_label' => 'Choisir un ou plusieurs webmestres :',
 
 	// R
+    'remerciement'=>'Nous vous remercions pour votre inscription<br/>Cordialement',    
     'recapitulatif' => 'Récapitulatif de la réservation :',	
     'reservation_client' => 'Client',
     'reservation_date' => 'Date :',
     'reservation_de' => 'Réservation de',     
+    'reservation_enregistre'=>'Votre Inscription a bien été enregistré.',    
     'reaservation_montant' => 'Montant',
     'reaservation_nouvelle' => 'Nouvelle réservation',
     'reservation_numero' => 'Réservation :',

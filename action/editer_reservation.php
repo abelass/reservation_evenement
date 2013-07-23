@@ -48,7 +48,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub=true) {
     include_spip('inc/rubriques');
     include_spip('inc/modifier');
 
-    $row = sql_fetsel('statut,date,id_auteur','spip_reservations','id_reservation='.intval($id_reservation));
+    $row = sql_fetsel('statut,date,id_auteur,email','spip_reservations','id_reservation='.intval($id_reservation));
 
     $d = isset($c['date']) ? $c['date'] : null;
     $s = isset($c['statut']) ? $c['statut'] : $statut;
@@ -227,7 +227,6 @@ function reservation_instituer($id_reservation, $c, $calcul_rub=true) {
          (in_array($statut,$config['quand'])) &&
          ($notifications = charger_fonction('notifications', 'inc', true))
         ) {
-
         // Determiner l'expediteur
         $options = array();
         if( $config['expediteur'] != "facteur" )
@@ -235,8 +234,16 @@ function reservation_instituer($id_reservation, $c, $calcul_rub=true) {
 
         // Envoyer au vendeur et au client
         $notifications('reservation_vendeur', $id_reservation, $options);
-        if($config['client'])
+        if($config['client']){
+            //$row['email']=trim($row['email']);
+                if(intval($row['id_auteur']) AND $row['id_auteur']>0)$options['email']=sql_getfetsel('email','spip_auteurs','id_auteur='.$row['id_auteur']);
+                else $options['email']=$row['email'];
+
+            spip_log($row['email'],'teste');
+            $options['statut']=$statut;
             $notifications('reservation_client', $id_reservation, $options);
+            }
+            
     }
 
     return ''; // pas d'erreur
