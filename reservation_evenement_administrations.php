@@ -54,7 +54,7 @@ function reservation_evenement_upgrade($nom_meta_base_version, $version_cible) {
 	   array('sql_alter','TABLE spip_reservations_details CHANGE prix_unitaire_ht prix_ht float NOT NULL DEFAULT 0'),
        array('maj_tables', array('spip_reservations_details'))
        );    
-
+	$maj['1.2.0'] = array( array('maj_tables', array('spip_reservations_details'))); 
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }

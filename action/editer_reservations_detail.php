@@ -69,7 +69,8 @@ function reservations_detail_instituer($id, $c, $calcul_rub=true) {
         }
 
     }
-
+    spip_log($champs['statut']. 'detail','teste');
+    
     // Envoyer aux plugins
     $champs = pipeline('pre_edition',
         array(

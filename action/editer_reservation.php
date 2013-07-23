@@ -36,7 +36,7 @@ function reservation_inserer($id_parent=null, $set=null) {
     return $id;
 }
 
-function reservation_instituer($id, $c, $calcul_rub=true) {
+function reservation_instituer($id_reservation, $c, $calcul_rub=true) {
     
 
 
@@ -48,23 +48,20 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
     include_spip('inc/rubriques');
     include_spip('inc/modifier');
 
-    $row = sql_fetsel('statut,date,id_auteur','spip_reservations','id_reservation='.intval($id));
+    $row = sql_fetsel('statut,date,id_auteur','spip_reservations','id_reservation='.intval($id_reservation));
 
     $d = isset($c['date']) ? $c['date'] : null;
     $s = isset($c['statut']) ? $c['statut'] : $statut;
     
-    
-    
-
     $statut_ancien = $statut = $row['statut'];
     $date_ancienne = $date = $row['date'];
     $champs = array();
     // cf autorisations dans inc/instituer_objet
     if ($s != $statut OR ($d AND $d != $date)) {
-        if (autoriser('modifier','reservation', $id))
+        if (autoriser('modifier','reservation', $id_reservation))
             $statut = $champs['statut'] = $s;
         else
-            spip_log("editer_reservation $id refus " . join(' ', $c));
+            spip_log("editer_reservation $id_reservation refus " . join(' ', $c));
 
         // En cas de publication, fixer la date a "maintenant"
         // sauf si $c commande autre chose
@@ -89,7 +86,7 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
         array(
             'args' => array(
                 'table' => 'spip_reservations',
-                'id_reservation' => $id,
+                'id_reservation' => $id_reservation,
                 'action'=>'instituer',
                 'statut_ancien' => $statut_ancien,
                 'date_ancienne' => $date_ancienne,
@@ -101,11 +98,11 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
     if (!count($champs)) return '';
     
         // Envoyer les modifs.
-    objet_editer_heritage('reservation', $id,'', $statut_ancien, $champs);
+    objet_editer_heritage('reservation', $id_reservation,'', $statut_ancien, $champs);
 
     // Invalider les caches
     include_spip('inc/invalideur');
-    suivre_invalideur("id='reservation/$id'");
+    suivre_invalideur("id='reservation/$id_reservation'");
 
 
     // Pipeline
@@ -113,7 +110,7 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
         array(
             'args' => array(
                 'table' => 'spip_reservations',
-                'id_reservation' => $id,
+                'id_reservation' => $id_reservation,
                 'action'=>'instituer',
                 'statut_ancien' => $statut_ancien,
                 'date_ancienne' => $date_ancienne,
@@ -125,7 +122,7 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
     
     
     // Les traitements spécifiques
-    $id_reservation=$id;
+
 
     $action=charger_fonction('editer_objet','action');
     $quantite=_request('quantite');
@@ -136,7 +133,7 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
     
     // Gérer les détails des réservations
     $evenements=_request('id_evenement');
-    
+
     //Si les déclinaisons sont actives on récupère les évenements via le prix
      if(test_plugin_actif('shop_declinaisons')){
          $evenements=array();
@@ -148,9 +145,9 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
      }
     
     // Si on n'est pas dans le cas d'une crátion, on récupère les détails attachées ' la réservation
-    if(!is_array($evenements)){ 
+    if(!is_array($evenements) OR (is_array($evenements) AND count($evenements)==0)){ 
         $evenements=array();
-        $sql=sql_select('id_evenement','spip_reservations_details','id_reservation');
+        $sql=sql_select('id_evenement','spip_reservations_details','id_reservation='. $id_reservation);
         while($data=sql_fetch($sql)){
             $evenements[]=$data['id_evenement'];
         }
@@ -158,6 +155,7 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
     
 
     foreach($evenements AS  $id_evenement){
+        spip_log($champs['statut']. 'res','teste');
         // Ñes données de l'évènenement
         $set['id_evenement']=$id_evenement;
         $evenement=sql_fetsel('*','spip_evenements','id_evenement='.$id_evenement);
@@ -181,8 +179,11 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
         else $set['quantite']=1; 
         
         // Si aucun détail n'est attaché à l'evénement, on le crée
-        if(!$id_reservations_detail=sql_getfetsel('id_reservations_detail','spip_reservations_details','id_reservation='.$id_reservation.' AND id_evenement='.$id_evenement))
-        $id_reservations_detail='new';
+        if(!$reservations_detail=sql_fetsel('*','spip_reservations_details','id_reservation='.$id_reservation.' AND id_evenement='.$id_evenement)) $id_reservations_detail='new';
+        else{
+            $id_reservations_detail=$reservations_detail['id_reservations_detail'];
+            $id_prix_objet=$reservations_detail['id_prix_objet'];
+            }
         
         /*Existence d'un prix via le plugin Shop Prix https://github.com/abelass/shop_prix_objet */
         if($shop_prix=test_plugin_actif('shop_prix')){
@@ -190,7 +191,6 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
             $fonction_prix_ht = charger_fonction('ht', 'inc/prix');
              /*si le plugin déclinaison est active il peut y avoir plusieurs prix par évenement*/
             if(test_plugin_actif('shop_declinaisons')){
-                spip_log($id_prix_objet[$id_evenement],'teste');
                 if(is_array($id_prix_objet))$id_prix=isset($id_prix_objet[$id_evenement])?$id_prix_objet[$id_evenement]:'';
                 else $id_prix=$id_prix_objet;
                 
@@ -203,7 +203,8 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
             $prix = $fonction_prix('prix_objet',$p['id_prix_objet']);
             $taxe = round(($prix - $prix_ht) / $prix_ht, 3);
             $set['prix_ht']=$prix_ht; 
-            $set['taxe']=$taxe;                 
+            $set['taxe']=$taxe;  
+            $set['id_prix_objet']=$id_prix;                 
             }
          /*Sinon un prix attaché 'a l'évenement*/
         elseif(intval($evenement['prix'])){
@@ -233,9 +234,9 @@ function reservation_instituer($id, $c, $calcul_rub=true) {
             $options['expediteur'] = $config['expediteur_'.$config['expediteur']];
 
         // Envoyer au vendeur et au client
-        $notifications('reservation_vendeur', $id, $options);
+        $notifications('reservation_vendeur', $id_reservation, $options);
         if($config['client'])
-            $notifications('reservation_client', $id, $options);
+            $notifications('reservation_client', $id_reservation, $options);
     }
 
     return ''; // pas d'erreur

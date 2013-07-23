@@ -155,7 +155,7 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
         
 
     );
-
+   if(test_plugin_actif('shop_prix')) $tables['spip_reservations_details']['field']['id_prix_objet']="bigint(21) NOT NULL DEFAULT '0'";
 	return $tables;
 }
 ?>
