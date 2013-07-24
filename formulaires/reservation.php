@@ -202,7 +202,7 @@ function formulaires_reservation_traiter_dist($id='',$id_article=''){
     $set['reference']=$fonction_reference();      
     $set['id_auteur']=$id_auteur;
     $id_reservation=$action('new','reservation',$set);
-    $message='<h3>'._T('larut:reservation_enregistre').'</h3>';
+    $message='<h3>'._T('reservation:reservation_enregistre').'</h3>';
     $message.='<b>'._T('reservation:details_reservation').'</b>';
     $message.=recuperer_fond('inclure/reservation',array('id_reservation'=>$id_reservation[0]));
     
