@@ -64,7 +64,7 @@ function reservations_detail_instituer($id, $c, $calcul_rub=true) {
             while($data=sql_fetch($sql)){
                 $reservations[]=$data['quantite'];
             }
-            if(array_sum($reservations)>=$places)$champs['statut']=$statut_ancien;
+            if(array_sum($reservations)>=$places)$champs['statut']='attente';
             
         }
 
