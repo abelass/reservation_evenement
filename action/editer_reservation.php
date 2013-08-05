@@ -195,7 +195,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub=true) {
                 else $id_prix=$id_prix_objet;
                 
                 $p=sql_fetsel('prix_ht,id_prix_objet,id_declinaison','spip_prix_objets','id_prix_objet='.$id_prix); 
-                if($p['id_declinaison']>0)$set['descriptif'].='-'.sql_getfetsel('titre','spip_declinaisons','id_declinaison='.$p['id_declinaison']);
+                if($p['id_declinaison']>0)$set['descriptif'].=' - '.supprimer_numero(sql_getfetsel('titre','spip_declinaisons','id_declinaison='.$p['id_declinaison']));
                 }                
             else $p=sql_fetsel('prix_ht,id_prix_objet','spip_prix_objets','objet='.sql_quote('evenement') AND 'id_objet='.$id_evenement); 
             
