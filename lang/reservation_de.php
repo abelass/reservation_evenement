@@ -7,7 +7,7 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
-	'ajouter_lien_reservation' => 'Eine Resrvation hinzufügen',
+	'ajouter_lien_reservation' => 'Eine Reservation hinzufügen',
 	
     // B
     'bonjour' => 'Hallo',
@@ -78,10 +78,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'notifications_vendeur_webmaster_label' => 'Eienen oder mehere Websmaster auswählen:',
 
 	// R
+	'remerciement'=>'Wir bedanken uns für Ihre Anmeldung<br/>Mit freundlichen Grüssen',    
     'recapitulatif' => 'Zusammenfassung der Anmeldung:',	
     'reservation_client' => 'Reservant',
     'reservation_date' => 'Datum:',
-    'reservation_de' => 'Anmeldung von',    
+    'reservation_de' => 'Anmeldung von', 
+     'reservation_enregistre'=>'Ihre Anmeldung wurde registriert. Sie werden per Mail eine Bestätigung kriegen. Falls Sie keine erhalten, schauen Sie bitten in Ihrem SPAM Folder.',      
     'reaservation_montant' => 'Betrag',
     'reaservation_nouvelle' => 'Neue Anmeldung',
     'reservation_numero' => 'Anmeldung:',
