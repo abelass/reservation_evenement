@@ -125,7 +125,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub=true) {
     // Les traitements spécifiques
 
 
-    $action=charger_fonction('editer_reservations_detail','action');
+    $action=charger_fonction('editer_objet','action');
     $quantite=_request('quantite');
     $set=array(
         'id_reservation'=>$id_reservation,
@@ -138,24 +138,25 @@ function reservation_instituer($id_reservation, $c, $calcul_rub=true) {
     //Si les déclinaisons sont actives on récupère les évenements via le prix
      if(test_plugin_actif('shop_declinaisons')){
          $evenements=array();
-        if($id_prix_objet=_request('id_objet_prix')){
+        if($id_prix_objet=$set['id_objet_prix']=_request('id_objet_prix')){
             foreach(array_keys($id_prix_objet )AS $id_evenement){
                 $evenements[]=$id_evenement;
             }
         }
      }
-    
+
     // Si on n'est pas dans le cas d'une création, on récupère les détails attachées ' la réservation
-    if(!is_array($evenements) OR (is_array($evenements) AND count($evenements)==0)){ 
+    if(!is_array($evenements) OR (is_array($evenements) AND count($evenements)==0)){
+            
         $evenements=array();
         $sql=sql_select('id_evenement','spip_reservations_details','id_reservation='. $id_reservation);
         while($data=sql_fetch($sql)){
             $evenements[]=$data['id_evenement'];
         }
     }
-    
+
     //Pour chaque évenement on crée un détail de la réservation
-    foreach($evenements AS  $id_evenement){
+    foreach($evenements AS  $id_evenement){ 
         // Si aucun détail n'est attaché à l'evénement, on le crée
         if(!$reservations_detail=sql_fetsel('*','spip_reservations_details','id_reservation='.$id_reservation.' AND id_evenement='.$id_evenement)) $id_reservations_detail='new';
         else{
@@ -163,7 +164,9 @@ function reservation_instituer($id_reservation, $c, $calcul_rub=true) {
             $id_prix_objet=$reservations_detail['id_prix_objet'];
             }
         $set['id_evenement']=$id_evenement;
-        $detail=$action($id_reservations_detail,$set);
+
+
+        $detail=$action($id_reservations_detail,'reservations_detail',$set);
     }
 
     // Notifications

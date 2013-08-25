@@ -1,79 +1,85 @@
 <?php
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
-function action_editer_reservations_detail_dist($reservations_detail=null,$set=null) {
-    $objet='reservations_detail';
-    // appel direct depuis une url interdit
-    if (is_null($reservations_detail) OR is_null($objet)){
-        include_spip('inc/minipres');
-        echo minipres(_T('info_acces_interdit'));
-        die();
+
+function reservations_detail_modifier($id_reservations_detail, $set=null) {
+spip_log('instituer1','teste');
+
+    $table_sql = table_objet_sql('reservations_detail');
+    $trouver_table = charger_fonction('trouver_table','base');
+    $desc = $trouver_table($table_sql);
+    if (!$desc OR !isset($desc['field'])) {
+        spip_log("Objet $objet inconnu dans objet_modifier",_LOG_ERREUR);
+        return _L("Erreur objet $objet inconnu");
     }
+    include_spip('inc/modifier');
 
-    // si id n'est pas un nombre, c'est une creation
-    // mais on verifie qu'on a toutes les donnees qu'il faut.
-    if (!$id_reservations_detail = intval($id_reservations_detail)) {
-        // on ne sait pas si un parent existe mais on essaye
+    $champ_date = '';
+    if (isset($desc['date']) AND $desc['date'])
+        $champ_date = $desc['date'];
+    elseif (isset($desc['field']['date']))
+        $champ_date = 'date';
 
-        $id_reservations_detail = reservations_detail_inserer($set);
+    $white = array_keys($desc['field']);
+    // on ne traite pas la cle primaire par defaut, notamment car
+    // sur une creation, id_x vaut 'oui', et serait enregistre en id_x=0 dans la base
+    $white = array_diff($white, array($desc['key']['PRIMARY KEY']));
+
+    if (isset($desc['champs_editables']) AND is_array($desc['champs_editables'])) {
+        $white = $desc['champs_editables'];
     }
-
-    if (!($id_reservations_detail = intval($id_reservations_detail))>0)
-        return array($id,_L('echec enregistrement en base'));
-
-    // Enregistre l'envoi dans la BD
-    $err = objet_modifier($objet,$id_reservations_detail, $set);
-
-    return array($id,$err);
-}
-
-
-function reservations_detail_inserer($set=null) {
-    $table_sql = 'reservations_details';
-    
-    $donnees_reservations_details=charger_fonction('donnees_reservations_details','inc');
-    spip_log($set,'teste').
-    $champs = $donnees_reservations_details($set);
-    $champs['statut'] = 'attente';
-
-    if ($set) $champs = array_merge($champs, $set);
-
-    // Envoyer aux plugins
-    $champs = pipeline('pre_insertion',
-        array(
-            'args' => array(
-                'table' => $table_sql,
-            ),
-            'data' => $champs
-        )
+    $c = collecter_requests(
+        // white list
+        $white,
+        // black list
+        array($champ_date,'statut','id_parent','id_secteur'),
+        // donnees eventuellement fournies
+        $set
     );
 
-    $id_reservations_detail = sql_insertq($table_sql, $champs);
-    
- 
+    $donnees_reservations_details=charger_fonction('donnees_reservations_details','inc');
+    spip_log('instituer','teste');
+    spip_log($set,'teste');
+    $c = array_merge($c,$donnees_reservations_details($set));
 
-    if ($id_reservations_detail){
-        pipeline('post_insertion',
-            array(
-                'args' => array(
-                    'table' => $table_sql,
-                    'id_objet' => $$id_reservations_detail,
-                ),
-                'data' => $champs
-            )
-        );
+    // Si l'objet est publie, invalider les caches et demander sa reindexation
+    if (objet_test_si_publie($objet,$id)){
+        $invalideur = "id='reservations_detail/$id_reservations_detail'";
+        $indexation = true;
     }
-    return $id;
+    else {
+        $invalideur = "";
+        $indexation = false;
+    }
+
+    if ($err = objet_modifier_champs('reservations_detail',$id_reservations_detail,
+        array(
+            'nonvide' => '',
+            'invalideur' => $invalideur,
+            'indexation' => $indexation,
+             // champ a mettre a date('Y-m-d H:i:s') s'il y a modif
+            'date_modif' => (isset($desc['field']['date_modif'])?'date_modif':'')
+        ),
+        $c))
+        return $err;
+
+    // Modification de statut, changement de rubrique ?
+    // FIXME: Ici lorsqu'un $set est passé, la fonction collecter_requests() retourne tout
+    //         le tableau $set hors black liste, mais du coup on a possiblement des champs en trop. 
+    $c = collecter_requests(array($champ_date, 'statut', 'id_parent'),array(),$set);
+    $err = reservations_detail_instituer($id_reservations_detail, $c);
+
+    return $err;
 }
 
 
-function reservations_detail_instituer($id, $c, $calcul_rub=true) {
+function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub=true) {
 
     include_spip('inc/autoriser');
     include_spip('inc/rubriques');
     include_spip('inc/modifier');
     
-    $row = sql_fetsel('statut,id_evenement','spip_reservations_details','id_reservations_detail='.intval($id));
+    $row = sql_fetsel('*','spip_reservations_details','id_reservations_detail='.intval($id_reservations_detail));
     
     
     if(!$places=$c[places]){
@@ -84,8 +90,12 @@ function reservations_detail_instituer($id, $c, $calcul_rub=true) {
     $s = isset($c['statut']) ? $c['statut'] : $statut;
     
     
-    $champs = array();
+
+    
     $champs['statut']= $s ;
+    
+
+     
     // compter les réservations
     if ($s != $statut and $s=='accepte') {
         if(intval($places) AND $places>0){
@@ -100,7 +110,7 @@ function reservations_detail_instituer($id, $c, $calcul_rub=true) {
         }
 
     }
-    spip_log($champs['statut']. 'detail','teste');
+
     
     // Envoyer aux plugins
     $champs = pipeline('pre_edition',
@@ -118,11 +128,11 @@ function reservations_detail_instituer($id, $c, $calcul_rub=true) {
 
     if (!count($champs)) return '';
     // Envoyer les modifs.
-    objet_editer_heritage('reservations_detail', $id,'', $statut_ancien, $champs);
+    objet_editer_heritage('reservations_detail', $id_reservations_detail,'', $statut_ancien, $champs);
 
     // Invalider les caches
     include_spip('inc/invalideur');
-    suivre_invalideur("id='reservations_detail/$id'");
+    suivre_invalideur("id='reservations_detail/$id_reservations_detail'");
 
 
     // Pipeline
@@ -130,7 +140,7 @@ function reservations_detail_instituer($id, $c, $calcul_rub=true) {
         array(
             'args' => array(
                 'table' => 'spip_reservations_details',
-                'id_reservation' => $id,
+                'id_reservation' => $id_reservations_detail,
                 'action'=>'instituer',
                 'statut_ancien' => $statut_ancien,
                 'date_ancienne' => $date_ancienne,
