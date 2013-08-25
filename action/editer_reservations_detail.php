@@ -3,7 +3,7 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 
 
 function reservations_detail_modifier($id_reservations_detail, $set=null) {
-spip_log('instituer1','teste');
+
 
     $table_sql = table_objet_sql('reservations_detail');
     $trouver_table = charger_fonction('trouver_table','base');
