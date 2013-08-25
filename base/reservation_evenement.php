@@ -123,7 +123,7 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
         ),
         'titre' => "descriptif AS titre, '' AS lang",
          #'date' => "",
-        'champs_editables'  => array(),
+        'champs_editables'  => array('id_evenement','descriptif','quantite','prix_ht','prix','taxe'),
         'champs_versionnes' => array(),
         'rechercher_champs' => array(),
         'tables_jointures'  => array('id_evenement','id_reservation'),
@@ -155,7 +155,7 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
         
 
     );
-   if(test_plugin_actif('shop_prix')) $tables['spip_reservations_details']['field']['id_prix_objet']="bigint(21) NOT NULL DEFAULT '0'";
+   if(test_plugin_actif('shop_prix')) $tables['spip_reservations_details']=array()'field'=>['id_prix_objet']=>"bigint(21) NOT NULL DEFAULT '0'";
 	return $tables;
 }
 ?>
