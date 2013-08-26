@@ -189,7 +189,6 @@ function reservation_instituer($id_reservation, $c, $calcul_rub=true) {
                 if(intval($row['id_auteur']) AND $row['id_auteur']>0)$options['email']=sql_getfetsel('email','spip_auteurs','id_auteur='.$row['id_auteur']);
                 else $options['email']=$row['email'];
 
-            spip_log($row['email'],'teste');
             $options['statut']=$statut;
             $notifications('reservation_client', $id_reservation, $options);
             }
