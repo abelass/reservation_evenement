@@ -155,7 +155,10 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
         
 
     );
-   if(test_plugin_actif('shop_prix')) $tables['spip_reservations_details']=array()'field'=>['id_prix_objet']=>"bigint(21) NOT NULL DEFAULT '0'";
+   if(test_plugin_actif('shop_prix')) $tables['spip_reservations_details']=array(
+        'field'=>array('id_prix_objet'=>"bigint(21) NOT NULL DEFAULT '0'"),
+        'champs_editables'  => array('id_evenement','descriptif','quantite','prix_ht','prix','taxe','id_prix_objet'),
+        );
 	return $tables;
 }
 ?>

@@ -7,18 +7,21 @@
 		#ACTION_FORMULAIRE{#ENV{action}}
 		<input type='hidden' name='id_evenements_participant' value='#ENV{id_evenements_participant}' />
 		<ul>
+		    
+		    [(#SAISIE{articles_evenements,id_evenement,obligatoire=oui,
+		        label=<:agenda:info_evenement:>})]
 
-			[(#SAISIE{auteurs, id_auteur, obligatoire=oui,
-				label=<:evenements_participant:label_id_auteur:>})]
+			[(#SAISIE{input, descriptif, obligatoire=oui,
+				label=<:reservations_detail:label_descriptif:>})]
 
-			[(#SAISIE{date, date_paiement,
-				label=<:evenements_participant:label_date_paiement:>})]
+			[(#SAISIE{input, prix_ht,
+				label=<:reservations_detail:label_prix_ht:>})]
 
-			[(#SAISIE{input, quantite,
-				label=<:evenements_participant:label_quantite:>})]
+			[(#SAISIE{input, prix,
+				label=<:reservations_detail:label_prix:>})]
 
-			[(#SAISIE{input, prix_unitaire_ht,
-				label=<:evenements_participant:label_prix_unitaire_ht:>})]
+			[(#SAISIE{input, id_prix_objet,
+				label=<:reservations_detail:label_id_prix_objet:>})]
 
 		</ul>
 		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
