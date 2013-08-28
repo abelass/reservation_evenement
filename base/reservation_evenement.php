@@ -123,7 +123,7 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
         ),
         'titre' => "descriptif AS titre, '' AS lang",
          #'date' => "",
-        'champs_editables'  => array('id_evenement','descriptif','quantite','prix_ht','prix','taxe'),
+        'champs_editables'  => array('id_reservation','id_evenement','descriptif','quantite','prix_ht','prix','taxe'),
         'champs_versionnes' => array(),
         'rechercher_champs' => array(),
         'tables_jointures'  => array('id_evenement','id_reservation'),

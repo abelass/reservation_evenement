@@ -1,4 +1,4 @@
-<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_reservations_detail,nouveau}'>
+<div class='ajax formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_evenements_participant,nouveau}'>
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
 	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
 
@@ -6,11 +6,9 @@
 	<form method='post' action='#ENV{action}'><div>
 		#ACTION_FORMULAIRE{#ENV{action}}
 		<input type='hidden' name='id_reservations_detail' value='#ENV{id_reservations_detail}' />
-
-        <ul>
+		<ul>
             <INCLURE{fond=formulaires/inc-editer_reservations_details_champs,env,ajax=champs_res_det}/>
-        </ul>
-
+		</ul>
 		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
 		<!--extra-->
 		<p class="boutons"><input type='submit' class='submit' value='<:bouton_enregistrer:>' /></p>

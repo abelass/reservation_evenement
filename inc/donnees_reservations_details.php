@@ -1,17 +1,19 @@
 <?php
 if (!defined('_ECRIRE_INC_VERSION')) return; 
 
-function inc_donnees_reservations_details_dist($set) {
+function inc_donnees_reservations_details_dist($id_reservations_detail,$set) {
+
+    $reservations_details=sql_fetsel('*','spip_reservations_details','id_reservations_detail='.$id_reservations_detail);
+
     
+   $id_evenement=isset($set['id_evenement'])?$set['id_evenement']:$reservations_details['id_evenement'];    
      // Les données de l'évènenement
-    if(isset($set['id_evenement'])){
-        $id_evenement=$set['id_evenement'];
-        }
-    else $set['id_evenement']=$id_evenement=sql_getfetsel('id_evenement','reservations_details','id_reservations_detail='.$set['id_reservations_detail']);
-        $id_prix_objet=$set['id_objet_prix'];
+
+        $id_prix_objet=$set['id_prix_objet'];
         $evenement=sql_fetsel('*','spip_evenements','id_evenement='.$id_evenement);
         $date_debut=$evenement['date_debut'];
         $date_fin=$evenement['date_fin'];
+
         // On établit les dates        
         if($date_debut!=$date_fin){
             if(affdate($date_debut,'d-m-Y')==affdate($date_fin,'d-m-Y')){
@@ -34,11 +36,6 @@ function inc_donnees_reservations_details_dist($set) {
         
         // Si aucun détail n'est attaché à l'evénement, on le crée
         
-        if(!$reservations_detail=sql_fetsel('*','spip_reservations_details','id_reservation='.$set['id_reservation'].' AND id_evenement='.$id_evenement)) $id_reservations_detail='new';
-        else{
-            $id_reservations_detail=$reservations_detail['id_reservations_detail'];
-            $id_prix_objet=$reservations_detail['id_prix_objet'];
-            }
         
         /*Existence d'un prix via le plugin Shop Prix https://github.com/abelass/shop_prix_objet */
         if($shop_prix=test_plugin_actif('shop_prix')){

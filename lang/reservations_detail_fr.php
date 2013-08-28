@@ -6,7 +6,8 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
-
+    //C
+    'choisir_prix'=>'choisissez un prix',
 
 	// I
 	'info_1_reservations_detail' => 'Un détail réservation',
@@ -14,7 +15,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_nb_reservations_details' => '@nb@ détails reservations',
 
     //L
-    'label_descriptif'=>'Descriptif',
+    'label_descriptif'=>'Descriptif :',
+    'label_prix'=>'Prix :',    
+    'label_prix_ht'=>'Prix HT :', 
+    'label_prix_objet'=>'Type de prix :',         
 
 	// T
 
