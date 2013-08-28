@@ -128,17 +128,16 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
         'rechercher_champs' => array(),
         'tables_jointures'  => array('id_evenement','id_reservation'),
         'statut_textes_instituer' => array(
-            'attente'    => 'evenements_participant:texte_statut_en_attente',
-            'attente_paiement'    => 'reservation:texte_statut_attente_paiement',  
-            'accepte'     => 'evenements_participant:texte_statut_accepte',
-            'refuse'   => 'evenements_participant:texte_statut_refuse',
-            'poubelle' => 'evenements_participant:texte_statut_poubelle',
+            'attente'    => 'reservation:texte_statut_attente',
+            'attente_paiement'    => 'reservation:texte_statut_attente_paiement',            
+            'accepte'     => 'reservation:texte_statut_accepte',       
+            'refuse'   => 'reservation:texte_statut_refuse',
+            'poubelle' => 'reservation:texte_statut_poubelle',
         ),
         'statut_images' => array(
-            'attente'          => 'puce-reservation-attente-16.png',
-            'attente_paiement'=> 'puce-reservation-attente_paiement-16.png',
-            'accepte'          => 'puce-reservation-accepte-16.png',
-            'encours'          => 'puce-reservation-encours-16.png',   
+            'attente'          => 'puce-reservation-attente-16.png', 
+            'attente_paiement'          => 'puce-reservation-attente_paiement-16.png',             
+            'accepte'          => 'puce-reservation-accepte-16.png',         
             'refuse'             => 'puce-reservation-refuse-16.png',
             'poubelle'           => 'puce-reservation-poubelle-16.png',
         ),
@@ -146,7 +145,7 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
             array(
                 'champ'     => 'statut',
                 'publie'    => 'accepte',
-                'previsu'   => 'accepte,attente',
+                'previsu'   => 'accepte,attente,attente_paiement',
                 'post_date' => 'date', 
                 'exception' => array('statut','tout')
             )
@@ -155,10 +154,20 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
         
 
     );
-   if(test_plugin_actif('shop_prix')) $tables['spip_reservations_details']=array(
+   if(test_plugin_actif('shop_prix')) {
+       $tables['spip_reservations_details']=array_merge($tables['spip_reservations_details'],array(
         'field'=>array('id_prix_objet'=>"bigint(21) NOT NULL DEFAULT '0'"),
-        'champs_editables'  => array('id_reservation','id_evenement','descriptif','quantite','prix_ht','prix','taxe','id_prix_objet'),
-        );
+        'champs_editables'  => array(
+            'id_reservation',
+            'id_evenement',
+            'descriptif',
+            'quantite',
+            'prix_ht',
+            'prix',
+            'taxe',
+            'id_prix_objet'),
+        ));
+    }
 	return $tables;
 }
 ?>

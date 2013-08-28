@@ -1,0 +1,28 @@
+<BOUCLE_reservations_detail(RESERVATIONS_DETAILS){id_reservations_detail=#ENV{id}}{statut?}>
+<div class='infos'>
+[(#SET{texte_objet,<:reservations_detail:titre_reservations_detail:>})]
+<div class='numero'><:titre_cadre_numero_objet{objet=#GET{texte_objet}}:><p>#ID_RESERVATIONS_DETAIL</p></div>
+7896+7896
+[(#FORMULAIRE_INSTITUER_OBJET{reservations_detail,#ID_RESERVATIONS_DETAIL})]
+
+[(#REM)
+
+	Bouton voir en ligne
+
+]
+<BOUCLE_publie(RESERVATIONS_DETAILS){id_reservations_detail}>
+	[(#VAL{redirect}
+		|generer_url_action{type=reservations_details&id=#ID_RESERVATIONS_DETAIL}
+		|parametre_url{var_mode,calcul}
+		|icone_horizontale{<:icone_voir_en_ligne:>,racine})]
+</BOUCLE_publie>
+	[(#AUTORISER{previsualiser,reservations_details,#ID_RESERVATIONS_DETAIL,'',#ARRAY{statut,#STATUT}})
+		[(#VAL{redirect}
+			|generer_url_action{type=reservations_details&id=#ID_RESERVATIONS_DETAIL}
+			|parametre_url{var_mode,preview}
+			|icone_horizontale{<:previsualiser:>,preview})]
+	]
+<//B_publie>
+
+</div>
+</BOUCLE_reservations_detail>

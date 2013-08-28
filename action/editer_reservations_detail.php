@@ -72,6 +72,62 @@ function reservations_detail_modifier($id_reservations_detail, $set=null) {
 }
 
 
+function reservations_detail_inserer( $id_parent=null, $set=null) {
+    $objet='reservations_detail';
+
+    $table_sql = table_objet_sql($objet);
+    $trouver_table = charger_fonction('trouver_table','base');
+    $desc = $trouver_table($table_sql);
+    if (!$desc OR !isset($desc['field']))
+        return 0;
+
+    $champs = array();
+
+
+
+    if (isset($desc['field']['statut'])){
+        if (isset($desc['statut_textes_instituer'])){
+            $cles_statut = array_keys($desc['statut_textes_instituer']); 
+            $champs['statut'] = reset($cles_statut);
+        }
+        else
+            $champs['statut'] = 'attente';
+    }
+
+
+    if ((isset($desc['date']) AND $d=$desc['date']) OR isset($desc['field'][$d='date']))
+        $champs[$d] = date('Y-m-d H:i:s');
+
+    if ($set)
+        $champs = array_merge($champs, $set);
+
+    // Envoyer aux plugins
+    $champs = pipeline('pre_insertion',
+        array(
+            'args' => array(
+                'table' => $table_sql,
+            ),
+            'data' => $champs
+        )
+    );
+
+    $id = sql_insertq($table_sql, $champs);
+
+    if ($id){
+        pipeline('post_insertion',
+            array(
+                'args' => array(
+                    'table' => $table_sql,
+                    'id_objet' => $id,
+                ),
+                'data' => $champs
+            )
+        );
+    }
+
+    return $id;
+}
+
 function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub=true) {
 
     include_spip('inc/autoriser');

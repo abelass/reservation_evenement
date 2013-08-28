@@ -3,9 +3,7 @@
 
 [(#SAISIE{articles_evenements,id_evenement,obligatoire=oui,
     label=<:agenda:info_evenement:>})]
-
-[(#SAISIE{input, prix_ht,
-    label=<:reservations_detail:label_prix_ht:>})]
+    
     
 [(#PLUGIN{shop_prix}|oui)
     [(#SAISIE{prix_objets, id_prix_objet, obligatoire=oui,
@@ -13,7 +11,12 @@
         id_objet=#ENV{id_article},
         objet=article,        
         label=<:reservations_detail:label_prix_objet:>})]
-    ]
+    ]    
+    
+[(#SAISIE{input, prix_ht,
+    label=<:reservations_detail:label_prix_ht:>})]
+    
+
 
 [(#PLUGIN{shop_prix}|oui)
 <script>
