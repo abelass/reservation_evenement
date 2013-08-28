@@ -1,34 +1,25 @@
-#SET{descriptif,#ENV{descriptif}}
-<BOUCLE_ev(EVENEMENTS){id_evenement}{si #ENV{descriptif}|=={new}|oui}>
-#SET{descriptif,#TITRE|concat{#VAL{' '}|concat{- (#DATE_DEBUT|affdate_debut_fin{#DATE_FIN,#HORAIRE, abbr})}}}
-</BOUCLE_ev>
-<BOUCLE_prix(PRIX_OBJETS){id_prix_objet}{si #ENV{descriptif}|=={new}|oui}>
-    #SET{descriptif,#GET{descriptif}|concat{#VAL{' '}|concat{ - #TITRE}}}
-</BOUCLE_prix>
+[(#SAISIE{reservations,id_reservation,obligatoire=oui,
+    label=<:reservations_detail:label_reservation:>})]
 
 [(#SAISIE{articles_evenements,id_evenement,obligatoire=oui,
     label=<:agenda:info_evenement:>})]
-
-[(#SAISIE{textarea, descriptif, obligatoire=oui,
-    valeur=#GET{descriptif},
-    label=<:reservations_detail:label_descriptif:>})]
-
 
 [(#SAISIE{input, prix_ht,
     label=<:reservations_detail:label_prix_ht:>})]
     
 [(#PLUGIN{shop_prix}|oui)
-    [(#SAISIE{prix_objets, id_prix_objet,
+    [(#SAISIE{prix_objets, id_prix_objet, obligatoire=oui,
         option_intro=<:reservations_detail:choisir_prix:>,
         id_objet=#ENV{id_article},
         objet=article,        
         label=<:reservations_detail:label_prix_objet:>})]
     ]
-    
+
 [(#PLUGIN{shop_prix}|oui)
 <script>
-  $(function(){
-        var descriptif='#ENV{descriptif}';      
+  $(function(){ 
+
+        var id_reservation=$("select#champ_id_reservation").val();                
         var id_article='#ENV{id_article}';
         var id_evenement='#ENV{id_evenement}';        
         var id_prix_objet=''; 
@@ -36,13 +27,12 @@
                        
         $("#champ_id_evenement").change(function(event){  
             $("option:selected", $(this)).each(function(){
-                var id_article=$(this).attr('data-id_article');
-                var descriptif=$(this).attr('data-descriptif, ');                
+                var id_article=$(this).attr('data-id_article');              
                 var id_evenement=$(this).attr('value');                
                  ajaxReload('champs_res_det',
                  {
                      args:{
-                        descriptif:'new', 
+                        id_reservation:id_reservation,                         
                         id_article:id_article,
                         id_evenement:id_evenement,
                         id_prix_objet:id_prix_objet,
@@ -57,7 +47,7 @@
                  ajaxReload('champs_res_det',
                  {
                      args:{
-                        descriptif:'new', 
+                        id_reservation:id_reservation,
                         id_article:id_article,
                         id_evenement:id_evenement,
                         id_prix_objet:id_prix_objet,

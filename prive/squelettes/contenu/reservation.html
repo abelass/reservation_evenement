@@ -42,6 +42,10 @@
 #BOITE_FERMER
 
 <INCLURE{fond=prive/objets/liste/reservations_details,id_reservation,par=id_evenement,env}/>
+
+[(#AUTORISER{creer,reservations_detail})
+    [(#URL_ECRIRE{reservations_detail_edit,new=oui&id_reservation=#ID_RESERVATION}|icone_verticale{<:reservations_detail:icone_creer_reservations_detail:>,reservations_detail,new,right})]
+]
 [(#EVAL{_AJAX}|oui)
 	<script type="text/javascript">/*<!\\[CDATA\\[*/reloadExecPage('#ENV{exec}','#navigation,#chemin');/*\\]\\]>*/</script>
 ]
