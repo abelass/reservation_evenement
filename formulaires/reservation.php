@@ -164,7 +164,7 @@ function formulaires_reservation_traiter_dist($id='',$id_article=''){
     $action=charger_fonction('editer_objet','action');
     // La référence
     $fonction_reference = charger_fonction('reservation_reference', 'inc/');
-    if(intval($GLOBALS['visiteur_session']['id_auteur']))$id_auteur=$GLOBALS['visiteur_session']['id_auteur'];  
+    if(isset($GLOBALS['visiteur_session']['id_auteur']))$id_auteur=$GLOBALS['visiteur_session']['id_auteur'];  
    $set=array('statut'=>$statut);
     
     //les champs extras auteur
