@@ -2,7 +2,7 @@
 if (!defined('_ECRIRE_INC_VERSION')) return; 
 
 function inc_donnees_reservations_details_dist($id_reservations_detail,$set) {
-
+    include_spip('inc/filtres');
     $reservations_details=sql_fetsel('*','spip_reservations_details','id_reservations_detail='.$id_reservations_detail);
 
     

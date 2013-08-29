@@ -37,9 +37,8 @@ function reservations_detail_modifier($id_reservations_detail, $set=null) {
     );
 
     $donnees_reservations_details=charger_fonction('donnees_reservations_details','inc');
-    spip_log( $white,'teste');
+
     $c = array_merge($c,$donnees_reservations_details($id_reservations_detail,$c));
-    spip_log('instituer','teste');
 
     // Si l'objet est publie, invalider les caches et demander sa reindexation
     if (objet_test_si_publie($objet,$id)){
