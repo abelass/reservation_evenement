@@ -3,8 +3,8 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 
 function inc_donnees_reservations_details_dist($id_reservations_detail,$set) {
     if(count($set)>0){
-    include_spip('inc/filtres');
-    $reservations_details=sql_fetsel('*','spip_reservations_details','id_reservations_detail='.$id_reservations_detail);
+        include_spip('inc/filtres');
+        $reservations_details=sql_fetsel('*','spip_reservations_details','id_reservations_detail='.$id_reservations_detail);
 
    $id_evenement=isset($set['id_evenement'])?$set['id_evenement']:$reservations_details['id_evenement'];    
      // Les données de l'évènenement
@@ -48,7 +48,6 @@ function inc_donnees_reservations_details_dist($id_reservations_detail,$set) {
                     
                     $p=sql_fetsel('prix_ht,id_prix_objet,id_declinaison','spip_prix_objets','id_prix_objet='.$id_prix); 
                     
-                    spip_log($id_prix,'teste');
                     if($p['id_declinaison']>0)$set['descriptif'].=' - '.supprimer_numero(sql_getfetsel('titre','spip_declinaisons','id_declinaison='.$p['id_declinaison']));
                     }
                 //Sinon on cherche d'abord le prix attaché à l'évenement, puis à l'article de l'évenement                
