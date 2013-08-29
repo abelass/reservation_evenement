@@ -154,7 +154,10 @@ function reservation_instituer($id_reservation, $c, $calcul_rub=true) {
             $evenements[]=$data['id_evenement'];
         }
     }
-    else  $set['evenements']=$evenements;
+    else  {
+        $set['evenements']=$evenements;
+        set_request('evenements',$evenements);
+        }
     //Pour chaque évenement on crée un détail de la réservation
     foreach($evenements AS  $id_evenement){ 
         // Si aucun détail n'est attaché à l'evénement, on le crée
