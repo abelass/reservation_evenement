@@ -160,7 +160,7 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub=
 
     }
 
-    spip_log($champs,'teste');
+
     // Envoyer aux plugins
     $champs = pipeline('pre_edition',
         array(
