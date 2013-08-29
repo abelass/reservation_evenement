@@ -141,15 +141,10 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub=
         }
     $statut_ancien = $statut = $row['statut'];
 
-    $s = isset($c['statut']) ? $c['statut'] : $statut?$statut:'attente';
-    
-    
+    $s = isset($c['statut']) ? $c['statut'] : $statut;
 
-    
     $champs['statut']= $s ;
     
-
-     
     // compter les réservations
     if ($s != $statut and $s=='accepte') {
         if(intval($places) AND $places>0){
@@ -165,7 +160,7 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub=
 
     }
 
-    
+    spip_log($champs,'teste');
     // Envoyer aux plugins
     $champs = pipeline('pre_edition',
         array(
