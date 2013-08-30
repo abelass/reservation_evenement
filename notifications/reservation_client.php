@@ -19,15 +19,8 @@ function notifications_reservation_client_dist($quoi,$id_reservation, $options) 
     //
     //
     //
-    $nom='TissusBruxelles.pdf';
-    $fichier=realpath(find_in_path('docs/'.$nom));
+
     $o=array('html'=>$message);
-    if($options['statut']=='accepte')$o['pieces_jointes'] = array(
-               array('chemin' => $fichier,
-               'nom' => $nom,
-               'encodage' => 'base64',
-               'mime' => 'application/pdf')
-               );
 
     $envoyer_mail($options['email'],$subject,$o);
 }
