@@ -7,6 +7,7 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
+	'affichage_par' => 'Affichage par :',	
 	'ajouter_lien_reservation' => 'Ajouter cette réservation',
 
     // B
