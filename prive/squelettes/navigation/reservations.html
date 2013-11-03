@@ -21,7 +21,7 @@
 </BOUCLE_reservations>
 <ul>
     <li>[(#ENV*{titre,#GET{reservations}|array_sum|singulier_ou_pluriel{reservation:info_1_reservation,reservation:info_nb_reservations}})] : <a href="[(#URL_PAGE{transmettre,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui})]"><:reservation:texte_exporter:></a></li>
-    <li><:reservation:affichage_par:>#ENV{voir}
+    <li><:reservation:affichage_par:>
         <ul class="selection" id="sel">
             <li>[(#ENV{voir}|=={''}|non)#SET{a, </a>}
                 <a href="#URL_ECRIRE{evenements,voir=&par=reference}">]
