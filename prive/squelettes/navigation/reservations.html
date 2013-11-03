@@ -22,9 +22,49 @@
 
 <ul>
     <li>[(#ENV*{titre,#GET{reservations}|array_sum|singulier_ou_pluriel{reservation:info_1_reservation,reservation:info_nb_reservations}})] : <a href="[(#URL_PAGE{transmettre,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui})]"><:reservation:texte_exporter:></a></li>
-    <li><a href="[(#URL_ECRIRE{evenements,where=id_evenement IN([(#GET{id_evenement}|implode{','})])})]">[(#CHEMIN_IMAGE{evenement-24.png}|image_reduire{16})] <:reservation:par_evenement:></a>
+    <li><:reservation:affichage_par:>
+        <ul class="selection">
+            <li>[(#ENV{voir}|!={reservations_evenements}|oui)#SET{a, </a>}
+                <a href="#URL_ECRIRE{evenements,voir=reservations_evenements&par=date_debut&sense=-1}">]
+                    [(#CHEMIN_IMAGE{evenement-24.png}|image_reduire{16})] <:reservation:par_evenement:>
+                 #GET{a}  
+             </li>
+        </ul>
     <li><a href="#URL_ECRIRE{configurer_reservation_evenement}"class="cellule-h">[(#CHEMIN_IMAGE{cfg-16.png}|image_reduire{16})] &nbsp;<:spip:icone_configuration_site:></a>   </li>
 </ul>
 #BOITE_FERMER     
 </B_evenements>
 
+<INCLURE{fond=inclure/reservation-rubriques,rubriques=#GET{id_rubrique},self=#GET{self},ajax,env}/>
+
+
+<script type="text/javascript">
+function update_reservation(link){
+    var voir = parametre_url(jQuery(link).attr('href'),'voir');
+    var par = parametre_url(jQuery(link).attr('href'),'par');
+    var sense = parametre_url(jQuery(link).attr('href'),'sense');        
+    ajaxReload('reservations',{args:{voir:voir,par:par,sense:sense},history:true});
+
+    return false;
+}
+
+
+
+$(function() { 
+    $(".selection a").click(function() {
+        update_reservation(this);
+         return false;   
+        }); 
+  
+ });
+ 
+ function getUrlVar(url,name){
+ var result = new RegExp(name + "=([^&]*)", "i").exec(url); 
+ return result && result[1] || ""; 
+}
+ 
+ function urlParam(url,name){
+     var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(url);
+     return results[1] || 0;  
+     }   
+</script>
