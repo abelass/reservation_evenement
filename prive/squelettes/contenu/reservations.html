@@ -1,7 +1,9 @@
 #FORMULAIRE_RECHERCHE_ECRIRE{#SELF,ajax}
-<div class="nettoyeur"></div>
 
-<INCLURE{fond=prive/objets/liste/reservations, par=reference, env, ajax, sinon=<:reservation:info_aucun_reservation:>}>
+#SET{liste,#ENV{voir,reservations}}
+#SET{sinon,#VAL{reservation:info_aucun_#GET{liste}}|_T}
+<div class="nettoyeur"></div>
+<INCLURE{fond=prive/objets/liste/#ENV{voir}, par=#ENV{par,reference}, env, ajax, sinon=#GET{sinon}}>
 
 [(#REM) désactivé pour le moment
 [(#AUTORISER{creer,reservation})
