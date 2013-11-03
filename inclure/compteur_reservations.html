@@ -2,12 +2,16 @@
 [(#ENV{multiple}|oui)#SET{totale,#ARRAY}]
 
 #SET{objets,#VAL|lister_tables_objets_sql}
+#SET{id_evenement,#ARRAY}
+<BOUCLE_art(EVENEMENTS){id_article?}{id_evenement?}{id_rubrique?}>
+    #SET{id_evenement,#GET{id_evenement}|push{#ID_EVENEMENT}}
+</BOUCLE_art>
 
 <BOUCLE_status(DATA){source tableau,#GET{objets}|table_valeur{spip_reservations}|table_valeur{statut_textes_instituer}}{si #ENV{multiple}|oui}>
     #SET{#CLE,#ARRAY}
 </BOUCLE_status>
 
-<BOUCLE_reservations(RESERVATIONS_DETAILS){id_evenement IN #ENV{id_evenement}}{statut ?}>
+<BOUCLE_reservations(RESERVATIONS_DETAILS){id_evenement IN #GET{id_evenement}}{statut ?}>
     [(#ENV{multiple}|non)
      #SET{reservations,#GET{reservations}|push{#QUANTITE}}   
     ]

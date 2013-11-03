@@ -90,6 +90,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'reservation_numero' => 'Réservation :',
     'reservation_reference_numero' => 'Référence n° ',
 	
+    //P
+    'par_articles'=>'par articles',
+    'par_evenements'=>'par événements',
+    'par_reservations'=>'par réservations',    
 
 	// T
 	'texte_ajouter_reservation' => 'Ajouter une réservation',

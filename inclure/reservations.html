@@ -18,24 +18,8 @@
        </BOUCLE_evenements>
           [<h4>(#GET{titre})</h4>]      
      
-#SET{reservations,#INCLURE{fond=inclure/compteur_reservations,id_evenement=#GET{id_evenement},multiple=oui}|unserialize}
-#SET{args,#ARRAY{id_evenement,#ENV{id_evenement},id_article,#ENV{id_article},id_rubrique,#ENV{id_rubrique}}}
-<h4></h4>
-<ul>
-<BOUCLE_res(DATA){source tableau,#GET{reservations}}>
-    <li>[(#COMPTEUR_BOUCLE|=={1}|oui)
-        <a href="[(#URL_PAGE{transmettre,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui})]" title="<:agenda:telecharger:>">[(#ENV*{titre,#VALEUR|singulier_ou_pluriel{reservation:info_1_reservation,reservation:info_nb_reservations}})]
-        </a> <:reservation:dont:>
-        ]
-        [(#COMPTEUR_BOUCLE|=={1}|non)
-                [(#VALEUR)] <a href="[(#URL_PAGE{transmettre,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui}|parametre_url{statut,#CLE})]" title="<:agenda:telecharger:>">[(#VAL{reservation:texte_statut_#CLE}|_T)]
-                    ]
-        </a>
-        </li>
-</BOUCLE_res>
-</ul>
-
-     
+    <INCLURE{fond=inclure/compteur_reservation_detail,id_evenement=#GET{id_evenement},env}/> 
+    
 #BOITE_FERMER     
 </B_evenements>
 

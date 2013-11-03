@@ -16,13 +16,13 @@
 			<th class='article secondaire' scope='col'></th>
 			<th class='titre principale' scope='col'>[(#TRI{titre,<:info_titre:>,ajax})]</th>
 			<th class='lieu' scope='col secondaire'><:agenda:evenement_lieu:></th>
-			<th class='lieu' scope='col secondaire'><:reservation:evenement_lieu:></th>			
+			<th class='lieu' scope='col principale'><:reservation:titre_reservations:></th>			
 			<th class='id' scope='col'>[(#TRI{id_evenement,<:info_numero_abbreviation:>,ajax})]</th>
 		</tr>
 	</thead>
 	<tbody>
-	<BOUCLE_liste_evt(EVENEMENTS){id_evenement?}{id_article?}{id_rubrique?}{id_mot?}{id_evenement_source?}{where?}{statut?}{recherche?}{tri #ENV{par,date_debut},#GET{defaut_tri}}{pagination #ENV{nb,15}}>
-		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})][ (#EXPOSE)][(#ID_EVENEMENT_SOURCE|oui)repetition]">
+	<BOUCLE_liste_evt(EVENEMENTS){id_evenement ?IN #ENV{id_evenement}}{id_article?}{id_rubrique?}{id_mot?}{id_evenement_source?}{where?}{statut?}{inscription=1}{recherche?}{tri #ENV{par,date_debut},#GET{defaut_tri}}{pagination #ENV{nb,15}}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
 			<td class='statut'>[(#STATUT|puce_statut{evenement,#ID_EVENEMENT})]</td>
 			<td class='date'>[(#DATE_DEBUT|affdate_jourcourt|unique{liste_evt})]</td>
 			<td class='article secondaire'>[<a (#ID_ARTICLE|oui) href="[(#ID_ARTICLE|generer_url_entite{article})]" title="[(#INFO_TITRE{article,#ID_ARTICLE}|attribut_html)]">[(#CHEMIN_IMAGE{article-16.png}|balise_img{#INFO_TITRE{article,#ID_ARTICLE}})]</a>]</td>
@@ -31,6 +31,9 @@
 				<p class="date">[(#DATE_DEBUT|affdate_debut_fin{#DATE_FIN,#HORAIRE})]</p>
 			</td>
 			<td class='lieu secondaire'>#LIEU</td>
+			<td class='reservations'>
+			        <INCLURE{fond=inclure/compteur_reservation_detail,id_evenement,env}/> 
+			</td>			
 			#SET{id_evenement,#ID_EVENEMENT_SOURCE|?{#ID_EVENEMENT_SOURCE,#ID_EVENEMENT}}
 			<td class='id'>[(#ID_EVENEMENT_SOURCE|oui)
 				[(#CHEMIN_IMAGE{repetition-16.png}|balise_img{<:agenda:repetition:>,''}|inserer_attribut{title,<:agenda:repetition:>})]
