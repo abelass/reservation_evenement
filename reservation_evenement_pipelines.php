@@ -53,17 +53,11 @@ function reservation_evenement_affiche_milieu($flux) {
 
     // reservations sur les evenements
     if (!$e['edition'] AND in_array($e['type'], array('evenement'))) {
-        $texte .= recuperer_fond('prive/objets/liste/reservations_details', array(
-            'id_evenement' => _request('id_evenement'),
-            'pa' => 'id_evenement'
-        ));
-    }
-
-    if ($texte) {
-        if ($p=strpos($flux['data'],"<!--affiche_milieu-->"))
-            $flux['data'] = substr_replace($flux['data'],$texte,$p,0);
-        else
-            $flux['data'] .= $texte;
+        $contexte=calculer_contexte();
+        $contexte['id_evenement']=_request('id_evenement');
+        $contexte['par']='id_evenement';        
+        $texte .= recuperer_fond('prive/objets/liste/reservations_details',$contexte,array('ajax'=>'oui'));
+        $flux['data'] .= $texte;
     }
 
     return $flux;
