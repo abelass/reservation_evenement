@@ -48,9 +48,7 @@ function reservation_evenement_affiche_auteurs_interventions($flux) {
 }
 
 function reservation_evenement_affiche_milieu($flux) {
-    $texte = "";
     $e = trouver_objet_exec($flux['args']['exec']);
-
     // reservations sur les evenements
     if (!$e['edition'] AND in_array($e['type'], array('evenement'))) {
         $contexte=calculer_contexte();
