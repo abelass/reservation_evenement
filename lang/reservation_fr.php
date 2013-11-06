@@ -41,6 +41,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_mot_passe2' => 'Répétez le mot de passe :',		
 	'label_nom' => 'Nom :',
 	'label_reference' => 'Référence :',
+	'label_reservation' => 'Réservation :',	
 	'label_statut' => 'Statut :',
 	'label_statut_defaut' => 'Statut par défaut :',	
 	'label_type_paiement' => 'Type de paiemement :',
