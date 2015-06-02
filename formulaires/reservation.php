@@ -37,10 +37,18 @@ function formulaires_reservation_charger_dist($id = '', $id_article = '', $retou
   if (!is_array($zone)) {
     $where = array('date_fin>NOW() AND inscription=1 AND statut="publie"');
     if ($id) {
-      if (!is_array($id))
-        array_push($where, 'id_evenement_source =' . intval($id));
-      elseif (is_array($id))
-        array_push($where, 'id_evenement_source IN (' . implode(',', $id) . ')');
+      $id_evenement_source = sql_getfetsel('id_evenement_source','spip_evenements','id_evenement=' . $id);
+      if (!is_array($id)){
+        if ($id_evenement_source == 0)
+          $where[] = 'id_evenement=' . intval($id);
+        else $where[] = 'id_evenement_source=' . intval($id);
+      }
+      elseif (is_array($id)){
+        if ($id_evenement_source == 0)
+          $where[] = 'id_evenement IN (' . implode(',', $id) . ')';
+        else
+          $where[] = 'id_evenement_source IN (' . implode(',', $id) . ')';
+      }
     }
     if ($id_article) {
       if (!is_array($id_article))
