@@ -38,8 +38,10 @@ function inc_donnees_reservations_details_dist($id_reservations_detail, $set) {
     if (intval($evenement['places']))
       $set['places'] = $evenement['places'];
     $set['quantite'] = _request('quantite');
-    if (is_array($set['quantite']) and isset($set['quantite'][$id_evenement]))
-      $set['quantite'] = $quantite = $set['quantite'][$id_evenement];
+    if (is_array($set['quantite']) and isset($set['quantite'][$id_evenement]) )
+      $set['quantite'] = ($set['quantite'][$id_evenement] > 0) ? $set['quantite'][$id_evenement] : 1;
+
+    $quantite = $set['quantite'];
 
     // Si le prix n'est pas fournit, on essaye de le trouver
 
@@ -49,6 +51,7 @@ function inc_donnees_reservations_details_dist($id_reservations_detail, $set) {
       if ($prix_objets = test_plugin_actif('prix_objets')) {
         $fonction_prix = charger_fonction('prix', 'inc/');
         $fonction_prix_ht = charger_fonction('ht', 'inc/prix');
+
         /*si le plugin déclinaison produit (http://plugins.spip.net/declinaisons.html) est active il peut y avoir plusieurs prix par évenement*/
         if (test_plugin_actif('declinaisons')) {
           $id_prix = isset($set['id_prix_objet']) ? $set['id_prix_objet'] : $reservations_details['id_prix_objet'];
@@ -57,6 +60,7 @@ function inc_donnees_reservations_details_dist($id_reservations_detail, $set) {
           if ($p['id_declinaison'] > 0)
             $set['descriptif'] .= ' - ' . supprimer_numero(sql_getfetsel('titre', 'spip_declinaisons', 'id_declinaison=' . $p['id_declinaison']));
         }
+
         //Sinon on cherche d'abord le prix attaché à l'évenement, puis à l'article de l'évenement
         elseif (!$p = sql_fetsel('prix_ht,id_prix_objet', 'spip_prix_objets', 'objet="evenement" AND id_objet=' . $id_evenement))
           $p = sql_fetsel('prix_ht,id_prix_objet', 'spip_prix_objets', 'objet="article" AND id_objet=' . $evenement['id_article']);
@@ -70,6 +74,7 @@ function inc_donnees_reservations_details_dist($id_reservations_detail, $set) {
           $set['id_prix_objet'] = $p['id_prix_objet'];
         }
       }
+
       /*Sinon si il y un prix attaché à l'évenement*/
       elseif (intval($evenement['prix']) OR intval($evenement['prix_ht']))
         $set = etablir_prix($id_evenement, 'evenement', $evenement, $set, $quantite);
