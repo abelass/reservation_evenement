@@ -33,6 +33,7 @@ function inc_donnees_reservations_details_dist($id_reservations_detail, $set) {
       else
         $datte = affdate($date_debut, 'd/m/Y G:i');
     }
+
     // Les descriptif
     $set['descriptif'] = supprimer_numero($evenement['titre']) . '  (' . $date . ')';
     if (intval($evenement['places']))
@@ -79,7 +80,7 @@ function inc_donnees_reservations_details_dist($id_reservations_detail, $set) {
       elseif (intval($evenement['prix']) OR intval($evenement['prix_ht']))
         $set = etablir_prix($id_evenement, 'evenement', $evenement, $set, $quantite);
       elseif ($article = sql_fetsel('*', 'spip_articles', 'id_article=' . $evenement['id_article']))
-        $set = etablir_prix($evenement['id_article'], 'article', $article, $set);
+        $set = etablir_prix($evenement['id_article'], 'article', $article, $set, $quantite);
     }
   }
   return $set;
