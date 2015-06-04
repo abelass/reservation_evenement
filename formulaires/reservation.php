@@ -28,8 +28,8 @@ function formulaires_reservation_charger_dist($id = '', $id_article = '', $retou
     include_spip('inc/reservation_evenements');
 
     $rubrique_reservation = isset($config['rubrique_reservation']) ? $config['rubrique_reservation'] : '';
-    if ($rubrique_reservation) {
-      $rubrique_reservation = picker_selected($config, 'rubrique');
+    if (is_array($rubrique_reservation)) {
+      $rubrique_reservation = picker_selected($rubrique_reservation, 'rubrique');
       $zone = rubrique_reservation('', 'evenement', $rubrique_reservation, array(
         'tableau' => 'oui',
         'where' => 'e.date_fin>NOW() AND e.inscription=1 AND e.statut="publie"',
