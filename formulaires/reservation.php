@@ -39,10 +39,11 @@ function formulaires_reservation_charger_dist($id = '', $id_article = '', $retou
     }
   }
 
+  //Si pas de zone, on établit les événements à afficher
   if (!is_array($zone)) {
-
     $where = array('date_fin>NOW() AND inscription=1 AND statut="publie"');
 
+    //Si filtrer par événement/s
     if ($id) {
       if (is_array($id))
         $id = implode(',', $id);
@@ -53,13 +54,13 @@ function formulaires_reservation_charger_dist($id = '', $id_article = '', $retou
         $where[] = 'id_evenement IN (' . $id . ')';
       else
         $where[] = 'id_evenement_source IN (' . $id . ')';
-
     }
+        //Si filtrer par article/s
     if ($id_article) {
-      if (!is_array($id_article))
-        array_push($where, 'id_article=' . intval($id_article));
-      elseif (is_array($id_article))
-        array_push($where, 'id_article IN (' . implode(',', $id_article) . ')');
+      if (is_array($id_article))
+        $id_article= implode(',', $id_article);
+
+        $where[] = 'id_article IN (' . $id_article . ')';
     }
 
     $sql = sql_select('*', 'spip_evenements', $where, '', 'date_debut,date_fin');
@@ -71,10 +72,12 @@ function formulaires_reservation_charger_dist($id = '', $id_article = '', $retou
       $articles[] = $row['id_article'];
     }
   }
+  //Sinon on affiche les événements de la zone établit
   else {
     $evenements = $zone;
   }
 
+  // valeurs d'initialisation
   $valeurs = array(
     'evenements' => $evenements,
     'articles' => $evenements,
@@ -85,10 +88,9 @@ function formulaires_reservation_charger_dist($id = '', $id_article = '', $retou
     $session = $GLOBALS['visiteur_session'];
     $nom = $session['nom'];
     $email = $session['email'];
-
   }
 
-  // valeurs d'initialisation
+
   $valeurs['id_evenement'] = _request('id_evenement') ? (is_array(_request('id_evenement')) ? _request('id_evenement') : array(_request('id_evenement'))) : array();
 
   $valeurs['id_objet_prix'] = _request('id_objet_prix') ? (is_array(_request('id_objet_prix')) ? _request('id_objet_prix') : array(_request('id_objet_prix'))) : array();
@@ -134,6 +136,7 @@ function formulaires_reservation_verifier_dist($id = '', $id_article = '', $reto
     $id_auteur = $GLOBALS['visiteur_session']['id_auteur'];
   }
 
+  // Si l'enregistrement est choisi
   if (_request('enregistrer')) {
     include_spip('inc/auth');
     $obligatoires = array(
