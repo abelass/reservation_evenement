@@ -40,7 +40,7 @@ function inc_donnees_reservations_details_dist($id_reservations_detail, $set) {
       $set['places'] = $evenement['places'];
 
     $set['quantite'] = _request('quantite') ? _request('quantite') : 1;
-    if (is_array($set['quantite']) and isset($set['quantite'][$id_evenement]) )
+    if (is_array($set['quantite']) and isset($set['quantite'][$id_evenement]))
       $set['quantite'] = ($set['quantite'][$id_evenement] > 0) ? $set['quantite'][$id_evenement] : 1;
 
     $quantite = $set['quantite'];
