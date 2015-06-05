@@ -38,9 +38,10 @@ function inc_donnees_reservations_details_dist($id_reservations_detail, $set) {
     $set['descriptif'] = supprimer_numero($evenement['titre']) . '  (' . $date . ')';
     if (intval($evenement['places']))
       $set['places'] = $evenement['places'];
-    $set['quantite'] = _request('quantite');
+    $set['quantite'] = _request('quantite') ? _request('quantite') : 1;
     if (is_array($set['quantite']) and isset($set['quantite'][$id_evenement]) )
       $set['quantite'] = ($set['quantite'][$id_evenement] > 0) ? $set['quantite'][$id_evenement] : 1;
+
 
     $quantite = $set['quantite'];
 
@@ -66,6 +67,7 @@ function inc_donnees_reservations_details_dist($id_reservations_detail, $set) {
         elseif (!$p = sql_fetsel('prix_ht,id_prix_objet', 'spip_prix_objets', 'objet="evenement" AND id_objet=' . $id_evenement))
           $p = sql_fetsel('prix_ht,id_prix_objet', 'spip_prix_objets', 'objet="article" AND id_objet=' . $evenement['id_article']);
         if (isset($p)) {
+
           $prix_ht = $quantite * $fonction_prix_ht('prix_objet', $p['id_prix_objet']);
           $prix = $quantite * $fonction_prix('prix_objet', $p['id_prix_objet']);
           if ($prix_ht)
@@ -73,6 +75,7 @@ function inc_donnees_reservations_details_dist($id_reservations_detail, $set) {
           $set['prix_ht'] = $prix_ht;
           $set['taxe'] = $taxe;
           $set['id_prix_objet'] = $p['id_prix_objet'];
+          spip_log("quantite $quantite",'teste');
         }
       }
 
