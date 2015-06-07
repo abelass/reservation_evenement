@@ -36,6 +36,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'explication_nombre_evenements_choix' => 'Si rien ou 0, ce nombre sera égal au nombre d’@objet_promotion@s choisis ci-haut',
 	'explication_objet_promotion' => 'Si définit au niveau article, seront compris tous les évenéments disponible por la réservation de cet article.',
 
+	// F
+	'formulaire_public' => 'Formulaire public',
+
 	// I
 	'icone_cacher' => 'Cacher',
 	'icone_creer_reservation' => 'Créer une réservation',
