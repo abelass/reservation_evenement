@@ -89,7 +89,9 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
     ),
     'rechercher_champs' => array(
       "reference" => 8,
-      "id_reservation" => 8
+      "id_reservation" => 8,
+      "email" => 8,
+      "nom" => 8,     
     ),
     'tables_jointures' => array(
       'id_reservation',
@@ -189,7 +191,7 @@ function reservation_evenement_declarer_tables_objets_sql($tables) {
           'tout'
         )
       )),
-    'texte_changer_statut' => 'reservations:texte_changer_statut_reservations_detail',
+    'texte_changer_statut' => 'reservations_detail:texte_changer_statut_reservations_detail',
   );
   //adaptation de la déclaration si le plugin prix_objets est installé
   if (test_plugin_actif('prix_objets')) {
