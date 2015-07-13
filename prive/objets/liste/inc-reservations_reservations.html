@@ -35,14 +35,6 @@
             <td class='reference principale'><a href="[(#ID_RESERVATION|generer_url_entite{reservation})]" title="<:info_numero_abbreviation|attribut_html:> #ID_RESERVATION">
               [(#RANG). ]#REFERENCE
               </a>
-
-              [(#ID_RESERVATION_SOURCE|>{0}|oui)
-                #SET{reference,#INFO_REFERENCE{reservation,#ID_RESERVATION_SOURCE}}
-                #SET{chaine,#ORIGINE_LIEN|concat{:type_lien_#TYPE_LIEN}{reference=#GET{reference}}}
-                [(#SET{chaine_traduite,#GET{chaine}|_T{#ARRAY{reference,#GET{reference}},#ARRAY{force,''}}|sinon{#GET{chaine_defaut}|_T{#ARRAY{reference,#GET{reference}}}}})]
-                  <br /><img src="[(#CHEMIN_IMAGE{lien-#TYPE_LIEN-16.png}|sinon{#CHEMIN_IMAGE{lien-16.png}})]" alt="#GET{chaine_traduite}" title="#GET{chaine_traduite}" />
-              ]
-
            </td>
             <td class='auteur'>
                    <BOUCLE_auteur(AUTEURS){id_auteur}{tout}>
@@ -57,7 +49,12 @@
             <td class='id'>[(#AUTORISER{modifier,reservation,#ID_RESERVATION}|?{
                 <a href="[(#URL_ECRIRE{reservation_edit,id_reservation=#ID_RESERVATION})]">#ID_RESERVATION</a>,
                 #ID_RESERVATION
-            })]</td>
+            })][(#ID_RESERVATION_SOURCE|>{0}|oui)
+                #SET{reference,#INFO_REFERENCE{reservation,#ID_RESERVATION_SOURCE}}
+                #SET{chaine,#ORIGINE_LIEN|concat{:type_lien_#TYPE_LIEN}{reference=#GET{reference}}}
+                [(#SET{chaine_traduite,#GET{chaine}|_T{#ARRAY{reference,#GET{reference}},#ARRAY{force,''}}|sinon{#GET{chaine_defaut}|_T{#ARRAY{reference,#GET{reference}}}}})]
+                  <br /><img src="[(#CHEMIN_IMAGE{lien-#TYPE_LIEN-16.png}|sinon{#CHEMIN_IMAGE{lien-16.png}})]" alt="#GET{chaine_traduite}" title="#GET{chaine_traduite}" />
+              ]</td>
         </tr>
         [(#ENV{id_reservation_source}|=={0}|oui)
           <INCLURE{fond=prive/objets/liste/inc-reservations_reservations_liees,env,id_reservation_source=#ID_RESERVATION}/>
