@@ -154,10 +154,9 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
         $valeurs_extras[$value['options']['nom']] = _request($value['options']['nom']) ? _request($value['options']['nom']) : (isset($donnees_auteur[$value['options']['nom']]) ? $donnees_auteur[$value['options']['nom']] : '');
       }
     }
-
     $champs['donnees_auteur'] = serialize($valeurs_extras);
   }
-//spip_log($champs,'teste');
+
   // Envoyer aux plugins
   $champs = pipeline('pre_edition', array(
     'args' => array(
