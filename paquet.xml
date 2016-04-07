@@ -1,11 +1,7 @@
 <paquet
   prefix="reservation_evenement"
   categorie="date"
-<<<<<<< HEAD
   version="1.21.21"
-=======
-  version="1.21.20"
->>>>>>> 07222940d8500c2580baa034b3048c9adf3fe319
   etat="test"
   compatibilite="[3.0.16;3.1.*]"
   logo="prive/themes/spip/images/reservation_evenement-64.png"
