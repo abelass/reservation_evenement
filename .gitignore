@@ -10,3 +10,5 @@ connect.php
 dump
 local
 tmp
+.buildpath
+.settings*
