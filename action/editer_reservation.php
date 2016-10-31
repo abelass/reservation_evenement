@@ -80,7 +80,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 
 	$evenements = _request('id_evenement');
 
-	// Si les déclinaisons sont actives on récupére les évenements via le prix
+	// Si les déclinaisons sont actives on récupère les évenements via le prix
 	if (test_plugin_actif('declinaisons')) {
 		$evenements = array();
 		if ($id_prix_objet = _request('id_objet_prix')) {
@@ -89,7 +89,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 			}
 		}
 	}
-	// Si on n'est pas dans le cas d'une création, on récupére les détails attachées à la réservation
+	// Si on n'est pas dans le cas d'une création, on récupère les détails attachées à la réservation
 	if (!is_array($evenements) OR (is_array($evenements) AND count($evenements) == 0)) {
 		include_spip('action/editer_reservations_detail');
 		$c = array(
