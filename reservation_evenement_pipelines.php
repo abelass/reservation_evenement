@@ -1,10 +1,10 @@
 <?php
 /**
- * Utilisations de pipelines par Réservation Événements
+ * Utilisations de pipelines par R��servation ��v��nements
  *
- * @plugin     Réservation Événements
+ * @plugin     R��servation ��v��nements
  * @copyright  2013
- * @author     Rainer Müller
+ * @author     Rainer M��ller
  * @licence    GNU/GPL
  * @package    SPIP\Reservation_evenement\Pipelines
  */
@@ -36,7 +36,7 @@ function reservation_evenement_affiche_gauche($flux) {
     $rubrique_reservation = picker_selected($config, 'rubrique');
     $zone = rubrique_reservation($id, $exec, $rubrique_reservation);
 
-    //Si l'objet se trouve dans la zone Reservation Evènement, on affiche
+    //Si l'objet se trouve dans la zone Reservation Evénement, on affiche
     if ($zone) {
       $flux['data'] .= recuperer_fond('inclure/reservations', $contexte);
     }
@@ -48,8 +48,8 @@ function reservation_evenement_affiche_gauche($flux) {
  * Ajout de liste sur la vue d'un auteur
  *
  * @pipeline affiche_auteurs_interventions
- * @param  array $flux Données du pipeline
- * @return array       Données du pipeline
+ * @param  array $flux Donn��es du pipeline
+ * @return array       Donn��es du pipeline
  */
 function reservation_evenement_affiche_auteurs_interventions($flux) {
   if ($id_auteur = intval($flux['args']['id_auteur'])) {
@@ -95,7 +95,7 @@ function reservation_evenement_taches_generales_cron($taches) {
   include_spip('inc/config');
   $config = lire_config('reservation_evenement', array());
   if (isset($config['cron'])) {
-    //La périodicité
+    //La p��riodicit��
     if (isset($config['periodicite_cron']) AND $config['periodicite_cron'] >= 600)
       $periodicite = $config['periodicite_cron'];
     else
@@ -114,7 +114,7 @@ function reservation_evenement_formulaire_charger($flux) {
   );
   $contexte = $flux['data'];
 
-  //Charger les valeurs par défaut
+  //Charger les valeurs par d��faut
   if (in_array($form, $forms)) {
     $action_cloture = $contexte['action_cloture'];
     $id_evenement = isset($contexte['id_evenement']) ? $contexte['id_evenement'] : '0';
@@ -161,7 +161,8 @@ function reservation_evenement_recuperer_fond($flux) {
     $id = _request('id_' . $type);
     $zone = rubrique_reservation($id, $type, $rubrique_reservation);
     $cron = isset($config['cron']) ? $config['cron'] : '';
-    //Si cron activé et l'objet se trouve dans la zone Reservation Evènement, on affiche
+
+    //Si cron activé et l'objet se trouve dans la zone Reservation Ev��nement, on affiche
     if ($cron AND $zone) {
       $action_cloture = '<ul>' . recuperer_fond('formulaires/inc-action_cloture', $contexte) . '</ul>';
       $flux['data']['texte'] = str_replace('<!--extra-->', $action_cloture . '<!--extra-->', $flux['data']['texte']);
@@ -189,7 +190,7 @@ function reservation_evenement_afficher_contenu_objet($flux) {
     $zone = rubrique_reservation($id, $type, $rubrique_reservation);
     $cron = isset($config['cron']) ? $config['cron'] : '';
 
-    //Si cron activé et l'objet se trouve dans la zone Reservation Evènement, on affiche
+    //Si cron activ�� et l'objet se trouve dans la zone Reservation Ev��nement, on affiche
     if ($cron AND $zone) {
       $etats = array(
         1 => _T('item:oui'),

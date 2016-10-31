@@ -80,7 +80,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 
 	$evenements = _request('id_evenement');
 
-	// Si les déclinaisons sont actives on récupère les évenements via le prix
+	// Si les déclinaisons sont actives on récupére les évenements via le prix
 	if (test_plugin_actif('declinaisons')) {
 		$evenements = array();
 		if ($id_prix_objet = _request('id_objet_prix')) {
@@ -89,7 +89,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 			}
 		}
 	}
-	// Si on n'est pas dans le cas d'une création, on récupère les détails attachées à la réservation
+	// Si on n'est pas dans le cas d'une création, on récupére les détails attachées à la réservation
 	if (!is_array($evenements) OR (is_array($evenements) AND count($evenements) == 0)) {
 		include_spip('action/editer_reservations_detail');
 		$c = array(
@@ -97,7 +97,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 			'statut_calculer_auto' => $statut_calculer_auto
 		);
 		$sql = sql_select('id_reservations_detail', 'spip_reservations_details', 'id_reservation=' . $id_reservation);
-		// Eviter l'envoi d'une notification pour chaque détail
+		// Eviter l'envoi d'une notification pour chaque d��tail
 		set_request('envoi_separe_actif', 'non');
 		while ($data = sql_fetch($sql)) {
 			reservations_detail_instituer($data['id_reservations_detail'], $c);
@@ -110,9 +110,9 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 	}
 	//Si on est dans le cas d'une création
 	if (is_array($evenements)) {
-		// Pour chaque évènement on crée un détail de la réservation
+		// Pour chaque événement on crée un détail de la réservation
 		foreach ($evenements AS $id_evenement) {
-			// Si aucun détail n'est attaché à l'évènement, on le crée
+			// Si aucun détail n'est attaché à l'événement, on le crée
 			if (!$reservations_detail = sql_fetsel('*', 'spip_reservations_details', 'id_reservation=' . $id_reservation . ' AND id_evenement=' . $id_evenement)) {
 				$id_reservations_detail = 'new';
 				$set['id_prix_objet'] = $id_prix_objet[$id_evenement];
@@ -140,7 +140,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 		foreach ($statuts_details_reservation AS $id_detail_reservation => $data) {
 			$statut_modifie[] = $data['statut_modifie'];
 		}
-		//Sinon lui attibuer lms statut accepté partiellement.
+		//Sinon lui attibuer le statut accepté partiellement.
 		if (array_sum($statut_modifie) > 0)
 			$champs['statut'] = 'accepte_part';
 	}
@@ -150,7 +150,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 	$valeurs_extras = array();
 
 	if (function_exists('champs_extras_objet')) {
-		//Charger les définitions pour la création des formulaires
+		//Charger les d��finitions pour la cr��ation des formulaires
 		$champs_extras_auteurs = champs_extras_objet(table_objet_sql('auteur'));
 
 		if (is_array($champs_extras_auteurs)) {
@@ -214,7 +214,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 		// Envoyer au vendeur et au client
 		$notifications('reservation_vendeur', $id_reservation, $options);
 		if ($config['client']) {
-			//$row['email']=trim($row['email']);
+
 			if (intval($row['id_auteur']) AND $row['id_auteur'] > 0)
 				$options['email'] = sql_getfetsel('email', 'spip_auteurs', 'id_auteur=' . $row['id_auteur']);
 			else
