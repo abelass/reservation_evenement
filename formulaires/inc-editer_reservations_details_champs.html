@@ -10,15 +10,15 @@ label=<:agenda:info_evenement:>,class=chosen})]
 <BOUCLE_test_plugin(CONDITION){si #PLUGIN{prix_objets}}>
 	[(#REM) Tester si il y a un prix attaché à l'événement]
 	<BOUCLE_prix_evenement(PRIX_OBJETS){id_objet = #ENV{id_evenement}} and {objet=evenement}>
-		#SET{id_objet,#ID_OBJET} #SET{objet, #OBJET}
+		#SET{id_objet, #ID_OBJET} #SET{objet, #OBJET} #SET{id_prix_objet_defaut, #ID_PRIX_OBJET} #SET{prix_ht_defaut, #PRIX_HT**}
 	</BOUCLE_prix_evenement>
 		[(#REM) Sinon prendre celui de l'article]
 		<BOUCLE_prix_article(PRIX_OBJETS){id_objet = #ENV{id_article}} and {objet=article}>
-			#SET{id_objet,#ID_OBJET} #SET{objet, #OBJET}
+			#SET{id_objet,#ID_OBJET} #SET{objet, #OBJET} #SET{id_prix_objet_defaut, #ID_PRIX_OBJET} #SET{prix_ht_defaut, #PRIX_HT**}
 		</BOUCLE_prix_article>
 	<//B_prix_evenement>
-
-	[(#SAISIE{prix_objets,
+	[(#PLUGIN{declinaisons}|?{
+		[(#SAISIE{prix_objets,
 		id_prix_objet,
 		obligatoire=oui,
 		option_intro=<:reservations_detail:choisir_prix:>,
@@ -26,22 +26,25 @@ label=<:agenda:info_evenement:>,class=chosen})]
 		objet=#GET{objet},
 		label=<:reservations_detail:label_prix_objet:>}
 	)]
-
+	,
+	[(#SAISIE{hidden,id_prix_objet,valeur=#GET{id_prix_objet_defaut}})]
+	})]
 </BOUCLE_test_plugin>
 
+#SET{id_prix_objet, #ENV{id_prix_objet,#GET{id_prix_objet_defaut}}}
+#SET{prix_ht, #ENV{prix_ht,#GET{prix_ht_defaut}}}
 
-
-[(#ENV{id_prix_objet}|oui)
-	#SET{devise,#ENV{devise,#INFO_CODE_DEVISE{prix_objet,#ENV{id_prix_objet}}}}
+[(#GET{id_prix_objet}|oui)
+	#SET{devise,#ENV{devise,#INFO_CODE_DEVISE{prix_objet,#GET{id_prix_objet}}}}
 	[(#SAISIE{hidden,devise,valeur=#GET{devise}})]
 ]
-[(#SAISIE{input, prix_ht, label=<:reservations_detail:label_prix_ht:>})]
+[(#SAISIE{input, prix_ht, label=<:reservations_detail:label_prix_ht:>, defaut=#GET{prix_ht}})]
 
 [(#PLUGIN{prix_objets}|oui)
 <script type="text/javascript">
 	$(function() {
 
-		var id_reservation = $("select#champ_id_reservation").val();
+		var id_reservation = $("#champ_id_reservation option:selected").val();
 		var id_article = '#ENV{id_article}';
 		var id_evenement = '#ENV{id_evenement}';
 		var id_prix_objet = '#ENV{id_prix_objet}';

@@ -73,8 +73,9 @@ function formulaires_editer_reservations_detail_charger_dist($id_reservations_de
 	$valeurs ['articles'] = array ();
 	$valeurs ['evenement_anterieurs'] = _request ( 'evenement_anterieurs' );
 
-	if ($id_prix_objet = _request ( 'id_prix_objet' ))
+	if ($id_prix_objet = _request ( 'id_prix_objet' )) {
 		$valeurs ['devise'] .= sql_getfetsel ( 'code_devise', 'spip_prix_objets', 'id_prix_objet=' . $id_prix_objet );
+	}
 
 	while ( $data = sql_fetch ( $sql ) )
 		$valeurs ['articles'] [] = $data ['id_article'];
