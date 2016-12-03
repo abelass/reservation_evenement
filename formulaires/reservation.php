@@ -21,16 +21,25 @@ function formulaires_reservation_charger_dist($id = array(), $id_article = '', $
 	$config = lire_config('reservation_evenement', array());
 	$enregistrement_inscrit = isset($config['enregistrement_inscrit']) ? $config['enregistrement_inscrit'] : '';
 	$enregistrement_inscrit_obligatoire = isset($config['enregistrement_inscrit_obligatoire']) ? $config['enregistrement_inscrit_obligatoire'] : '';
+	$valeurs = array();
 
-	foreach ($options AS $variable => $valeur) {
-		$$variable = $valeur;
+	// On obtient les options.
+	if(!is_array($options)) {
+		$options = explode(',', $options);
+		foreach($options AS $option) {
+			list($variable, $valeur) = explode(':', $option);
+			$$variable = $valeurs[$variable] = $valeur;
+		}
+	}
+	else {
+		foreach ($options AS $variable => $valeur) {
+			$$variable = $valeurs[$variable] = $valeur;
+		}
 	}
 
-
 	if(isset($id_evenement_source)) {
-		settype($id_evenement_source, 'integer');
 		if ($id_evenement_source == 0) {
-			$id_evenement_source = false;;
+			$id_evenement_source = false;
 		}
 	}
 	else {
@@ -67,9 +76,9 @@ function formulaires_reservation_charger_dist($id = array(), $id_article = '', $
 			'inscription=1 AND statut="publie"'
 		);
 
-		if ($id_evenement_source) {
+		//if ($id_evenement_source) {
 			$where[] = 'date_fin>NOW()';
-		}
+		//}
 
 		// Si filtré par événement/s
 		if ($id) {
@@ -111,13 +120,12 @@ function formulaires_reservation_charger_dist($id = array(), $id_article = '', $
 	}
 
 	// valeurs d'initialisation
-	$valeurs = array(
-		'evenements' => $evenements,
-		'articles' => $evenements,
-		'lang' => $GLOBALS['spip_lang'],
-		'id_evenement' => $id,
-		'id_evenement_source' => $id_evenement_source
-	);
+	$valeurs['evenements'] = $evenements;
+	$valeurs['articles'] = $evenements;
+	$valeurs['lang'] = $GLOBALS['spip_lang'];
+	$valeurs['id_evenement'] = $id;
+	$valeurs['id_evenement_source'] = $id_evenement_source;
+
 
 	$valeurs['id_objet_prix'] = _request('id_objet_prix') ? (is_array(_request('id_objet_prix')) ? _request('id_objet_prix') : array(
 		_request('id_objet_prix')
@@ -156,7 +164,8 @@ function formulaires_reservation_charger_dist($id = array(), $id_article = '', $
 		$valeurs['_hidden'] .= '<input type="hidden" name="enregistrer[]" value="1"/>';
 	return $valeurs;
 }
-function formulaires_reservation_verifier_dist($id = '', $id_article = '', $retour = '') {
+
+function formulaires_reservation_verifier_dist($id = '', $id_article = '', $retour = '', $options = array()) {
 	$erreurs = array();
 	$email = _request('email');
 	$id_auteur = _request('id_auteur');
@@ -240,7 +249,8 @@ function formulaires_reservation_verifier_dist($id = '', $id_article = '', $reto
 		$erreurs['message_erreur'] = _T('reservation:message_erreur');
 	return $erreurs;
 }
-function formulaires_reservation_traiter_dist($id = '', $id_article = '', $retour = '') {
+
+function formulaires_reservation_traiter_dist($id = '', $id_article = '', $retour = '', $options = array()) {
 	if ($retour) {
 		refuser_traiter_formulaire_ajax();
 	}
