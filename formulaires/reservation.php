@@ -278,7 +278,6 @@ function formulaires_reservation_verifier_dist($id = '', $id_article = '', $reto
 	return $erreurs;
 }
 
-
 /**
  * Traitement du formulaire de réservation.
  *
