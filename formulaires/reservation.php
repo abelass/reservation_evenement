@@ -18,9 +18,9 @@ include_spip('inc/editer');
  * Chargement du formulaire réservation
  *
  * @param array|int|string $id
- *         Identifiant de l'événement, soit tableau, soit liste séparé par virgule, soit une valeur.
+ *         Identifiant de l'événement, soit tableau, soit liste séparé par virgule, soit un numéro.
  * @param array|int|string $id_article
- *         Identifiant de l'article, soit tableau, soit liste séparé par virgule, soit une valeur.
+ *         Identifiant de l'article, soit tableau, soit liste séparé par virgule, soit un numéro.
  * @param string $retour
  *         Url de retour.
  * @param array|string $options
@@ -181,9 +181,9 @@ function formulaires_reservation_charger_dist($id = array(), $id_article = '', $
  * Vérifications du formulaire réservation
  *
  * @param array|int|string $id
- *         Identifiant de l'événement, soit tableau, soit liste séparé par virgule, soit une valeur.
+ *         Identifiant de l'événement, soit tableau, soit liste séparé par virgule, soit un numéro.
  * @param array|int|string $id_article
- *         Identifiant de l'article, soit tableau, soit liste séparé par virgule, soit une valeur.
+ *         Identifiant de l'article, soit tableau, soit liste séparé par virgule, soit un numéro
  * @param string $retour
  *         Url de retour.
  * @param array|string $options
@@ -283,9 +283,9 @@ function formulaires_reservation_verifier_dist($id = '', $id_article = '', $reto
  * Traitement du formulaire de réservation.
  *
  * @param array|int|string $id
- *         Identifiant de l'événement, soit tableau, soit liste séparé par virgule, soit une valeur.
+ *         Identifiant de l'événement, soit tableau, soit liste séparé par virgule, soit un numéro.
  * @param array|int|string $id_article
- *         Identifiant de l'article, soit tableau, soit liste séparé par virgule, soit une valeur.
+ *         Identifiant de l'article, soit tableau, soit liste séparé par virgule, soit un numéro
  * @param string $retour
  *         Url de retour.
  * @param array|string $options
