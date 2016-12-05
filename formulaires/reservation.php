@@ -13,6 +13,23 @@ if (!defined("_ECRIRE_INC_VERSION"))
 
 include_spip('inc/actions');
 include_spip('inc/editer');
+
+/**
+ * Chargement du formulaire réservation
+ *
+ * @param array|int|string $id
+ *         Identifiant de l'événement, soit tableau, soit liste séparé par virgule, soit une valeur.
+ * @param array|int|string $id_article
+ *         Identifiant de l'article, soit tableau, soit liste séparé par virgule, soit une valeur.
+ * @param string $retour
+ *         Url de retour.
+ * @param array|string $options
+ *         Les options :
+ *         id_evenement_source : Grouper les événements répétés (défault) ou les aficher séparément.
+ *                               Valeurs: 0, '' ou string afficher séparément les événement répétés
+ *                                        une integer supérieur 'a 0 groupe les événements avec le id_evenement_source indiqué.
+ * @return array Environnement du formulaire.
+ */
 function formulaires_reservation_charger_dist($id = array(), $id_article = '', $retour = '', $options = array()) {
 
 	include_spip('inc/config');
@@ -165,6 +182,22 @@ function formulaires_reservation_charger_dist($id = array(), $id_article = '', $
 	return $valeurs;
 }
 
+/**
+ * Vérifications du formulaire réservation
+ *
+ * @param array|int|string $id
+ *         Identifiant de l'événement, soit tableau, soit liste séparé par virgule, soit une valeur.
+ * @param array|int|string $id_article
+ *         Identifiant de l'article, soit tableau, soit liste séparé par virgule, soit une valeur.
+ * @param string $retour
+ *         Url de retour.
+ * @param array|string $options
+ *         Les options :
+ *         id_evenement_source : Grouper les événements répétés (défault) ou les aficher séparément.
+ *                               Valeurs: 0, '' ou string afficher séparément les événement répétés
+ *                                        une integer supérieur 'a 0 groupe les événements avec le id_evenement_source indiqué.
+ * @return array Tableau des erreurs.
+ */
 function formulaires_reservation_verifier_dist($id = '', $id_article = '', $retour = '', $options = array()) {
 	$erreurs = array();
 	$email = _request('email');
@@ -250,6 +283,23 @@ function formulaires_reservation_verifier_dist($id = '', $id_article = '', $reto
 	return $erreurs;
 }
 
+
+/**
+ * Traitement du formulaire de réservation.
+ *
+ * @param array|int|string $id
+ *         Identifiant de l'événement, soit tableau, soit liste séparé par virgule, soit une valeur.
+ * @param array|int|string $id_article
+ *         Identifiant de l'article, soit tableau, soit liste séparé par virgule, soit une valeur.
+ * @param string $retour
+ *         Url de retour.
+ * @param array|string $options
+ *         Les options :
+ *         id_evenement_source : Grouper les événements répétés (défault) ou les aficher séparément.
+ *                               Valeurs: 0, '' ou string afficher séparément les événement répétés
+ *                                        une integer supérieur 'a 0 groupe les événements avec le id_evenement_source indiqué.
+ * @return array Retours des traitements.
+ */
 function formulaires_reservation_traiter_dist($id = '', $id_article = '', $retour = '', $options = array()) {
 	if ($retour) {
 		refuser_traiter_formulaire_ajax();
