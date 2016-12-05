@@ -90,12 +90,8 @@ function formulaires_reservation_charger_dist($id = array(), $id_article = '', $
 	// Si pas de zone, on établit les événements à afficher
 	if (!is_array($zone)) {
 		$where = array(
-			'inscription=1 AND statut="publie"'
+			'date_fin>NOW() AND inscription=1 AND statut="publie"'
 		);
-
-		//if ($id_evenement_source) {
-			$where[] = 'date_fin>NOW()';
-		//}
 
 		// Si filtré par événement/s
 		if ($id) {
@@ -162,7 +158,6 @@ function formulaires_reservation_charger_dist($id = array(), $id_article = '', $
 
 	// les champs extras auteur
 	include_spip('cextras_pipelines');
-
 	if (function_exists('champs_extras_objet')) {
 		// Charger les définitions pour la création des formulaires
 		$valeurs['champs_extras_auteurs'] = champs_extras_objet(table_objet_sql('auteur'));
