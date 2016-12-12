@@ -1,11 +1,11 @@
 <?php
-if (! defined('_ECRIRE_INC_VERSION'))
+if (!defined('_ECRIRE_INC_VERSION'))
 	return;
 function reservations_detail_modifier($id_reservations_detail, $set = null) {
 	$table_sql = table_objet_sql('reservations_detail');
 	$trouver_table = charger_fonction('trouver_table', 'base');
 	$desc = $trouver_table($table_sql);
-	if (! $desc or ! isset($desc['field'])) {
+	if (!$desc or !isset($desc['field'])) {
 		spip_log("Objet $objet inconnu dans objet_modifier", _LOG_ERREUR);
 		return _L("Erreur objet $objet inconnu");
 	}
@@ -90,7 +90,7 @@ function reservations_detail_inserer($id_parent = null, $set = null) {
 	$table_sql = table_objet_sql($objet);
 	$trouver_table = charger_fonction('trouver_table', 'base');
 	$desc = $trouver_table($table_sql);
-	if (! $desc or ! isset($desc['field']))
+	if (!$desc or !isset($desc['field']))
 		return 0;
 
 	$champs = array();
@@ -137,19 +137,22 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 	include_spip('inc/rubriques');
 	include_spip('inc/modifier');
 
-	$row = sql_fetsel('*', 'spip_reservations_details', 'id_reservations_detail=' . intval($id_reservations_detail));
+	$row = sql_fetsel('*', 'spip_reservations_details', 'id_reservations_detail='.intval($id_reservations_detail));
 	$id_reservation = $row['id_reservation'];
 	$id_evenement = $row['id_evenement'];
 
 	$envoi_separe_actif = _request('envoi_separe_actif');
-	if (! $places = $c[places]) {
-		$places = sql_getfetsel('places', 'spip_evenements', 'id_evenement=' . $id_evenement);
+	if (!$places = $c[places]) {
+		$places = sql_getfetsel('places', 'spip_evenements', 'id_evenement='.$id_evenement);
 	}
 	$statut_ancien = $statut = $row['statut'];
 
 	$s = isset($c['statut']) ? $c['statut'] : $statut;
 
-	$champs['statut'] = $s;
+	$champs = array(
+		'statut' => $s,
+	);
+
 
 	// Vérifier si le statut peut être modifiés
 	$statuts_complets = charger_fonction('complet', 'inc/statuts');
@@ -161,16 +164,16 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 	 * on vérifie si l'événement n'est pas complet
 	 */
 
-	if ($s != $statut_ancien and in_array($s, $statuts) and ! in_array($statut_ancien, $statuts)) {
+	if ($s!=$statut_ancien and in_array($s, $statuts) and !in_array($statut_ancien, $statuts)) {
 
 		// Si il y a une limitation de places prévu, on sélectionne les détails de réservation qui ont le statut_complet
-		if ($places and $places > 0) {
-			$sql = sql_select('quantite', 'spip_reservations_details', 'id_evenement=' . $id_evenement . ' AND statut IN ("' . implode('","', $statuts) . '")');
+		if ($places and $places>0) {
+			$sql = sql_select('quantite', 'spip_reservations_details', 'id_evenement='.$id_evenement.' AND statut IN ("'.implode('","', $statuts).'")');
 			$reservations = array();
 			while ($data = sql_fetch($sql)) {
 				$reservations[] = $data['quantite'];
 			}
-			if (array_sum($reservations) >= $places)
+			if (array_sum($reservations)>=$places)
 				$champs['statut'] = 'attente';
 		}
 	}
@@ -188,11 +191,13 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 	));
 
 	// Si la config le prévoit, établir si il y eu un changement de statut.
-	if ($c['statut_calculer_auto'] == 'on') {
-		if ($c['statut'] != $champs['statut'])
+	if ($c['statut_calculer_auto']=='on') {
+		if ($c['statut']!=$champs['statut']) {
 			$statut_modifie = 1;
-		else
+		}
+		else {
 			$statut_modifie = 0;
+		}
 
 		$statuts_details_reservation = _request('statuts_details_reservation');
 
@@ -204,8 +209,9 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 		set_request('statuts_details_reservation', $statuts_details_reservation);
 	}
 
-	if (! count($champs))
+	if (!count($champs))
 		return '';
+
 		// Envoyer les modifs.
 	objet_editer_heritage('reservations_detail', $id_reservations_detail, '', $statut_ancien, $champs);
 
@@ -227,9 +233,10 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 
 	// Notifications si en mode différé et ne pas déclencher par le changement de statut de la réservation
 
-	if ($envoi_separe_actif != 'non') {
+	if ($envoi_separe_actif!='non') {
+
 		// Déterminer la langue pour les notifications
-		if (! $lang = sql_getfetsel('lang', 'spip_reservations', 'id_reservation=' . $id_reservation))
+		if (!$lang = sql_getfetsel('lang', 'spip_reservations', 'id_reservation='.$id_reservation))
 			$lang = lire_config('langue_site');
 
 		lang_select($lang);
@@ -237,10 +244,10 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 		$config = lire_config('reservation_evenement');
 		$envoi_separe_config = isset($config['envoi_separe']) ? $config['envoi_separe'] : array();
 
-		if (in_array($s, $envoi_separe_config) or $s == 'cloture') {
+		if (in_array($s, $envoi_separe_config) or $s=='cloture') {
 
-			if ((! $statut_ancien or $s != $statut_ancien) && ($config['activer']) && (in_array($s, $config['quand'])) && ($notifications = charger_fonction('notifications', 'inc', true))) {
-				$row = sql_fetsel('id_auteur,email', 'spip_reservations', 'id_reservation=' . $id_reservation);
+			if ((!$statut_ancien or $s!=$statut_ancien)&&($config['activer'])&&(in_array($s, $config['quand']))&&($notifications = charger_fonction('notifications', 'inc', true))) {
+				$row = sql_fetsel('id_auteur,email', 'spip_reservations', 'id_reservation='.$id_reservation);
 				$id_auteur = $row['id_auteur'];
 				$email = $row['email'];
 
@@ -250,24 +257,24 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 					'id_reservations_detail' => $id_reservations_detail,
 					'lang' => $lang
 				);
-				if ($config['expediteur'] != "facteur")
-					$options['expediteur'] = $config['expediteur_' . $config['expediteur']];
+				if ($config['expediteur']!="facteur")
+					$options['expediteur'] = $config['expediteur_'.$config['expediteur']];
 
 					// Envoyer au vendeur et au client
 					// Pour le moment pas d'envoi à l'administrateur, prévoir un seul mail pour tout l'événement.
-				if ($s != 'cloture') {
-					spip_log('envoi mail differe vendeur email:' . $email . ', statut:' . $s, 'reservation_evenement' . LOG_INFO);
+				if ($s!='cloture') {
+					spip_log('envoi mail differe vendeur email:'.$email.', statut:'.$s, 'reservation_evenement'.LOG_INFO);
 					$notifications('reservation_vendeur', $id_reservation, $options);
 				}
 
 				if ($config['client']) {
 
-					if (intval($id_auteur) and $id_auteur > 0)
-						$options['email'] = sql_getfetsel('email', 'spip_auteurs', 'id_auteur=' . $id_auteur);
+					if (intval($id_auteur) and $id_auteur>0)
+						$options['email'] = sql_getfetsel('email', 'spip_auteurs', 'id_auteur='.$id_auteur);
 					else
 						$options['email'] = $email;
 
-					spip_log('envoi mail séparé client email:' . $options['email'] . ', statut:' . $s, 'reservation_evenement' . _LOG_INFO);
+					spip_log('envoi mail séparé client email:'.$options['email'].', statut:'.$s, 'reservation_evenement'._LOG_INFO);
 					$notifications('reservation_client', $id_reservation, $options);
 				}
 			}
