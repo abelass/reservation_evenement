@@ -150,7 +150,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 	$valeurs_extras = array();
 
 	if (function_exists('champs_extras_objet')) {
-		//Charger les d��finitions pour la cr��ation des formulaires
+		//Charger les définitions pour la création des formulaires
 		$champs_extras_auteurs = champs_extras_objet(table_objet_sql('auteur'));
 
 		if (is_array($champs_extras_auteurs)) {
