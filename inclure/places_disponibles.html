@@ -8,6 +8,7 @@
 		<:reservation:places_disponibles:>[(#GET{disponibles})] ,
 		<:reservation:complet:>[: (#GET{disponibles}|<{0}|?{
 			[(#GET{disponibles}|replace{-,''})]<:reservation:texte_statut_attente:>,
-			<:reservation:inscrire_liste_attente:>})]
+			<:reservation:inscrire_liste_attente:>
+			})]
 	})]
 </div>
