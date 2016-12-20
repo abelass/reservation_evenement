@@ -91,9 +91,9 @@ function reservations_detail_modifier($id_reservations_detail, $set = null) {
 	), $c))
 		return $err;
 
-		// Modification de statut, changement de rubrique ?
-		// FIXME: Ici lorsqu'un $set est passé, la fonction collecter_requests() retourne tout
-		// le tableau $set hors black liste, mais du coup on a possiblement des champs en trop.
+	// Modification de statut, changement de rubrique ?
+	// FIXME: Ici lorsqu'un $set est passé, la fonction collecter_requests() retourne tout
+	// le tableau $set hors black liste, mais du coup on a possiblement des champs en trop.
 	$c = collecter_requests(array(
 		$champ_date,
 		'statut',
@@ -138,7 +138,7 @@ function reservations_detail_inserer($id_parent = null, $set = null) {
 	if ($set)
 		$champs = array_merge($champs, $set);
 
-		// Envoyer aux plugins
+	// Envoyer aux plugins
 	$champs = pipeline('pre_insertion', array(
 		'args' => array(
 			'table' => $table_sql
@@ -251,7 +251,7 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 	if (! count($champs))
 		return '';
 
-		// Envoyer les modifs.
+	// Envoyer les modifs.
 	objet_editer_heritage('reservations_detail', $id_reservations_detail, '', $statut_ancien, $champs);
 
 	// Invalider les caches
@@ -271,7 +271,6 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 	));
 
 	// Notifications si en mode différé et ne pas déclencher par le changement de statut de la réservation
-
 	if ($envoi_separe_actif != 'non') {
 
 		// Déterminer la langue pour les notifications
@@ -299,8 +298,8 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 				if ($config['expediteur'] != "facteur")
 					$options['expediteur'] = $config['expediteur_' . $config['expediteur']];
 
-					// Envoyer au vendeur et au client
-					// Pour le moment pas d'envoi à l'administrateur, prévoir un seul mail pour tout l'événement.
+				// Envoyer au vendeur et au client
+				// Pour le moment pas d'envoi à l'administrateur, prévoir un seul mail pour tout l'événement.
 				if ($s != 'cloture') {
 					spip_log('envoi mail differe vendeur email:' . $email . ', statut:' . $s, 'reservation_evenement' . LOG_INFO);
 					$notifications('reservation_vendeur', $id_reservation, $options);
