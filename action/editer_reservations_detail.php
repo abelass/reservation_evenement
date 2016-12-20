@@ -103,6 +103,16 @@ function reservations_detail_modifier($id_reservations_detail, $set = null) {
 	return $err;
 }
 
+/**
+ * Insere en base le détail de réservation.
+ *
+ * @param int $id_parent
+ * @param array|null $set
+ * @global array $GLOBALS ['visiteur_session']
+ * @global array $GLOBALS ['meta']
+ * @global string $GLOBALS ['spip_lang']
+ * @return bool|int
+ */
 function reservations_detail_inserer($id_parent = null, $set = null) {
 	$objet = 'reservations_detail';
 
