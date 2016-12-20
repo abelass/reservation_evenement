@@ -262,7 +262,7 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 	pipeline('post_edition', array(
 		'args' => array(
 			'table' => 'spip_reservations_details',
-			'id_reservation_detail' => $id_reservations_detail,
+			'id_reservations_detail' => $id_reservations_detail,
 			'action' => 'instituer',
 			'statut_ancien' => $statut_ancien,
 			'date_ancienne' => $date_ancienne
