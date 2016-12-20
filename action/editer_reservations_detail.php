@@ -1,6 +1,24 @@
 <?php
 if (!defined('_ECRIRE_INC_VERSION'))
 	return;
+	/**
+	 * Gestion des modifications des détails d'objets
+	 *
+	 * @plugin     Réservation événements
+	 * @copyright  2013
+	 * @author     Rainer Müller
+	 * @licence    GNU/GPL
+	 * @package    SPIP\Reservation_evenement\Actions
+	 */
+
+	/**
+	 * Appelle toutes les fonctions de modification du détail d'objet
+	 * $err est un message d'erreur eventuelle
+	 *
+	 * @param int $id_reservations_detail
+	 * @param array|null $set
+	 * @return mixed|string
+	 */
 function reservations_detail_modifier($id_reservations_detail, $set = null) {
 	$table_sql = table_objet_sql('reservations_detail');
 	$trouver_table = charger_fonction('trouver_table', 'base');
@@ -84,6 +102,7 @@ function reservations_detail_modifier($id_reservations_detail, $set = null) {
 
 	return $err;
 }
+
 function reservations_detail_inserer($id_parent = null, $set = null) {
 	$objet = 'reservations_detail';
 
@@ -132,6 +151,18 @@ function reservations_detail_inserer($id_parent = null, $set = null) {
 
 	return $id;
 }
+
+/**
+ * Modifie le statut du détail de réservation et gère les envois.
+ *
+ * @param int $id_reservations_detail
+ * @param array $c
+ *   $c est un array ('statut', 'id_parent' = changement de rubrique)
+ *   statut et rubrique sont lies, car un admin restreint peut deplacer
+ *   un objet publie vers une rubrique qu'il n'administre pas
+ * @param bool $calcul_rub
+ * @return string
+ */
 function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub = true) {
 	include_spip('inc/autoriser');
 	include_spip('inc/rubriques');
