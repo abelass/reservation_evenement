@@ -8,7 +8,7 @@ if (! defined('_ECRIRE_INC_VERSION'))
  *
  * @copyright 2013
  * @author Rainer Müller
- *         @licence GNU/GPL
+ * @licence GNU/GPL
  * @package SPIP\Reservation_evenement\Actions
  */
 
