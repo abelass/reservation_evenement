@@ -117,44 +117,50 @@ function rubrique_reservation($id='',$objet,$rubrique_reservation='',$options=ar
  *
  * La fonction va supprimer :
  *
- * - les détails des commandes
- * - les liens entre les commandes et leurs adresses
+ * - les détails des réservations
+ * - les liens entre les réservations et leurs adresses
  * - les adresses si elles sont devenues orphelines
  *
- * @param int|array $ids_commandes
+ * @param int|array $ids_reservations
  *     Identifiant d'une commande ou tableau d'identifiants
  * @return bool
  *     - false si pas d'identifiant de commande transmis
  *     - true sinon
  **/
-function commandes_supprimer($ids_commandes) {
-	if (!$ids_commandes) return false;
-	if (!is_array($ids_commandes)) $ids_commandes = array($ids_commandes);
+function reservations_supprimer($ids_reservations) {
+	if (!$ids_reservations) {
+		return false;
+	}
+	if (!is_array($ids_reservations)) $ids_reservations = array($ids_reservations);
 
-	spip_log("commandes_effacer : suppression de commande(s) : " . implode(',', $ids_commandes),'commandes');
+	spip_log("reservations_effacer : suppression de reservations(s) : " . implode(',', $ids_reservations),
+			'reservation_evenement');
 
-	$in_commandes = sql_in('id_commande', $ids_commandes);
+	$in_reservations = sql_in('id_reservation', $ids_reservations);
 
 	// On supprime ses détails
-	sql_delete('spip_commandes_details', $in_commandes);
+	sql_delete('spip_reservations_details', $in_reservations);
 
 	// On dissocie les commandes et les adresses, et éventuellement on supprime ces dernières
 	include_spip('action/editer_liens');
-	if ($adresses_commandes = objet_trouver_liens(array('adresse'=>'*'), array('commande'=>$ids_commandes))) {
-		$adresses_commandes = array_unique(array_map('reset',$adresses_commandes));
+	if ($adresses_commandes = objet_trouver_liens(array('adresse'=>'*'), array('reservation'=>$ids_reservations))) {
+		$adresses_reservations = array_unique(array_map('reset', $adresses_reservations));
 
-		// d'abord, on dissocie les adresses et les commandes
-		spip_log("commandes_effacer : dissociation des adresses des commandes à supprimer : " . implode(',', $adresses_commandes),'commandes');
-		objet_dissocier(array('adresse'=>$adresses_commandes), array('commande'=>$ids_commandes));
+		// d'abord, on dissocie les adresses et les réservations
+		spip_log("reservations_effacer : dissociation des adresses des réservations à supprimer : " . implode(',', $adresses_reservations),
+				'reservation_evenement');
+		objet_dissocier(array('adresse'=>$adresses_commandes), array('reservation'=>$ids_reservations));
 
 		// puis si les adresses ne sont plus utilisées nul part, on les supprime
-		foreach($adresses_commandes as $id_adresse)
-			if (!count(objet_trouver_liens(array('adresse'=>$id_adresse), '*')))
+		foreach($adresses_commandes as $id_adresse) {
+			if (!count(objet_trouver_liens(array('adresse'=>$id_adresse), '*'))) {
 				sql_delete(table_objet_sql('adresse'), "id_adresse=".intval($id_adresse));
+			}
+		}
 	}
 
-	// On supprime les commandes
-	sql_delete(table_objet_sql('commande'), $in_commandes);
+	// On supprime les réservations.
+	sql_delete(table_objet_sql('reservation'), $ids_reservations);
 
 	return true;
 }
