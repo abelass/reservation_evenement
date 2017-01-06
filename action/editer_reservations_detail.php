@@ -222,7 +222,6 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 						$champs['statut'] = 'attente_part';
 					}
 				}
-				// Sinon on met dans liste d'attente.
 				else {
 					$champs['statut'] = 'attente';
 				}
