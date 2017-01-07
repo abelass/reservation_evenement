@@ -40,24 +40,24 @@ function reservations_detail_modifier($id_reservations_detail, $set = null) {
 	// on ne traite pas la cle primaire par defaut, notamment car
 	// sur une creation, id_x vaut 'oui', et serait enregistre en id_x=0 dans la base
 	$white = array_diff($white, array (
-			$desc['key']['PRIMARY KEY']
+		$desc['key']['PRIMARY KEY']
 	));
 
 	if (isset($desc['champs_editables']) and is_array($desc['champs_editables'])) {
 		$white = $desc['champs_editables'];
 	}
 	$c = collecter_requests(
-		// white list
-		$white,
-		// black list
-		array (
+			// white list
+			$white,
+			// black list
+			array (
 				$champ_date,
 				'statut',
 				'id_parent',
 				'id_secteur'
-		),
-		// donnees eventuellement fournies
-		$set);
+			),
+			// donnees eventuellement fournies
+			$set);
 
 	$donnees_reservations_details = charger_fonction('donnees_reservations_details', 'inc');
 
@@ -68,25 +68,26 @@ function reservations_detail_modifier($id_reservations_detail, $set = null) {
 
 	// Pipeline permettant aux plugins de modifier les détails de la réservation
 	$c = pipeline('reservation_evenement_donnees_details', array (
-			'args' => $set,
-			'data' => array_merge($c, $details)
+		'args' => $set,
+		'data' => array_merge($c, $details)
 	));
 
 	// Si l'objet est publie, invalider les caches et demander sa reindexation
 	if (objet_test_si_publie($objet, $id)) {
 		$invalideur = "id='reservations_detail/$id_reservations_detail'";
 		$indexation = true;
-	} else {
+	}
+	else {
 		$invalideur = "";
 		$indexation = false;
 	}
 
 	if ($err = objet_modifier_champs('reservations_detail', $id_reservations_detail, array (
-			'nonvide' => '',
-			'invalideur' => $invalideur,
-			'indexation' => $indexation,
-			// champ a mettre a date('Y-m-d H:i:s') s'il y a modif
-			'date_modif' => (isset($desc['field']['date_modif']) ? 'date_modif' : '')
+		'nonvide' => '',
+		'invalideur' => $invalideur,
+		'indexation' => $indexation,
+		// champ a mettre a date('Y-m-d H:i:s') s'il y a modif
+		'date_modif' => (isset($desc['field']['date_modif']) ? 'date_modif' : '')
 	), $c))
 		return $err;
 
@@ -94,9 +95,9 @@ function reservations_detail_modifier($id_reservations_detail, $set = null) {
 		// FIXME: Ici lorsqu'un $set est passé, la fonction collecter_requests() retourne tout
 		// le tableau $set hors black liste, mais du coup on a possiblement des champs en trop.
 	$c = collecter_requests(array (
-			$champ_date,
-			'statut',
-			'id_parent'
+		$champ_date,
+		'statut',
+		'id_parent'
 	), array (), $set);
 	$err = reservations_detail_instituer($id_reservations_detail, $c);
 
@@ -126,7 +127,8 @@ function reservations_detail_inserer($id_parent = null, $set = null) {
 		if (isset($desc['statut_textes_instituer'])) {
 			$cles_statut = array_keys($desc['statut_textes_instituer']);
 			$champs['statut'] = reset($cles_statut);
-		} else
+		}
+		else
 			$champs['statut'] = 'attente';
 	}
 
@@ -138,21 +140,21 @@ function reservations_detail_inserer($id_parent = null, $set = null) {
 
 		// Envoyer aux plugins
 	$champs = pipeline('pre_insertion', array (
-			'args' => array (
-					'table' => $table_sql
-			),
-			'data' => $champs
+		'args' => array (
+			'table' => $table_sql
+		),
+		'data' => $champs
 	));
 
 	$id = sql_insertq($table_sql, $champs);
 
 	if ($id) {
 		pipeline('post_insertion', array (
-				'args' => array (
-						'table' => $table_sql,
-						'id_objet' => $id
-				),
-				'data' => $champs
+			'args' => array (
+				'table' => $table_sql,
+				'id_objet' => $id
+			),
+			'data' => $champs
 		));
 	}
 
@@ -188,7 +190,7 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 	$s = isset($c['statut']) ? $c['statut'] : $statut;
 
 	$champs = array (
-			'statut' => $s
+		'statut' => $s
 	);
 
 	// Vérifier si le statut peut être modifiés
@@ -201,59 +203,51 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 	 * on vérifie si l'événement n'est pas complet
 	 */
 
-	if ($s != $statut_ancien and in_array($s, $statuts) and !in_array($statut_ancien, $statuts)) {
+	if ($c['statut_calculer_auto'] == 'on'
+			and $s != $statut_ancien
+			and in_array($s, $statuts)
+			and !in_array($statut_ancien, $statuts)) {
 
 		// Si il y a une limitation de places prévu, on sélectionne les détails de réservation qui ont le statut_complet
 		if ($places and $places > 0) {
 			$sql = sql_select('quantite', 'spip_reservations_details', 'id_evenement=' . $id_evenement . ' AND statut IN ("' . implode('","', $statuts) . '")');
 			$reservations = array ();
-			while ( $data = sql_fetch($sql) ) {
+			while ($data = sql_fetch($sql)) {
 				$reservations[] = $data['quantite'];
 			}
 			// Si quota atteint modifier le statut.
 			if (array_sum($reservations) >= $places) {
-
-				// Si le plugin Réervation bank est activé on distingie suivant le statut envoyé.
-				if (test_plugin_actif('reservation_bank')){
-					if ($s == 'accepte') {
-						$champs['statut'] = 'attente_paye';
-					}
-					elseif ($s == 'accepte_part') {
-						$champs['statut'] = 'attente_part';
-					}
-				}
-				else {
-					$champs['statut'] = 'attente';
-				}
+				$champs['statut'] = 'attente';
 			}
 		}
 	}
 
 	// Envoyer aux plugins
 	$champs = pipeline('pre_edition', array (
-			'args' => array (
-					'table' => 'spip_reservations_details',
-					'id_reservations_detail' => $id_reservations_detail,
-					'action' => 'instituer',
-					'statut_ancien' => $statut_ancien,
-					'date_ancienne' => $date_ancienne
-			),
-			'data' => $champs
+		'args' => array (
+			'table' => 'spip_reservations_details',
+			'id_reservations_detail' => $id_reservations_detail,
+			'action' => 'instituer',
+			'statut_ancien' => $statut_ancien,
+			'date_ancienne' => $date_ancienne
+		),
+		'data' => $champs
 	));
 
 	// Si la config le prévoit, établir si il y eu un changement de statut.
 	if ($c['statut_calculer_auto'] == 'on') {
 		if ($c['statut'] != $champs['statut']) {
 			$statut_modifie = 1;
-		} else {
+		}
+		else {
 			$statut_modifie = 0;
 		}
 
 		$statuts_details_reservation = _request('statuts_details_reservation');
 
 		$statuts_details_reservation[$id_reservations_detail] = array (
-				'statut' => $champs['statut'],
-				'statut_modifie' => $statut_modifie
+			'statut' => $champs['statut'],
+			'statut_modifie' => $statut_modifie
 		);
 
 		set_request('statuts_details_reservation', $statuts_details_reservation);
@@ -271,14 +265,14 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 
 	// Pipeline
 	pipeline('post_edition', array (
-			'args' => array (
-					'table' => 'spip_reservations_details',
-					'id_reservations_detail' => $id_reservations_detail,
-					'action' => 'instituer',
-					'statut_ancien' => $statut_ancien,
-					'date_ancienne' => $date_ancienne
-			),
-			'data' => $champs
+		'args' => array (
+			'table' => 'spip_reservations_details',
+			'id_reservations_detail' => $id_reservations_detail,
+			'action' => 'instituer',
+			'statut_ancien' => $statut_ancien,
+			'date_ancienne' => $date_ancienne
+		),
+		'data' => $champs
 	));
 
 	// Notifications si en mode différé et ne pas déclencher par le changement de statut de la réservation
@@ -302,9 +296,9 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 
 				// Determiner l'expediteur
 				$options = array (
-						'statut' => $s,
-						'id_reservations_detail' => $id_reservations_detail,
-						'lang' => $lang
+					'statut' => $s,
+					'id_reservations_detail' => $id_reservations_detail,
+					'lang' => $lang
 				);
 				if ($config['expediteur'] != "facteur")
 					$options['expediteur'] = $config['expediteur_' . $config['expediteur']];
