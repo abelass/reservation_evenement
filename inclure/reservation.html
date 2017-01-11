@@ -50,7 +50,7 @@
 					<td class="montant">[(#VALEUR|table_valeur{prix}|appliquer_filtre{prix_formater,[(#VALEUR|table_valeur{prix})]})]</td>
 					]
 					<td class="statut">
-						[(#VAL{reservation}|re_statut_titre{#STATUT})]
+						[(#VAL{reservation}|re_statut_titre{#VALEUR{statut}})]
 					</td>
 				</tr>
 				</BOUCLE_details>
