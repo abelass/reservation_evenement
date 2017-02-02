@@ -7,5 +7,5 @@
 		[(#ENV{prix}|>{0}|?{[(#ENV{prix})],<:reservation:label_inscription:>})]
 	</label>
 	<input type="checkbox" name="id_evenement[#ID_EVENEMENT]" class="checkbox evenement" id="id_evenement_#ID_EVENEMENT" value="#ID_EVENEMENT"
-		[(#ID_EVENEMENT|in_array{#GET{id_evenement}}|oui) checked="checked" ]/>
+		[(#ID_EVENEMENT|in_array{#GET{id_evenement}}|oui) checked="checked"]/>
 </div>
