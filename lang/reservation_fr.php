@@ -148,6 +148,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'places_disponibles' => 'Places disponibles :',
 
 	// R
+	'evenement_ferme_inscription' => 'Cet événement est actuellement fermé à l\'inscription. <br/> Appuyez sur le bouton inscription pour visualiser l\'offre actuelle.',
 	'reaservation_montant' => 'Montant',
 	'reaservation_nouvelle' => 'Nouvelle réservation',
 	'recapitulatif' => 'Récapitulatif de la réservation :',
