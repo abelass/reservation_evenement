@@ -23,8 +23,12 @@
 			statut,#CLE}}
 	]
 	<div class="actions">
-		<a href="[(#URL_ECRIRE{reservation_visualiser,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}})]})]" title="<:previsualiser:>" onclick="if (jQuery.modalbox) {jQuery.modalbox('[(#URL_ECRIRE{reservation_visualiser,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}})]}|parametre_url{var_zajax,contenu})]');return false;}">[(#CHEMIN_IMAGE{preview-16.png}|image_reduire{13})]</a>
-		<a href="[(#URL_PAGE{transmettre,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui})]" title="<:agenda:telecharger:>">[(#CHEMIN_IMAGE{telecharger-16.png}|image_reduire{13})]</a>
+		<a href="[(#URL_ECRIRE{reservation_visualiser,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}})]})]" title="<:previsualiser:>" onclick="if (jQuery.modalbox) {jQuery.modalbox('[(#URL_ECRIRE{reservation_visualiser,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}})]}|parametre_url{var_zajax,contenu})]');return false;}">
+			[(#CHEMIN_IMAGE{preview-16.png}|image_reduire{13})]
+		</a>
+		<a href="[(#URL_PAGE{transmettre,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui})]" title="<:agenda:telecharger:>">
+			[(#CHEMIN_IMAGE{telecharger-16.png}|image_reduire{13})]
+		</a>
 		[(#PIPELINE{reservation_compteur_action,
 		[(#ARRAY{
 			args,#GET{args},
