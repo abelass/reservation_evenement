@@ -81,7 +81,7 @@ function promotions_multiples_evenements_dist($flux = array()) {
 					'datas' => $objets,
 					'class' => 'chosen',
 					'obligatoire' => 'oui',
-					'afficher_si' => '@objet_promotion@!=""'
+					'afficher_si' => '@objet_promotion@!="" && @type_selection@=="choix_precis"',
 				)
 			),
 			array (
