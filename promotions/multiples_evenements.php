@@ -31,7 +31,12 @@ function promotions_multiples_evenements_dist($flux = array()) {
 			$objets[$data['id_article']] = $data['titre'];
 		}
 	}
-
+	if($objet_promotion) {
+		$label_id_objet = _T('reservation:label_objet_' . $objet_promotion);
+	}
+	else {
+		$label_id_objet = _T('reservation:label_obets_choix');
+	}
 	$return = array (
 		'nom' => _T('reservation:nom_reservation_multiples_evenements'),
 		'saisies' => array (
@@ -77,7 +82,7 @@ function promotions_multiples_evenements_dist($flux = array()) {
 				'saisie' => 'selection_multiple',
 				'options' => array (
 					'nom' => 'id_objet',
-					'label' => _T('reservation:label_objet_' . $objet_promotion),
+					'label' => $label_id_objet,
 					'datas' => $objets,
 					'class' => 'chosen',
 					'obligatoire' => 'oui',
