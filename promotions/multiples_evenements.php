@@ -92,7 +92,7 @@ function promotions_multiples_evenements_dist($flux = array()) {
 					'explication' => _T('reservation:explication_nombre_evenements') . ' ' . _T('reservation:explication_nombre_evenements_choix', array (
 						'objet_promotion' => $objet_promotion
 					)),
-					'afficher_si' => '@selection_multiple@!="choix_precis"',
+					'afficher_si' => '@type_selection@=="choix_precis"',
 					'obligatoire' => 'oui',
 					'defaut' => '0'
 				)
