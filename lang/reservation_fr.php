@@ -87,6 +87,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_mot_passe2' => 'Répétez le mot de passe :',
 	'label_nom' => 'Nom :',
 	'label_nombre_evenements' => 'Nombre de coincidences :',
+	'label_obets_choix' => 'Articles ou événements disponibles pour la promotion :',
 	'label_objet_article' => 'Choissisez les articles dont les événements seront disponibles pour la promotion :',
 	'label_objet_evenement' => 'Choissisez les les événements disponibles pour la promotion :',
 	'label_objet_promotion' => 'Définir sur quel niveau on applique la promotion :',
