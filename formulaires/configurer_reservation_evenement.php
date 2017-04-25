@@ -5,14 +5,38 @@ if (!defined('_ECRIRE_INC_VERSION'))
 	return;
 
 function formulaires_configurer_reservation_evenement_saisies_dist() {
+	include_spip('inc/config');
+	include_spip('inc/plugin');
+	include_spip('inc/reservation_evenements');
 
 	$liste_objets = lister_tables_objets_sql();
 	$statuts = array();
 	$statuts_selectionnees = array();
-	include_spip('inc/config');
-	include_spip('inc/plugin');
 	$config = lire_config('reservation_evenement', array());
 	$quand = isset($config['quand']) ? $config['quand'] : array();
+	$objets_configuration = re_objets_configuration();
+	$choix_objets_configuration = array();
+	print_r($objets_configuration);
+	if (count($objets_configuration) > 0) {
+
+		$configuration = array();
+		foreach ($objets_configuration AS $objet => $valeur) {
+			if ($objet != 'reservation_evenement') {
+				$configuration[$objet] = $valeur['label'];
+			}
+		}
+		$choix_objets_configuration = array(
+			'saisie' => 'checkbox',
+			'options' => array(
+				'nom' => 'objets_configuration',
+				'datas' => $configuration,
+				'label' => _T('reservation:label_objets_configuration'),
+				'explication' => _T('reservation:objets_configuration_explication'),
+				'defaut' => $config['objets_configuration']
+			)
+		);
+	}
+
 
 	//Le statuts du plugin, sauf en cours
 	foreach ($liste_objets['spip_reservations']['statut_textes_instituer'] AS $statut => $label) {
@@ -104,6 +128,7 @@ function formulaires_configurer_reservation_evenement_saisies_dist() {
 						'defaut' => $config['afficher_inscription_agenda']
 					)
 				),
+				$choix_objets_configuration,
 			)
 		),
 		array(

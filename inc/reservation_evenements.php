@@ -166,7 +166,9 @@ function reservations_supprimer($ids_reservations) {
 }
 
 /**
+ * Définit les différents panneau de configuration intégrés dans le panneau.
  *
+ * @return array les objets.
  */
 function re_objets_configuration() {
 	$objets = array(
