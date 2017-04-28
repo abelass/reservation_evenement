@@ -171,6 +171,7 @@ function reservations_supprimer($ids_reservations) {
  * @return array les objets.
  */
 function re_objets_configuration() {
+	include_spip('public/assembler');
 	$objets = array(
 		'reservation_evenement' => array(
 			'label' => _T('reservation_evenement:reservation_evenement_titre'),
