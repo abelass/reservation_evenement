@@ -1,12 +1,10 @@
 [(#AUTORISER{configurer,_reservation_evenement}|sinon_interdire_acces)]
-#SET{panneau_defaut, reservation_evenement}
 #SET{objets_configuration,#REM|re_objets_configuration}
 #SET{panneau,#ENV{panneau,#GET{panneau_defaut}}}
 <INCLURE{
 	fond=prive/squelettes/contenu/inc-configurer_reservation_evenement_menu,
 	env,
 	objets_configuration=#GET{objets_configuration},
-	panneau_defaut=#GET{panneau_defaut},
 	ajax=configurer_re_menu}/>
 
 [(#GET{objets_configuration}|table_valeur{#GET{panneau}}|table_valeur{chemin}|?{
@@ -21,7 +19,10 @@
 <script type="text/javascript">
 $(function() {
 	$("body").on('submit', '.formulaire_configurer_reservation_evenement form', function(event) {
-		ajaxReload('configurer_re_menu');
+		//$(".fieldset_fieldset_parametres saisie_fieldset input").change(function() {
+			//alert("Something happened!");
+			ajaxReload('configurer_re_menu');
+		//});
 	});
 });
 </script>
