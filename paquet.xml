@@ -16,8 +16,8 @@
 	<necessite nom="facteur" compatibilite="[3.4.11;]" />
 	<necessite nom="nospam" compatibilite="[1.5.17;]" />
 	<necessite nom="saisies" compatibilite="[2.18.12;]" />
-	<necessite nom="yaml" compatibilite="[1.5.3;]" />
 	<necessite nom="verifier" compatibilite="[1.6.4;]" />
+	<necessite nom="yaml" compatibilite="[1.5.3;]" />
 
 	<utilise nom="declinaisons" compatibilite="[1.0.3;]" />
 	<utilise nom="prix_objets" compatibilite="[1.6.5;]" />
