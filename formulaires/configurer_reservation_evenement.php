@@ -44,7 +44,6 @@ function formulaires_configurer_reservation_evenement_saisies_dist() {
 					'nom' => 'objets_configuration',
 					'datas' => $configuration,
 					'label' => _T('reservation:label_objets_configuration'),
-					'explication' => _T('reservation:objets_configuration_explication'),
 					'defaut' => $config['objets_configuration'],
 					'afficher_si' => '@selection_objets_configuration@ == "on"',
 				)
