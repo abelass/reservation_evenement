@@ -1,51 +1,28 @@
 [(#AUTORISER{configurer,_reservation_evenement}|sinon_interdire_acces)]
+#SET{panneau_defaut, reservation_evenement}
+#SET{objets_configuration,#REM|re_objets_configuration}
+#SET{panneau,#ENV{panneau,#GET{panneau_defaut}}}
+<INCLURE{
+	fond=prive/squelettes/contenu/inc-configurer_reservation_evenement_menu,
+	env,
+	objets_configuration=#GET{objets_configuration},
+	panneau_defaut=#GET{panneau_defaut},
+	ajax=configurer_re_menu}/>
 
-#SET{chemin_defaut,prive/squelettes/contenu/inc-configurer_reservation_evenement}
-#SET{config_defaut, reservation_evenement}
-
-#SET{config,#CONFIG{reservation_evenement}}
-#SET{objets_configuration,#GET{config}|table_valeur{objets_configuration}}
-#SET{config_selection_objets_configuration, #GET{config}|table_valeur{selection_objets_configuration}}
-[(#GET{objets_configuration}|oui)
-#SET{config_objets_configuration,
-	#LISTE{reservation_evenement}|array_merge{#GET{objets_configuration}}
+[(#GET{objets_configuration}|table_valeur{#GET{panneau}}|table_valeur{chemin}|?{
+	#SET{chemin,#GET{objets_configuration}|table_valeur{#GET{panneau}}|table_valeur{chemin}},
+	#SET{chemin,prive/squelettes/contenu/configurer_#GET{panneau}},
 	}
-]
-
-<B_objets>
-<div class="onglets_simple second clearfix">
-		<ul>
-<BOUCLE_objets(DATA){source tableau, #REM|re_objets_configuration}>
-#SET{afficher,oui}
-[(#GET{config_selection_objets_configuration}|oui)
-	[(#CLE|in_array{#GET{config_objets_configuration}}|non)
-		#SET{afficher,non}
-	]
-]
-[(#GET{afficher}|=={oui}|oui)
-	<li>
-		[(#ENV{config,#GET{config_defaut}}|=={#CLE}|oui)
-			<strong class="on">[(#LABEL)]</strong>
-			[(#VALEUR|table_valeur{chemin}|?{
-				#SET{chemin,#VALEUR{chemin}},
-				#SET{chemin,prive/squelettes/contenu/configurer_#CLE},
-				}
-			)]
-		]
-		[(#ENV{config,#GET{config_defaut}}|=={#CLE}|non)
-				<a
-					class="ajax nocache"
-					href="[(#URL_ECRIRE{configurer_reservation_evenement}
-						|parametre_url{config,#CLE})]">
-						#LABEL
-				</a>
-		]
-	</li>
-]
-</BOUCLE_objets>
-		</ul>
-</div>
-</B_objets>
+)]
 
 
 [(#INCLURE{fond=#GET{chemin},env})]
+
+<script type="text/javascript">
+$(function() {
+	$("body").on('submit', '.formulaire_configurer_reservation_evenement form', function(event) {
+		ajaxReload('configurer_re_menu');
+	});
+});
+</script>
+
