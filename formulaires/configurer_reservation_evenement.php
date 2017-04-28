@@ -14,26 +14,53 @@ function formulaires_configurer_reservation_evenement_saisies_dist() {
 	$statuts_selectionnees = array();
 	$config = lire_config('reservation_evenement', array());
 	$quand = isset($config['quand']) ? $config['quand'] : array();
-	$objets_configuration = re_objets_configuration();
-	$choix_objets_configuration = array();
-	print_r($objets_configuration);
-	if (count($objets_configuration) > 0) {
 
+	// Les objets 'a afficher dans le panneau config.
+	$objets_configuration = re_objets_configuration();
+	$fieldset_espace_prive = array();
+	$saisies_espace_prives= array();
+
+	// Si il y a d'autres panneau que celui du présent plugin.
+	if (count($objets_configuration) > 1) {
 		$configuration = array();
 		foreach ($objets_configuration AS $objet => $valeur) {
 			if ($objet != 'reservation_evenement') {
 				$configuration[$objet] = $valeur['label'];
 			}
 		}
-		$choix_objets_configuration = array(
-			'saisie' => 'checkbox',
-			'options' => array(
-				'nom' => 'objets_configuration',
-				'datas' => $configuration,
-				'label' => _T('reservation:label_objets_configuration'),
-				'explication' => _T('reservation:objets_configuration_explication'),
-				'defaut' => $config['objets_configuration']
+		$saisies_espace_prives = array(
+			array(
+				'saisie' => 'oui_non',
+				'options' => array(
+					'nom' => 'selection_objets_configuration',
+					'label' => _T('reservation:label_selection_objets_configuration'),
+					'explication' => _T('reservation:selection_objets_configuration_explication'),
+					'defaut' => $config['selection_objets_configuration']
+				)
+			),
+			array(
+				'saisie' => 'checkbox',
+				'options' => array(
+					'nom' => 'objets_configuration',
+					'datas' => $configuration,
+					'label' => _T('reservation:label_objets_configuration'),
+					'explication' => _T('reservation:objets_configuration_explication'),
+					'defaut' => $config['objets_configuration'],
+					'afficher_si' => '@selection_objets_configuration@ == "on"',
+				)
 			)
+		);
+	}
+
+	// Le fieldset espace privé.
+	if (count($saisies_espace_prives) > 0) {
+		$fieldset_espace_prive = array(
+			'saisie' => 'fieldset',
+			'options' => array(
+				'nom' => 'fieldset_parametres',
+				'label' => _T('public:espace_prive')
+			),
+			'saisies' => $saisies_espace_prives,
 		);
 	}
 
@@ -128,9 +155,9 @@ function formulaires_configurer_reservation_evenement_saisies_dist() {
 						'defaut' => $config['afficher_inscription_agenda']
 					)
 				),
-				$choix_objets_configuration,
 			)
 		),
+		$fieldset_espace_prive,
 		array(
 			'saisie' => 'fieldset',
 			'options' => array(
