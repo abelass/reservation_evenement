@@ -47,7 +47,7 @@ function reservation_evenement_affiche_gauche($flux) {
 
 	$objets_navigation = array_reduce($objets_navigation, function ($a, $b) {
 		return array_merge($a, (array) $b);
-	}, []);
+	}, array());
 
 		if (in_array($exec, $objets_navigation)) {
 			include_spip('inc/config');
