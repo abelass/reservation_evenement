@@ -92,6 +92,7 @@ function inc_reservation_enregistrer_dist($id = '', $id_article = '', $id_auteur
 	suivre_invalideur("id='reservation/$id_reservation'");
 	suivre_invalideur("id='reservations_detail/$id_reservations_detail'");
 	return array(
+		'id_reservation' => $id_reservation,
 		'message_ok' => $message,
 		'editable' => false
 	);
