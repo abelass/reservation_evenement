@@ -92,9 +92,11 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_objet_evenement' => 'Choissisez les les événements disponibles pour la promotion :',
 	'label_objet_promotion' => 'Définir sur quel niveau on applique la promotion :',
 	'label_objets_configuration' => 'Les panneaux disponibles :',
+	'label_objets_navigation' => 'Les éléments disponibles :',
 	'label_reference' => 'Référence :',
 	'label_reservation' => 'Réservation :',
 	'label_selection_objets_configuration' => 'Sélectionner les panneaux de configuration à intégrer',
+	'label_selection_objets_navigation' => 'Sélectionner les éléments additionnels du menu de navigation',
 	'label_statut' => 'Statut :',
 	'label_statut_calculer_auto' => 'Calculer automatiquement le statut accepté de la réservation :',
 	'label_statut_calculer_auto_explication' => 'Lors d’un changement de statut vers accepté, vérifier si tous les détails de réservation ont le statut accepté, sinon le statut accepté partiellement sera retenu pour la réservation.',
@@ -104,6 +106,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_type_selection' => 'Type de sélection :',
 	'legend_donnees_auteur' => 'Les données du client',
 	'legend_donnees_reservation' => 'Les données de la réservation',
+	'legend_infos_generales' => 'Infos générales réservation',
 
 	// M
 	'merci_de_votre_reservation' => 'Nous avons bien enregistré votre réservation et nous vous remercions de votre confiance.',

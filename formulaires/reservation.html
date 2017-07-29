@@ -17,9 +17,9 @@
 						<legend>
 							<:agenda:label_vous_inscrire:>
 						</legend>
-						<ul class="evenements">
+						<div class="editer-groupe evenements">
 							#GET{champs}
-						</ul>
+						</div>
 					</fieldset>
 					<fieldset>
 						<legend>
@@ -27,6 +27,8 @@
 						</legend>
 						<INCLURE {fond=formulaires/inc-reservation_connection,env} />
 					</fieldset>
+					<INCLURE {fond=formulaires/inc-reservation_champs_extras_reservation,env} />
+
 					[(#REM) ajouter les saisies supplementaires : extra et autre, a cet
 					endroit ]
 					<!--extra-->
