@@ -44,7 +44,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'explication_envoi_separe' => 'Le changement de statut d’un Détail de Réservation vers
 		<div><b>"@statuts@"</b></div> provoquera l’envoi d’une notification !', # NEW
 	'explication_envoi_separe_detail' => 'Le changement de statut vers <div><strong>"@statuts@"</strong></div> provoquera l’envoi d’une notification !', # NEW
-	'explication_login' => '<a rel="nofollow" class="login_modal" href="@url@" title="@titre_login@">Connectez-vous</a> si vous êtes déjà enregistré sur ce site', # NEW
+	'explication_login' => '<a rel="nofollow" class="login_modal" href="@url@" title="@titre_login@">Meld u aan</a> indien u reeds geregistreerd bent op deze website.', # NEW
 	'explication_nombre_evenements' => 'Le nombre nécessaire d’événements réservés  pour que la promotion s’applique.', # NEW
 	'explication_nombre_evenements_choix' => 'Si rien ou 0, ce nombre sera égal au nombre d’@objet_promotion@s choisis ci-haut', # NEW
 	'explication_objet_promotion' => 'Si définit au niveau article, seront compris tous les évenéments disponible por la réservation de cet article.', # NEW
