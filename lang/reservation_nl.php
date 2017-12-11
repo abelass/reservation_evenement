@@ -1,6 +1,6 @@
 <?php
 // This is a SPIP language file  --  Ceci est un fichier langue de SPIP
-// extrait automatiquement de
+// extrait automatiquement de 
 // ** ne pas modifier le fichier **
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -15,7 +15,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'ajouter_lien_reservation' => 'Ajouter cette réservation', # NEW
 
 	// B
-	'bonjour' => 'Bonjour', # NEW
+	'bonjour' => 'Beste',
 
 	// C
 	'choix_precis' => 'Choix précis', # NEW
@@ -25,8 +25,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'cron_label' => 'Clôturer automatiquement une réservation', # NEW
 
 	// D
-	'designation' => 'Désignation', # NEW
-	'details_reservation' => 'Détails de la réservation :', # NEW
+	'designation' => 'Evenement',
+	'details_reservation' => 'Details van uw inschrijving :',
 	'duree_vie_explication' => 'Saisir la durée de vie (en heures) d’une commande avec le statut "@statut_defaut@". Si aucune valeur ou valeur 0 - la durée de vie est illimitée.', # NEW
 	'duree_vie_label' => 'Durée de vie :', # NEW
 
@@ -38,8 +38,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'explication_client' => 'Choissisez un client parmis les auteurs ou saisissez les données du client ci-bas', # NEW
 	'explication_email_reutilisable' => 'Permettre de réutiliser un email d’un auteur spip lors d’une réservation sans enregistrement', # NEW
 	'explication_enregistrement_inscrit' => 'L’enregistrer en tant que auteur spip', # NEW
-	'explication_envoi_differe' => 'Le changement de statut d’un Détail de Réservation vers
-		<div><b>"@statuts@"</b></div> provoquera l’envoi d’une notification !', # attic
+	'explication_envoi_differe' => 'Le changement de statut d’un Détail de Réservation vers 
+    <div><b>"@statuts@"</b></div> provoquera l’envoi d’une notification !', # attic
 	'explication_envoi_differe_detail' => 'Le changement de statut vers <div><strong>"@statuts@"</strong></div> provoquera l’envoi d’une notification !', # attic
 	'explication_envoi_separe' => 'Le changement de statut d’un Détail de Réservation vers
 		<div><b>"@statuts@"</b></div> provoquera l’envoi d’une notification !', # NEW
@@ -80,16 +80,16 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_donnees_auteur' => 'Données Auteur :', # NEW
 	'label_duree_vie_poubelle' => 'Durée de vie d’une réservation mise à la poubelle', # NEW
 	'label_effacer_poubelles_auto' => 'Effacer automatiquement les réservations mises à la poubelle', # NEW
-	'label_email' => 'Email :', # NEW
+	'label_email' => 'Email :',
 	'label_email_reutilisable' => 'Permettre de réutiliser une adresse email :', # NEW
 	'label_enregistrement_inscrit' => 'Permettre au visiteur de s’enregistrer lors d’une réservation :', # NEW
 	'label_enregistrement_inscrit_obligatoire' => 'Rendre l’enregistrement obligatoire :', # NEW
 	'label_enregistrer' => 'Je veux m’enregistrer sur ce site :', # NEW
 	'label_id_auteur' => 'Id auteur :', # NEW
-	'label_inscription' => 'Inschrijving :',
+	'label_inscription' => 'inschrijving:',
 	'label_lang' => 'Langue :', # NEW
 	'label_maj' => 'maj :', # NEW
-	'label_modifier_identifiants_personnels' => 'Wijzig uw persoonlijke inloggegevens :',
+	'label_modifier_identifiants_personnels' => 'Wijzig uw persoonlijke inloggegevens:',
 	'label_mot_passe' => 'Mot de passe :', # NEW
 	'label_mot_passe2' => 'Répétez le mot de passe :', # NEW
 	'label_nom' => 'Nom :', # NEW
@@ -101,10 +101,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_objets_configuration' => 'Les panneaux disponibles :', # NEW
 	'label_objets_navigation' => 'Les éléments disponibles :', # NEW
 	'label_reference' => 'Référence :', # NEW
-	'label_reservation' => 'Réservation :', # NEW
+	'label_reservation' => 'Boeking:',
 	'label_selection_objets_configuration' => 'Sélectionner les panneaux de configuration à intégrer', # NEW
 	'label_selection_objets_navigation' => 'Sélectionner les éléments additionnels du menu de navigation', # NEW
-	'label_statut' => 'Statut :', # NEW
+	'label_statut' => 'Statuut:',
 	'label_statut_calculer_auto' => 'Calculer automatiquement le statut accepté de la réservation :', # NEW
 	'label_statut_calculer_auto_explication' => 'Lors d’un changement de statut vers accepté, vérifier si tous les détails de réservation ont le statut accepté, sinon le statut accepté partiellement sera retenu pour la réservation.', # NEW
 	'label_statut_defaut' => 'Statut par défaut :', # NEW
@@ -116,7 +116,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'legend_infos_generales' => 'Algemene informatie inschrijving',
 
 	// M
-	'merci_de_votre_reservation' => 'Nous avons bien enregistré votre réservation et nous vous remercions de votre confiance.', # NEW
+	'merci_de_votre_reservation' => 'Wij hebben uw inschrijving goed ontvangen en bedanken u voor uw interesse.',
 	'message_erreur' => 'Votre saisie contient des erreurs !', # NEW
 	'message_evenement_cloture' => 'L’évènement @titre@ vient de se terminer. <br />Nous aimerions vous remercier pour votre participation.', # NEW
 	'message_evenement_cloture_vendeur' => 'L’évènement @titre@ vient de se terminer. <br />Le système vient d’envoyer un message de cloture à @client@ - @email@.', # NEW
@@ -171,10 +171,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// R
 	'reaservation_montant' => 'Montant', # attic
 	'reaservation_nouvelle' => 'Nouvelle réservation', # attic
-	'recapitulatif' => 'Récapitulatif de la réservation :', # NEW
-	'remerciement' => 'Nous vous remercions pour votre inscription<br/>Cordialement', # NEW
+	'recapitulatif' => 'Overzicht van uw inschrijving:',
+	'remerciement' => 'Wij danken u voor uw inschrijving.<br>Met vriendelijke groet,',
 	'reservation_client' => 'Client', # NEW
-	'reservation_date' => 'Date :', # NEW
+	'reservation_date' => 'Datum :',
 	'reservation_de' => 'Réservation de', # NEW
 	'reservation_enregistre' => 'Votre inscription a bien été enregistrée. Vous recevrez un email de confirmation. Si aucun mail ne vous est parvenu, vérifiez dans votre dossier spam.', # NEW
 	'reservation_numero' => 'Réservation :', # NEW
@@ -189,7 +189,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'sujet_une_reservation_accepte' => 'Réservation confirmé sur @nom@', # NEW
 	'sujet_une_reservation_accepte_part' => 'Réservation partiellement confirmé sur @nom@', # NEW
 	'sujet_une_reservation_cloture' => 'Évènement clôturé sur @nom@', # NEW
-	'sujet_votre_reservation_accepte' => '@nom@ : confirmation de votre réservation', # NEW
+	'sujet_votre_reservation_accepte' => '@nom@ : bevestiging van uw inschrijving',
 	'sujet_votre_reservation_accepte_part' => '@nom@ : confirmation partielle de votre réservation', # NEW
 	'sujet_votre_reservation_cloture' => '@nom@ : clôture de l’évènement', # NEW
 
@@ -197,7 +197,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'texte_ajouter_reservation' => 'Ajouter une réservation', # NEW
 	'texte_changer_statut_reservation' => 'Cette réservation est :', # NEW
 	'texte_exporter' => 'exporter', # NEW
-	'texte_statut_accepte' => ' accepté', # NEW
+	'texte_statut_accepte' => 'aanvaard',
 	'texte_statut_accepte_part' => ' accepté partiellement', # NEW
 	'texte_statut_attente' => ' dans liste d’attente', # NEW
 	'texte_statut_attente_paiement' => ' en attente du paiement', # NEW
