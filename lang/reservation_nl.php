@@ -1,6 +1,6 @@
 <?php
 // This is a SPIP language file  --  Ceci est un fichier langue de SPIP
-// extrait automatiquement de 
+// extrait automatiquement de
 // ** ne pas modifier le fichier **
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -38,8 +38,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'explication_client' => 'Choissisez un client parmis les auteurs ou saisissez les données du client ci-bas', # NEW
 	'explication_email_reutilisable' => 'Permettre de réutiliser un email d’un auteur spip lors d’une réservation sans enregistrement', # NEW
 	'explication_enregistrement_inscrit' => 'L’enregistrer en tant que auteur spip', # NEW
-	'explication_envoi_differe' => 'Le changement de statut d’un Détail de Réservation vers 
-    <div><b>"@statuts@"</b></div> provoquera l’envoi d’une notification !', # attic
+	'explication_envoi_differe' => 'Le changement de statut d’un Détail de Réservation vers
+		<div><b>"@statuts@"</b></div> provoquera l’envoi d’une notification !', # attic
 	'explication_envoi_differe_detail' => 'Le changement de statut vers <div><strong>"@statuts@"</strong></div> provoquera l’envoi d’une notification !', # attic
 	'explication_envoi_separe' => 'Le changement de statut d’un Détail de Réservation vers
 		<div><b>"@statuts@"</b></div> provoquera l’envoi d’une notification !', # NEW
@@ -117,7 +117,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// M
 	'merci_de_votre_reservation' => 'Wij hebben uw inschrijving goed ontvangen en bedanken u voor uw interesse.',
-	'message_erreur' => 'Votre saisie contient des erreurs !', # NEW
+	'message_erreur' => 'De ingevoerde gegevens bevatten een fout!',
 	'message_evenement_cloture' => 'L’évènement @titre@ vient de se terminer. <br />Nous aimerions vous remercier pour votre participation.', # NEW
 	'message_evenement_cloture_vendeur' => 'L’évènement @titre@ vient de se terminer. <br />Le système vient d’envoyer un message de cloture à @client@ - @email@.', # NEW
 	'montant' => 'Montant', # NEW
