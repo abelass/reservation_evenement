@@ -163,7 +163,7 @@ function formulaires_reservation_charger_dist($id = array(), $id_article = '', $
 	$valeurs['enregistrement_inscrit'] = $enregistrement_inscrit;
 	$valeurs['enregistrement_inscrit_obligatoire'] = $enregistrement_inscrit_obligatoire;
 
-	// Si les champs auteurs obligatoires manquen, mode édition.
+	// Si les champs auteurs obligatoires manquent, mode édition.
 	if (!$session['nom'] | !$session['email']) {
 		$valeurs['modifier_donnees_auteur'] = array('1');
 	}
