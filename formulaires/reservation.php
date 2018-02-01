@@ -4,7 +4,7 @@
  *
  * @plugin Réservation Événements
  *
- * @copyright 2013
+ * @copyright 2013 - 2018
  * @author Rainer Müller
  *         @licence GNU/GPL
  * @package SPIP\Reservation_evenement\Formulaires
