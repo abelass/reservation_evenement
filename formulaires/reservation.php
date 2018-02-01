@@ -174,7 +174,7 @@ function formulaires_reservation_charger_dist($id = array(), $id_article = '', $
 		// Auteurs
 		$valeurs['champs_extras_auteurs'] = champs_extras_objet(table_objet_sql('auteur'));
 		foreach ($valeurs['champs_extras_auteurs'] as $key => $value) {
-			if (!$session[$value['options']['nom']] && $value['options']['obligatoire'] == 'on') {
+			if (!$session[$value['options']['nom']] && $value['options']['obligatoire']) {
 				$valeurs['modifier_donnees_auteur'] = array('1');
 			}
 			$valeurs[$value['options']['nom']] = $session[$value['options']['nom']];
