@@ -18,7 +18,6 @@
  */
 function messages_personnalises_reservation_dist($contexte) {
 	$reservations = lister_tables_objets_sql('spip_reservations');
-
 	$statuts = array();
 	foreach ($reservations['statut_textes_instituer'] as $statut => $chaine) {
 		$statuts[$statut] = _T($chaine);
@@ -34,5 +33,6 @@ function messages_personnalises_reservation_dist($contexte) {
 				'vendeur' => _T('reservation:notifications_vendeur_label')
 			),
 		),
+		'champs_disponibles' => array_keys($reservations['field']),
 	);
 }
