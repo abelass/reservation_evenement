@@ -12,11 +12,11 @@
 
 /**
  *
- * @param array $contexte
+ * @param array $args
  *        	Variables du contexte.
  * @return array Définition.
  */
-function messages_personnalises_reservation_dist() {
+function messages_personnalises_reservation_dist($args) {
 
 	// Les champs reservations
 	$reservations = lister_tables_objets_sql('spip_reservations');
@@ -71,5 +71,6 @@ function messages_personnalises_reservation_dist() {
 			'champs' => $champs_sql,
 			'from' =>'spip_reservations AS reservation LEFT JOIN spip_auteurs AS auteur USING(id_auteur)'
 		),
+		'fond' => 'notifications/contenu_reservation_mail',
 	);
 }
