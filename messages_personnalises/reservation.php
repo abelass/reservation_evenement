@@ -67,6 +67,12 @@ function messages_personnalises_reservation_dist($args) {
 			),
 		),
 		'champs_disponibles' => $champs,
+		'inclures' => array(
+				'reservations' => array(
+						'fond' => 'inclure/reservation',
+						'titre' => _T('reservation:mp_titre_reservation_details'),
+				),
+		),
 		'requete' => array(
 			'champs' => $champs_sql,
 			'from' =>'spip_reservations AS reservation LEFT JOIN spip_auteurs AS auteur USING(id_auteur)'
