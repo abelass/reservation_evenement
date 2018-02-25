@@ -70,7 +70,7 @@ function messages_personnalises_test_dist($args) {
 		'champs_disponibles' => $champs,
 		'inclures' => array(
 			'reservations' => array(
-				'fond' => 'inclure/reservations',
+				'fond' => 'inclure/reservation',
 				'titre' => _T('reservation:mp_titre_reservation_details'),
 			),
 		),
