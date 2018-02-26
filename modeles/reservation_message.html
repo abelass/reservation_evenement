@@ -1,4 +1,4 @@
-<BOUCLE_art(RESERVATIONS){id_reservation=1}{tout}>
+<BOUCLE_art(RESERVATIONS){id_reservation}{tout}>
 [(#GET{statut}|non) #SET{statut,#STATUT}]
 #SET{nom_client,#NOM}
 #SET{extras,#DONNEES_AUTEUR|unserialize}

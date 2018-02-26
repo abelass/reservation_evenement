@@ -45,20 +45,37 @@ function messages_personnalises_reservation_dist($args) {
 		'source',
 		'maj',
 	);
-	$champs = array();
+	$champs_disponibles = array();
 	$champs_sql = array();
 	foreach ($tables AS $objet => $liste_champs) {
 		foreach($liste_champs AS $champ) {
 			if (!in_array($champ, $exclus)) {
 				$alias = $objet . '_' . $champ;
-				$champs[] = $alias;
+				$champs_disponibles[] = $alias;
 				$champs_sql[] = $objet . '.' . $champ . ' AS ' .$alias;
 			}
 		}
 	}
 
+	// les champs extras auteur
+	include_spip('cextras_pipelines');
+
+	$champs_lies = array(
+		'auteur_nom' => 'reservation_nom',
+		'auteur_email' => 'reservation_email'
+	);
+	if (function_exists('champs_extras_objet')) {
+		$valeurs['champs_extras_auteurs'] = champs_extras_objet(table_objet_sql('auteur'));
+
+		foreach ($valeurs['champs_extras_auteurs'] as $value) {
+			$champ = $value['options']['nom'];
+			$champs_lies['auteur_' . $champ] = 'reservation_' . $champ;
+		}
+	}
+
 	return array(
 		'nom' => _T('reservation:titre_reservation'),
+		'objet' => 'reservation',
 		'declencheurs' => array(
 			'statut' => $statuts,
 			'qui' => array(
@@ -66,12 +83,17 @@ function messages_personnalises_reservation_dist($args) {
 				'vendeur' => _T('reservation:notifications_vendeur_label')
 			),
 		),
-		'champs_disponibles' => $champs,
-		'inclures' => array(
+		'raccoursis' => array(
+			'champs' => array(
+				'disponibles' => $champs_disponibles,
+				'lies' => $champs_lies,
+			),
+			'inclures' => array(
 				'reservations' => array(
-						'fond' => 'inclure/reservation',
-						'titre' => _T('reservation:mp_titre_reservation_details'),
+					'fond' => 'inclure/reservation',
+					'titre' => _T('reservation:mp_titre_reservation_details'),
 				),
+			),
 		),
 		'requete' => array(
 			'champs' => $champs_sql,
