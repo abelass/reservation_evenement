@@ -95,7 +95,6 @@ function messages_personnalises_test_dist($args) {
 				),
 			),
 		),
-
 		'requete' => array(
 			'champs' => $champs_sql,
 			'from' =>'spip_reservations AS reservation LEFT JOIN spip_auteurs AS auteur USING(id_auteur)'
