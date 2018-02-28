@@ -16,7 +16,7 @@
  *        	Variables du contexte.
  * @return array Définition.
  */
-function messages_personnalises_test_dist($args) {
+function messages_personnalises_fond_test_dist($args) {
 
 	// Les champs reservations
 	$reservations = lister_tables_objets_sql('spip_reservations');
@@ -74,8 +74,9 @@ function messages_personnalises_test_dist($args) {
 	}
 
 	return array(
-		'nom' => 'Test',
+		'label' => 'Test',
 		'objet' => 'reservation',
+		'fond' => 'modeles/reservation_message',
 		'declencheurs' => array(
 			'statut' => $statuts,
 			'qui' => array(
@@ -94,11 +95,10 @@ function messages_personnalises_test_dist($args) {
 					'titre' => _T('reservation:mp_titre_reservation_details'),
 				),
 			),
+			'requete' => array(
+				'champs' => $champs_sql,
+				'from' =>'spip_reservations AS reservation LEFT JOIN spip_auteurs AS auteur USING(id_auteur)'
+			),
 		),
-		'requete' => array(
-			'champs' => $champs_sql,
-			'from' =>'spip_reservations AS reservation LEFT JOIN spip_auteurs AS auteur USING(id_auteur)'
-		),
-		'fond' => 'modeles/reservation_message',
 	);
 }
