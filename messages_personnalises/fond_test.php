@@ -78,10 +78,15 @@ function messages_personnalises_fond_test_dist($args) {
 		'objet' => 'reservation',
 		'fond' => 'modeles/reservation_message',
 		'declencheurs' => array(
-			'statut' => $statuts,
+			'statut' => array(
+				'data' => $statuts,
+			),
 			'qui' => array(
-				'client' => _T('reservation:notifications_client_label'),
-				'vendeur' => _T('reservation:notifications_vendeur_label')
+				'data' =>
+				array(
+					'client' => _T('reservation:notifications_client_label'),
+					'vendeur' => _T('reservation:notifications_vendeur_label')
+				),
 			),
 		),
 		'raccoursis' => array(
