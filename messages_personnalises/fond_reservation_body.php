@@ -16,7 +16,7 @@
  *        	Variables du contexte.
  * @return array Définition.
  */
-function messages_personnalises_notification_reservation_client_dist($args) {
+function messages_personnalises_notification_reservation_dist($args) {
 
 	// Les champs reservations
 	$reservations = lister_tables_objets_sql('spip_reservations');
@@ -85,8 +85,8 @@ function messages_personnalises_notification_reservation_client_dist($args) {
 				'data' =>
 					array(
 						'client' => _T('reservation:notifications_client_label'),
+						'vendeur' => _T('reservation:notifications_vendeur_label'),
 					),
-				'obligatoire' => 'oui',
 			),
 		),
 		'raccoursis' => array(
