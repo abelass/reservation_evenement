@@ -32,9 +32,6 @@ function reservation_inserer($id_parent = null, $set = null) {
 }
 
 function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
-	$table_sql = table_objet_sql('reservation');
-	$trouver_table = charger_fonction('trouver_table', 'base');
-
 	include_spip('inc/autoriser');
 	include_spip('inc/rubriques');
 	include_spip('inc/modifier');
