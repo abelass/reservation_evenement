@@ -46,7 +46,7 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 	if ($statut_calculer_auto == 'on')
 		set_request('statuts_details_reservation', array());
 
-	$row = sql_fetsel('statut,date,id_auteur,email,lang,donnees_auteur', 'spip_reservations', 'id_reservation=' . intval($id_reservation));
+	$row = sql_fetsel('statut,date,id_auteur,email,lang,donnees_auteur,destinataires_supplementaires', 'spip_reservations', 'id_reservation=' . intval($id_reservation));
 	$statut_ancien = $statut = $row['statut'];
 	$date_ancienne = $date = $row['date'];
 	$donnees_auteur = isset($row['donnees_auteur']) ? $row['donnees_auteur'] : '';
@@ -204,7 +204,6 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 			'action' => 'instituer',
 			'statut_ancien' => $statut_ancien,
 			'date_ancienne' => $date_ancienne,
-			'id_parent_ancien' => $id_rubrique,
 		),
 		'data' => $champs
 	));
@@ -233,6 +232,15 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 				$options['email'] = sql_getfetsel('email', 'spip_auteurs', 'id_auteur=' . $row['id_auteur']);
 			else
 				$options['email'] = $row['email'];
+
+			if (isset($config['destinataires_supplementaires']) and
+				$config['destinataires_supplementaires'] == 'on') {
+					if ($destinataires_supplementaires  = $row['destinataires_supplementaires']) {
+						$destinataires_supplementaires = explode(',', $destinataires_supplementaires);
+
+						$options['email'] = array_merge(array($options['email']), $destinataires_supplementaires);
+					}
+				}
 
 			$notifications('reservation_client', $id_reservation, $options);
 		}
