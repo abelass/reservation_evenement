@@ -228,19 +228,21 @@ function reservation_instituer($id_reservation, $c, $calcul_rub = true) {
 		$notifications('reservation_vendeur', $id_reservation, $options);
 		if ($config['client']) {
 
-			if (intval($row['id_auteur']) AND $row['id_auteur'] > 0)
+			if (intval($row['id_auteur']) AND $row['id_auteur'] > 0) {
 				$options['email'] = sql_getfetsel('email', 'spip_auteurs', 'id_auteur=' . $row['id_auteur']);
-			else
+			}
+			else {
 				$options['email'] = $row['email'];
+			}
 
+			// Voir si il faut envoyer à plusieurs déstinataires.
 			if (isset($config['destinataires_supplementaires']) and
-				$config['destinataires_supplementaires'] == 'on') {
-					if ($destinataires_supplementaires  = $row['destinataires_supplementaires']) {
-						$destinataires_supplementaires = explode(',', $destinataires_supplementaires);
+				$config['destinataires_supplementaires'] == 'on' and
+				$destinataires_supplementaires  = $row['destinataires_supplementaires']) {
 
-						$options['email'] = array_merge(array($options['email']), $destinataires_supplementaires);
-					}
-				}
+				$destinataires_supplementaires = explode(',', $destinataires_supplementaires);
+				$options['email'] = array_merge(array($options['email']), $destinataires_supplementaires);
+			}
 
 			$notifications('reservation_client', $id_reservation, $options);
 		}
