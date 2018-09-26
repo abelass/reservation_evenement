@@ -1,0 +1,16 @@
+<BOUCLE_auteur(AUTEURS){id_auteur}{tout}>
+	<article class="entry auteur id_#AUTEUR"
+		<header class="cartouche">
+			[(#LOGO_EVENEMENT|image_reduire{200,200})]
+			<h1>
+				<span class="#EDIT{titre}">#NOM</span>
+			</h1>
+			</header>
+			<div class="main">
+				<INCLURE{fond=inclure/#ENV{view,liste_reservations},id_auteur,env} />
+			</div>
+
+	</article>
+</BOUCLE_auteur>
+
+

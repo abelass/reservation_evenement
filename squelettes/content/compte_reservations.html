@@ -1,0 +1,8 @@
+#SET{id_auteur,#SESSION{id_auteur}}
+[(#GET{id_auteur}|?{
+	#INCLURE{fond=inclure/compte_reservations,id_auteur=#GET{id_auteur},env}
+	,
+	2
+	#LOGIN_PUBLIC
+})]
+
