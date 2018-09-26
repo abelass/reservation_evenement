@@ -17,17 +17,17 @@
  * @return array Définition.
  */
 function messages_personnalises_fond_reservation_body_dist($args) {
-
+	
 	// Les champs reservations
 	$reservations = lister_tables_objets_sql('spip_reservations');
 	$statuts = array();
 	foreach ($reservations['statut_textes_instituer'] as $statut => $chaine) {
-			$statuts[$statut] = _T($chaine);
+		$statuts[$statut] = _T($chaine);
 	}
-
+	
 	// Les champs auteurs
 	$auteurs = lister_tables_objets_sql('spip_auteurs');
-
+	
 	$tables = array(
 		'reservation' => array_keys($reservations['field']),
 		'auteur' => array_keys($auteurs['field']),
@@ -56,23 +56,23 @@ function messages_personnalises_fond_reservation_body_dist($args) {
 			}
 		}
 	}
-
+	
 	// les champs extras auteur
 	include_spip('cextras_pipelines');
-
+	
 	$champs_lies = array(
 		'auteur_nom' => 'reservation_nom',
 		'auteur_email' => 'reservation_email'
 	);
 	if (function_exists('champs_extras_objet')) {
 		$valeurs['champs_extras_auteurs'] = champs_extras_objet(table_objet_sql('auteur'));
-
+		
 		foreach ($valeurs['champs_extras_auteurs'] as $value) {
 			$champ = $value['options']['nom'];
 			$champs_lies['auteur_' . $champ] = 'reservation_' . $champ;
 		}
 	}
-
+	
 	return array(
 		'label' => _T('reservation:titre_reservation'),
 		'objet' => 'reservation',
@@ -83,10 +83,10 @@ function messages_personnalises_fond_reservation_body_dist($args) {
 			),
 			'qui' => array(
 				'data' =>
-					array(
-						'client' => _T('reservation:notifications_client_label'),
-						'vendeur' => _T('reservation:notifications_vendeur_label'),
-					),
+				array(
+					'client' => _T('reservation:notifications_client_label'),
+					'vendeur' => _T('reservation:notifications_vendeur_label'),
+				),
 			),
 		),
 		'raccoursis' => array(
