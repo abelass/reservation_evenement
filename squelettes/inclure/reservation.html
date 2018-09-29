@@ -66,7 +66,7 @@
 				</tr>
 				<tr class="taxes">
 					#SET{taxe, #GET{total}|moins{#GET{total_ht}}}
-					<td class="descriptif"><:reservations_detail:label_taxe:></td>
+					<td class="descriptif"><:reservations_detail:label_taxes:></td>
 					<td class="montant">[(#GET{taxe}|appliquer_filtre{prix_formater,#GET{taxe}})]</td>
 					<td></td>
 				</tr>]
