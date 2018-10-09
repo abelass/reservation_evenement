@@ -61,7 +61,7 @@
 			<tfoot>
 				[(#GET{total}|!={#GET{total_ht}}|oui)
 				<tr class="total_ht">
-					<td class="descriptif">[(#PLUGIN{prix}|?{<:prix:label_total_ht:>,<:reservation:total: <:reservations_detail:label_prix_ht:>})]</td>
+					<td class="descriptif">[(#PLUGIN{prix}|?{<:prix:label_total_ht:>,<:reservation:total:> <:reservations_detail:label_prix_ht:>})]</td>
 					<td class="montant">[(#GET{total_ht}|appliquer_filtre{prix_formater,#GET{total_ht}})]</td>
 					<td></td>
 				</tr>
