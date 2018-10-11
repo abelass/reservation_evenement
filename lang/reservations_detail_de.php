@@ -24,6 +24,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// L
 	'label_descriptif' => 'Beschreibung',
+	'label_evenement_anterieurs' => 'Frühere Events anzeigen :',
 	'label_prix' => 'Preis:',
 	'label_prix_ht' => 'Preis ohne MwSt:',
 	'label_prix_objet' => 'Preistyp:',
