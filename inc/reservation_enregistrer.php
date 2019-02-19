@@ -78,7 +78,7 @@ function inc_reservation_enregistrer_dist($id = '', $id_article = '', $id_auteur
 		set_request('email', '');
 	}
 
-	// On actualise la r´servation avec les données collectés.
+	// On actualise la réservation avec les données collectés.
 	$action = charger_fonction('editer_objet', 'action');
 	$reservation = $action($id_reservation, 'reservation');
 
