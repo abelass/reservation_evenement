@@ -19,7 +19,7 @@
 	<necessite nom="verifier" compatibilite="[1.6.4;]" />
 	<necessite nom="yaml" compatibilite="[1.5.3;]" />
 
-	<utilise nosm="declinaisons" compatibilite="[2.0.2;]" />
+	<utilise nom="declinaisons" compatibilite="[2.0.2;]" />
 	<utilise nom="prix_objets" compatibilite="[2.2.4;]" />
 	<utilise nom="notifications_archive" compatibilite="[1.1.3;]" />
 
