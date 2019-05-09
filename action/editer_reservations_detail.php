@@ -6,7 +6,7 @@ if (!defined('_ECRIRE_INC_VERSION'))
  *
  * @plugin Réservation événements
  *
- * @copyright 2013 - 2018
+ * @copyright 2013 - 2019
  * @author Rainer Müller
  *         @licence GNU/GPL
  * @package SPIP\Reservation_evenement\Actions
@@ -195,7 +195,7 @@ function reservations_detail_instituer($id_reservations_detail, $c, $calcul_rub 
 	$id_evenement = $row['id_evenement'];
 
 	$envoi_separe_actif = _request('envoi_separe_actif');
-	if (!$places = $c[places]) {
+	if (!$places = $c['places']) {
 		$places = sql_getfetsel('places', 'spip_evenements', 'id_evenement=' . $id_evenement);
 	}
 	$statut_ancien = $statut = $row['statut'];
